@@ -1,0 +1,13 @@
+//Created from Templaste MG
+
+using System; 
+using System.ComponentModel.DataAnnotations; 
+using Abp.Application.Services.Dto; 
+using Abp.Authorization.Users; 
+using Abp.AutoMapper; 
+
+namespace XXXProjectNameXXX.XXXEntityPluralXXX.Dto 
+{
+        [AutoMap(typeof(Models.XXXEntityPluralXXX))] 
+        public class CreateXXXEntitySingularXXXDto : EntityDto<int> 
+        {

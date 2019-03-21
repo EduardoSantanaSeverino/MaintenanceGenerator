@@ -1,0 +1,10 @@
+            if (abp.auth.hasPermission('Pages.XXXEntityPluralXXX')) {
+                $stateProvider
+                    .state('XXXEntityLowerPluralXXX', {
+                        url: '/XXXEntityLowerPluralXXX',
+                        templateUrl: settings.appPathNotHTTP + '/views/XXXEntityLowerPluralXXX/index.cshtml',
+						data: { pageTitle: App.localize("XXXEntityPluralXXXPageTitle"), pageTitleSub: App.localize("XXXEntityPluralXXXPageTitleSub"), stateDesc: App.localize("XXXEntityPluralXXXStateDesc"),  iconClass: 'XXXFaIconXXX' },
+                        menu: 'XXXEntityPluralXXX' //Matches to name of 'XXXEntityPluralXXX' menu in GEDUCONNavigationProvider
+                    });
+                $urlRouterProvider.otherwise('/XXXEntityLowerPluralXXX');
+            }

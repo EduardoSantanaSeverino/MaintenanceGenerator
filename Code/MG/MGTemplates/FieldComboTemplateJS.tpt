@@ -1,0 +1,8 @@
+            vm.XXXFieldNameCamelPluralXXX = [];
+            vm.getXXXFieldNameCapitalPluralXXX	 = function()
+            {
+                XXXEntityLowerSingularXXXService.getAllXXXFieldNameCapitalPluralXXXForCombo().then(function (result) {
+                    vm.XXXFieldNameCamelPluralXXX = result.data;
+					App.initAjax();
+                });
+            }

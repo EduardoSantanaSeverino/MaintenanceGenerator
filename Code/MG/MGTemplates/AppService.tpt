@@ -1,0 +1,163 @@
+//Created from Templaste MG
+
+using System.Linq; 
+using System.Threading.Tasks; 
+using Abp.Application.Services; 
+using Abp.Application.Services.Dto; 
+using Abp.Authorization; 
+using Abp.Domain.Repositories; 
+using Abp.IdentityFramework; 
+using XXXProjectNameXXX.Authorization; 
+using Microsoft.AspNet.Identity; 
+using XXXProjectNameXXX.XXXEntityPluralXXX.Dto; 
+using System.Collections.Generic; 
+using XXXProjectNameXXX.GD;
+using Abp.UI;
+using System;
+using Abp.Domain.Uow;
+using MYCOLLEGE.Web.Helpers;
+
+namespace XXXProjectNameXXX.XXXEntityPluralXXX 
+{ 
+    [AbpAuthorize(PermissionNames.Pages_XXXEntityPluralXXX)] 
+    public class XXXEntitySingularXXXAppService : AsyncCrudAppService<Models.XXXEntityPluralXXX, XXXEntitySingularXXXDto, int, PagedResultRequestDto, CreateXXXEntitySingularXXXDto, UpdateXXXEntitySingularXXXDto>, IXXXEntitySingularXXXAppService 
+    { 
+        private readonly IRepository<Models.XXXEntityPluralXXX, int> _XXXEntityLowerSingularXXXRepository;
+		XXXRepositoryDeclarationListXXX
+
+        public XXXEntitySingularXXXAppService( 
+            IRepository<Models.XXXEntityPluralXXX, int> repository, 
+            IRepository<Models.XXXEntityPluralXXX, int> XXXEntityLowerSingularXXXRepository XXXRepositoryConstructorListXXX
+            ) 
+            : base(repository) 
+        { 
+            _XXXEntityLowerSingularXXXRepository = XXXEntityLowerSingularXXXRepository; 
+			XXXRepositorySettingListXXX
+			
+        } 
+        public override async Task<XXXEntitySingularXXXDto> Get(EntityDto<int> input) 
+        { 
+            var user = await base.Get(input); 
+            return user; 
+        } 
+        public override async Task<XXXEntitySingularXXXDto> Create(CreateXXXEntitySingularXXXDto input) 
+        { 
+            CheckCreatePermission(); 
+            var XXXEntityLowerSingularXXX = ObjectMapper.Map<Models.XXXEntityPluralXXX>(input); 
+			try{
+			
+			    var newSequence = 0;
+			    try { 
+				using (CurrentUnitOfWork.DisableFilter(AbpDataFilters.SoftDelete))
+                    {
+				     newSequence = _XXXEntityLowerSingularXXXRepository.GetAll().Max(x => x.Id); 
+				    }
+				} catch { }
+                XXXEntityLowerSingularXXX.Id = newSequence + 1;
+			
+                await _XXXEntityLowerSingularXXXRepository.InsertAsync(XXXEntityLowerSingularXXX); 
+                CurrentUnitOfWork.SaveChanges();
+            }
+            catch (Exception err)
+            {
+               throw new ExceptionLogger(err);
+            }
+            return MapToEntityDto(XXXEntityLowerSingularXXX); 
+        } 
+        public override async Task<XXXEntitySingularXXXDto> Update(UpdateXXXEntitySingularXXXDto input) 
+        { 
+            CheckUpdatePermission(); 
+            var XXXEntityLowerSingularXXX = await _XXXEntityLowerSingularXXXRepository.GetAsync(input.Id);
+            MapToEntity(input, XXXEntityLowerSingularXXX); 
+		    try{
+                await _XXXEntityLowerSingularXXXRepository.UpdateAsync(XXXEntityLowerSingularXXX); 
+                CurrentUnitOfWork.SaveChanges();
+            }
+            catch (Exception err)
+            {
+              throw new ExceptionLogger(err);
+            }
+            return await Get(input); 
+        } 
+        public override async Task Delete(EntityDto<int> input) 
+        {
+			try{
+               var XXXEntityLowerSingularXXX = await _XXXEntityLowerSingularXXXRepository.GetAsync(input.Id); 
+               await _XXXEntityLowerSingularXXXRepository.DeleteAsync(XXXEntityLowerSingularXXX);
+			}
+            catch (Exception err)
+            {
+                throw new ExceptionLogger(err);
+            }			
+        } 
+        protected override Models.XXXEntityPluralXXX MapToEntity(CreateXXXEntitySingularXXXDto createInput) 
+        { 
+            var XXXEntityLowerSingularXXX = ObjectMapper.Map<Models.XXXEntityPluralXXX>(createInput); 
+            return XXXEntityLowerSingularXXX; 
+        } 
+        protected override void MapToEntity(UpdateXXXEntitySingularXXXDto input, Models.XXXEntityPluralXXX XXXEntityLowerSingularXXX) 
+        { 
+            ObjectMapper.Map(input, XXXEntityLowerSingularXXX); 
+        } 
+        protected override IQueryable<Models.XXXEntityPluralXXX> CreateFilteredQuery(PagedResultRequestDto input) 
+        { 
+            return Repository.GetAll(); 
+        } 
+        protected  IQueryable<Models.XXXEntityPluralXXX> CreateFilteredByTextQuery(GD.GdPagedResultRequestDto input) 
+        { 
+            var resultado =  Repository.GetAll(); 
+            if (!string.IsNullOrEmpty(input.TextFilter)) 
+                resultado = resultado.Where(x => x.Name.Contains(input.TextFilter)); 
+            return resultado; 
+        } 
+        protected override async Task<Models.XXXEntityPluralXXX> GetEntityByIdAsync(int id) 
+        { 
+            var XXXEntityLowerSingularXXX = Repository.GetAllList().FirstOrDefault(x => x.Id == id); 
+            return await Task.FromResult(XXXEntityLowerSingularXXX); 
+        } 
+        protected override IQueryable<Models.XXXEntityPluralXXX> ApplySorting(IQueryable<Models.XXXEntityPluralXXX> query, PagedResultRequestDto input) 
+        { 
+            return query.OrderBy(r => r.Name); 
+        } 
+ 
+        protected virtual void CheckErrors(IdentityResult identityResult) 
+        { 
+            identityResult.CheckErrors(LocalizationManager); 
+        } 
+        
+        public async Task<PagedResultDto<XXXEntitySingularXXXDto>> GetAllXXXEntityPluralXXX(GdPagedResultRequestDto input) 
+        { 
+            PagedResultDto<XXXEntitySingularXXXDto> ouput = new PagedResultDto<XXXEntitySingularXXXDto>(); 
+            IQueryable<Models.XXXEntityPluralXXX> query = query = from x in _XXXEntityLowerSingularXXXRepository.GetAll() 
+                                                       select x; 
+            if (!string.IsNullOrEmpty(input.TextFilter)) 
+            { 
+                query = from x in _XXXEntityLowerSingularXXXRepository.GetAll() 
+                        where x.Name.Contains(input.TextFilter) 
+                        select x; 
+            } 
+            ouput.TotalCount = await Task.Run(() => { return query.Count(); }); 
+            if (input.SkipCount > 0) 
+            { 
+                query = query.OrderBy(x => x.Id).Skip(input.SkipCount); 
+            }  
+            if (input.MaxResultCount > 0) 
+            { 
+                query = query.Take(input.MaxResultCount); 
+            } 
+            ouput.Items = ObjectMapper.Map<List<XXXEntityPluralXXX.Dto.XXXEntitySingularXXXDto>>(query.ToList()); 
+            return ouput; 
+        } 
+		
+		[AbpAllowAnonymous]
+		public async Task<List<XXXEntitySingularXXXDto>> GetAllXXXEntityPluralXXXForCombo()
+        {
+            var XXXEntityLowerSingularXXXList = await _XXXEntityLowerSingularXXXRepository.GetAllListAsync(x => x.IsActive == true);
+
+            var XXXEntityLowerSingularXXX = ObjectMapper.Map<List<XXXEntitySingularXXXDto>>(XXXEntityLowerSingularXXXList.ToList());
+
+            return XXXEntityLowerSingularXXX;
+        }
+		
+    } 
+} ;

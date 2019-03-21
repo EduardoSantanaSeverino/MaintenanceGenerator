@@ -1,0 +1,11 @@
+			
+				<div class="form-group form-md-line-input form-md-floating-label row clearfix">
+                    <input type="text"
+                           class="form-control"
+                           id="XXXEntityLowerSingularXXXXXXFieldNameCapitalXXX"
+                           XXXMaxLengthXXX
+						   ng-class="{'edited':vm.XXXEntityLowerSingularXXX.XXXFieldNameCamelXXX != null}"
+                           ng-model="vm.XXXEntityLowerSingularXXX.XXXFieldNameCamelXXX"
+                           required>
+                    <label for="XXXEntityLowerSingularXXXXXXFieldNameCapitalXXX">@L("XXXEntitySingularXXXXXXFieldNameCapitalXXX")</label>
+                </div>

@@ -1,0 +1,12 @@
+                <div class="row clearfix">
+                    <div class="col-sm-12">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+
+                                <select ng-model="vm.XXXEntityLowerSingularXXX.XXXFieldKeyXXX"
+                                        ng-options="XXXFieldNameCamelXXX.id as XXXFieldNameCamelXXX.name for XXXFieldNameCamelXXX in vm.XXXFieldNameCamelPluralXXX" required class="validate form-control"></select>
+                                <label for="XXXFieldNameCamelXXX" class="form-label">@L("XXXFieldNameCapitalXXX")</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>

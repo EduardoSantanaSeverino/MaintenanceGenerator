@@ -1,0 +1,43 @@
+(function () {
+    angular.module('MetronicApp').controller('app.views.XXXEntityLowerPluralXXX.createModal', [
+        '$scope', '$uibModalInstance', 'abp.services.app.XXXEntityLowerSingularXXX', XXXServicesUsedDeclarationXXX
+        function ($scope, $uibModalInstance, XXXEntityLowerSingularXXXService XXXServicesUsedSettingXXX) {
+            var vm = this;
+            vm.saving = false;
+
+            vm.XXXEntityLowerSingularXXX = {
+                isActive: true
+            };
+            vm.save = function () {
+                if (vm.saving === true)
+                    return;
+                vm.saving = true;
+                try {
+                     XXXEntityLowerSingularXXXService.create(vm.XXXEntityLowerSingularXXX)
+                        .then(function () {
+							vm.saving = false;
+							abp.notify.info(App.localize('SavedSuccessfully'));
+							$uibModalInstance.close();
+						}, function(e){
+							vm.saving = false;
+                            console.log(e.data.message);
+						});
+				    } 
+					catch (e)
+                    {
+                       vm.saving = false;
+                    }
+            };
+
+			//XXXInsertCallRelatedEntitiesXXX
+			
+            vm.cancel = function () {
+                $uibModalInstance.dismiss({});
+            };
+
+			XXXServiceCallsXXX
+		    App.initAjax();
+			setTimeout(function () { $("#XXXEntityLowerSingularXXXXXXFieldNameCapitalXXX").focus(); }, 100);
+        }
+    ]);
+})();

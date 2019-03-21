@@ -1,0 +1,9 @@
+                .AddItem(
+                    new MenuItemDefinition(
+                        "XXXEntityPluralXXX",
+                        L("XXXEntityPluralXXX"),
+                        url: "#XXXEntityLowerPluralXXX",
+                        icon: "fa fa-tag",
+                        requiredPermissionName: PermissionNames.Pages_XXXEntityPluralXXX
+                    )
+                )

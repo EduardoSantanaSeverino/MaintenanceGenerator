@@ -1,0 +1,50 @@
+(function () {
+    angular.module('MetronicApp').controller('app.views.XXXEntityLowerPluralXXX.editModal', [
+        '$scope', '$uibModalInstance', 'abp.services.app.XXXEntityLowerSingularXXX', 'id', XXXServicesUsedDeclarationXXX
+        function ($scope, $uibModalInstance, XXXEntityLowerSingularXXXService, id XXXServicesUsedSettingXXX) {
+            var vm = this;
+			vm.saving = false;
+
+            vm.XXXEntityLowerSingularXXX = {
+                isActive: true
+            };
+            var init = function () {
+                XXXEntityLowerSingularXXXService.get({ id: id })
+                    .then(function (result) {
+                        vm.XXXEntityLowerSingularXXX = result.data;
+						XXXServiceCallsXXX
+						App.initAjax();
+						setTimeout(function () { $("#XXXEntityLowerSingularXXXXXXFieldNameCapitalXXX").focus(); }, 100);
+                    });
+            }
+            vm.save = function () {
+                if (vm.saving === true)
+                    return;
+                vm.saving = true;
+                try {
+						XXXEntityLowerSingularXXXService.update(vm.XXXEntityLowerSingularXXX)
+						.then(function () {
+							vm.saving = false;
+							abp.notify.info(App.localize('SavedSuccessfully'));
+							$uibModalInstance.close();
+						}, function(e){
+						   vm.saving = false;
+                           console.log(e.data.message);
+						});
+					} 
+					catch (e)
+                    {
+                       vm.saving = false;
+                    }
+            };
+			
+			//XXXInsertCallRelatedEntitiesXXX
+			
+            vm.cancel = function () {
+                $uibModalInstance.dismiss({});
+            };
+
+            init();
+        }
+    ]);
+})();

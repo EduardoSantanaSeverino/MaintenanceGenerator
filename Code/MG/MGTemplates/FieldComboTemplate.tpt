@@ -1,0 +1,14 @@
+								
+				<div class="form-group">
+                    <label for="XXXEntityLowerSingularXXXXXXFieldNameCapitalXXX">@L("XXXEntitySingularXXXXXXFieldNameCapitalSingularXXX")</label>
+                    <select id="XXXEntityLowerSingularXXXXXXFieldNameCapitalXXX"
+                            class="select2me form-control"
+                            ng-options="$helpers.getEditionId(item) as item.name for item in vm.XXXFieldNameCamelPluralXXX"
+                            ng-model="vm.XXXEntityLowerSingularXXX.XXXFieldNameCamelXXX"
+                            ng-class="{'edited':vm.XXXEntityLowerSingularXXX.XXXFieldNameCamelXXX != null}"
+                            data-live-search="true">
+                        <option value=""></option>
+                    </select>
+                </div>
+				
+				

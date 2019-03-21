@@ -1,0 +1,141 @@
+(function () {
+    angular.module('MetronicApp').controller('app.views.XXXEntityLowerPluralXXX.index', [
+        '$scope', '$timeout', '$uibModal', 'abp.services.app.XXXEntityLowerSingularXXX','settings',
+        function ($scope, $timeout, $uibModal, XXXEntityLowerSingularXXXService, settings) {
+            var vm = this;
+            vm.textFilter = "";
+
+            $scope.pagination = new Pagination(0, 10);
+            $scope.pagination.reload = function () {
+                getXXXEntityPluralXXX(false);
+            }
+            vm.XXXEntityLowerPluralXXX = [];
+
+            $scope.gridOptions = {
+			    appScopeProvider: vm,
+                columnDefs: [
+					{
+                        name: App.localize('Actions'),
+                        enableSorting: false,
+                        width: 120,
+                        cellTemplate:
+                        '<div class=\"ui-grid-cell-contents\">' +
+                        '  <div class="btn-group dropdown" uib-dropdown="" dropdown-append-to-body>' +
+                        '    <button class="btn btn-xs btn-default gray" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i>     <span class="menu"></span></button>' +
+                        '    <ul uib-dropdown-menu>' +
+                        '      <li><a ng-click="grid.appScope.openXXXEntitySingularXXXEditModal(row.entity)"><i class=\"fa fa-pencil\"></i>' + App.localize('Edit') + '</a></li>' +
+                        '      <li><a ng-click="grid.appScope.delete(row.entity)"><i class=\"fa fa-close\"></i>' + App.localize('Delete') + '</a></li>' +
+                        '    </ul>' +
+                        '  </div>' +
+                        '</div>'
+                    },
+					
+					
+                    {
+                        name: App.localize('Id'),
+                        field: 'id',
+                        width: 75
+                    },
+
+                    //XXXEntityFieldsJSXXX
+
+                    {
+                        name: App.localize('IsActive'),
+                        field: 'isActive',
+                        cellTemplate:
+                        ' <div style=\"text-align:center;\"> ' +
+                        '<div class="\md-checkbox default\" style=\"text-align:center; width:100%; margin-left:20px;\">' +
+                        '<input type="\checkbox\" id="\checkbox16\" class="\md-check\" ng-model=\"row.entity.isActive\" disabled>' +
+                        '<label for="\checkbox16\">' +
+                        '  <span class="\inc\"></span>' +
+                        '   <span class="\check\"></span>' +
+                        '  <span class=\"box\" ></span> </label>' +
+                        '   </div>'
+                        ,
+                        width: 120
+                    }
+					]
+            };
+
+
+            $scope.$watch("vm.textFilter", function (newValue, oldValue) {
+                $scope.pagination.textFilter = newValue;
+                if ($scope.pagination.currentPage > 1)
+                    $scope.pagination.first();
+                $scope.pagination.reload();
+            });
+
+            function getXXXEntityPluralXXX(showTheLastPage) {
+                XXXEntityLowerSingularXXXService.getAllXXXEntityPluralXXX($scope.pagination).then(function (result) {
+                    vm.XXXEntityLowerPluralXXX = result.data.items;
+
+                    $scope.gridOptions.data = vm.XXXEntityLowerPluralXXX;
+
+                    $scope.pagination.assignTotalRecords(result.data.totalCount);
+                    if (showTheLastPage)
+                        $scope.pagination.last();
+                });
+            }
+
+            vm.openXXXEntitySingularXXXCreationModal = function () {
+                var modalInstance = $uibModal.open({
+                    templateUrl: settings.settings.appPathNotHTTP + '/views/XXXEntityLowerPluralXXX/createModal.cshtml',
+                    controller: 'app.views.XXXEntityLowerPluralXXX.createModal as vm',
+                    backdrop: 'static'
+                });
+
+                modalInstance.rendered.then(function () {
+                   App.initAjax();
+                });
+
+                modalInstance.result.then(function () {
+                    getXXXEntityPluralXXX(false);
+                });
+            };
+
+            vm.openXXXEntitySingularXXXEditModal = function (XXXEntityLowerSingularXXX) {
+                var modalInstance = $uibModal.open({
+                    templateUrl: settings.settings.appPathNotHTTP + '/views/XXXEntityLowerPluralXXX/editModal.cshtml',
+                    controller: 'app.views.XXXEntityLowerPluralXXX.editModal as vm',
+                    backdrop: 'static',
+                    resolve: {
+                        id: function () {
+                            return XXXEntityLowerSingularXXX.id;
+                        }
+                    }
+                });
+
+                modalInstance.rendered.then(function () {
+                    $timeout(function () {
+                       App.initAjax();
+                    }, 0);
+                });
+
+                modalInstance.result.then(function () {
+                    getXXXEntityPluralXXX(false);
+                });
+            };
+
+            vm.delete = function (XXXEntityLowerSingularXXX) {
+                abp.message.confirm(
+                    "Delete XXXEntityLowerSingularXXX '" + XXXEntityLowerSingularXXX.name + "'?",
+                    function (result) {
+                        if (result) {
+                            XXXEntityLowerSingularXXXService.delete({ id: XXXEntityLowerSingularXXX.id })
+                                .then(function (result) {
+                                    getXXXEntityPluralXXX(false);
+                                    abp.notify.info("Deleted XXXEntityLowerSingularXXX: " + XXXEntityLowerSingularXXX.name);
+
+                                });
+                        }
+                    });
+            }
+
+            vm.refresh = function () {
+                getXXXEntityPluralXXX(false);
+            };
+
+            getXXXEntityPluralXXX(false);
+        }
+    ]);
+})();

@@ -1,0 +1,18 @@
+//Created from Templaste MG
+
+using System.Threading.Tasks; 
+using Abp.Application.Services;
+using Abp.Application.Services.Dto;
+using XXXProjectNameXXX.GD;
+using XXXProjectNameXXX.Mc;
+using XXXProjectNameXXX.XXXEntityPluralXXX.Dto;
+using System.Collections.Generic;
+
+namespace XXXProjectNameXXX.XXXEntityPluralXXX
+{
+      public interface IXXXEntitySingularXXXAppService : IAsyncCrudAppService<XXXEntitySingularXXXDto, int, PagedResultRequestDto, CreateXXXEntitySingularXXXDto, UpdateXXXEntitySingularXXXDto>
+      {
+            Task<PagedResultDto<XXXEntitySingularXXXDto>> GetAllXXXEntityPluralXXX(GdPagedResultRequestDto input);
+			Task<List<Dto.XXXEntitySingularXXXDto>> GetAllXXXEntityPluralXXXForCombo();
+      }
+}

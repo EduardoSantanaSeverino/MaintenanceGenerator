@@ -1,0 +1,10 @@
+
+                <div class="md-checkbox">
+                    <input type="checkbox" id="XXXEntityLowerSingularXXXXXXFieldNameCapitalXXX" class="md-check"
+                    ng-model="vm.XXXEntityLowerSingularXXX.XXXFieldNameCamelXXX" >
+                    <label for="XXXEntityLowerSingularXXXXXXFieldNameCapitalXXX">
+                        <span></span>
+                        <span class="check"></span>
+                        <span class="box"></span>@L("XXXEntitySingularXXXXXXFieldNameCapitalXXX")
+                    </label>
+                </div>	

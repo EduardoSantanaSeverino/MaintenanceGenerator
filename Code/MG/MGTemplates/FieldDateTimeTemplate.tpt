@@ -1,0 +1,9 @@
+                    <div class=" col-md-12">
+
+                        <label for="XXXEntityLowerSingularXXXXXXFieldNameCapitalXXX">@L("XXXEntitySingularXXXXXXFieldNameCapitalXXX")</label>
+
+                        <datepicker date-format="dd/MM/yyyy" selector="form-control">
+                            <input id="XXXEntityLowerSingularXXXXXXFieldNameCapitalXXX" class="form-control" ng-model="vm.XXXEntityLowerSingularXXX.XXXFieldNameCamelXXX" />
+                        </datepicker>
+
+                    </div>

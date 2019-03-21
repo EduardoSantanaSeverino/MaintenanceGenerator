@@ -1,0 +1,79 @@
+<h3 class="page-title">
+    {{$state.$current.data.pageTitle}}
+    <small>{{$state.$current.data.pageTitleSub}}</small>
+</h3>
+<div ng-controller="app.views.XXXEntityLowerPluralXXX.index as vm">
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li ng-repeat="bitem in breadcrumb">
+                <i class="fa {{bitem.iconClass}}" ng-class="{'fa-home': !bitem.iconClass}"></i>
+                <a ui-sref="{{bitem.name}}">{{bitem.desc}}</a>
+                <i class="fa fa-angle-right" ng-if="breadcrumb.length != bitem.index"></i>
+            </li>
+        </ul>
+        <div class="page-toolbar">
+            <div class="btn-group pull-right">
+                <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" dropdown-menu-hover data-delay="1000" data-close-others="true" style="width: 220px;">
+                    @L("Actions")
+                    <i class="fa fa-angle-down"></i>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                    <li>
+                        <a ng-click="vm.openXXXEntitySingularXXXCreationModal()">
+                            <i class="fa fa-plus"></i> @L("NewXXXEntityLowerSingularXXX")
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card main-content">
+
+                <div class="portlet box green">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa {{$state.$current.data.iconClass}}" ng-class="{'fa-comments': !$state.$current.data.iconClass}"></i>
+                            @L("XXXEntityPluralXXXList")
+                        </div>
+                        <div class="tools" style="width: 233px;">
+                            <i class="fa fa-search"></i>
+                            <input type="text" ng-model="vm.textFilter" class="form-control btn-circle bordered" placeholder="@L("TextToFind")" style="
+                                float: right;
+                                margin: -8px;
+                                width: 217px;
+                            ">
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+					
+                        <div id="GridMain" ui-grid="gridOptions"></div>
+						
+                        <div class="row" style="margin-bottom: -15px;">
+                              <div class="col-md-12">
+                                <div class="margin-left-standar">
+                                    <ul class="pagination" style="visibility: visible;">
+                                        <li class="prev bordered" ng-class="{'disabled': pagination.currentPage == 1}"><a title="First" ng-click="pagination.first()"><i class="fa fa-angle-double-left"></i></a></li>
+                                        <li class="prev bordered" ng-class="{'disabled': pagination.currentPage == 1}"><a title="Prev" ng-click="pagination.prior()"><i class="fa fa-angle-left"></i></a></li>
+                                        <li class="active bordered padding-none">
+                                            <a class="padding-none" style="padding:0px!important">
+                                                <input ng-model="pagination.currentPage" id="txtCurrentPage" type="number" min="1" max="{{pagination.totalPages}}" style="color:black;"
+                                                       ng-keyup="enterToGoToPage($event)" class="current-page" /> @*{{pagination.currentPage}}*@
+                                                </a>
+                                            </li>
+                                            <li class="bordered page-count"> @L("Of") {{pagination.totalPages}} @L("Pages") </li>
+                                            <li class="next bordered" ng-class="{'disabled': pagination.totalPages == pagina.currentPage}"><a title="Next" ng-click="pagination.next()"><i class="fa fa-angle-right"></i></a></li>
+                                            <li class="next bordered" ng-class="{'disabled': pagination.totalPages == pagina.currentPage}"><a title="Last" ng-click="pagination.last()"><i class="fa fa-angle-double-right"></i></a></li>
+                                            <li class="navigation-separator"> - </li>
+                                            <li class="bordered page-count"> {{pagination.totalRecords}} @L("Records") </li>
+                                        </ul>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
