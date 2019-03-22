@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="frmPrincipal2.cs" />
     <Compile Include="ComboParameter.cs" />
     <Compile Include="frmVisor.cs">
       <SubType>Form</SubType>
@@ -56,6 +57,12 @@
     <Compile Include="frmVisor.Designer.cs">
       <DependentUpon>frmVisor.cs</DependentUpon>
     </Compile>
+    <Compile Include="MyCollege\Configuration.cs" />
+    <Compile Include="MyCollege\CrudGenerator.cs" />
+    <Compile Include="MyCollege\ItemFieldTypeTemplate.cs" />
+    <Compile Include="MyCollege\ItemFileToGenerate.cs" />
+    <Compile Include="MyCollege\ItemConfig.cs" />
+    <Compile Include="MyCollege\ItemToReplace.cs" />
     <Compile Include="TripleValue.cs" />
     <Compile Include="UsingTemplates\AppServiceCreator.cs" />
     <Compile Include="UsingTemplates\CsHtmlCreator.cs" />
