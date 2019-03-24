@@ -8,6 +8,7 @@ namespace MG.MyCollege
 {
     public class CrudGenerator
     {
+        public ClassInfoData ClassInfoData { get; set; }
         public Configuration Configuration { get; set; }
         public string Version { get { return Configuration.Version; } }
         public string TemplateDirectory { get { return Configuration.TemplateDirectory; } }
@@ -38,9 +39,10 @@ namespace MG.MyCollege
                 Value = Configuration.GetConfig("ClassesPath") + GetItemToReplaces("XXXEntityPluralXXX") + ".cs"
             });
 
-            // string PathDirectoryAppService = pathDirectoryApp + txtCapitalPlural.Text;
-
             this.Configuration = Configuration;
+
+            // string PathDirectoryAppService = pathDirectoryApp + txtCapitalPlural.Text;
+            this.ClassInfoData = new ClassInfoData(Configuration.GetConfig("ClassPath"));
             LoadItemFileToCreate();
         }
 
@@ -50,7 +52,7 @@ namespace MG.MyCollege
             {
                 new ItemFileToGenerate
                 (
-                    Id: 100,
+                    Id: (int)FileStackId.IndexCsHtmlTemplate,
                     Name: "IndexCsHtmlTemplate",
                     Path: Configuration.GetConfig("ViewDirectory") + @"\index.cshtml",
                     TemplateName: "indexCsHtml.tpt",
@@ -60,22 +62,22 @@ namespace MG.MyCollege
                 ),
                 new ItemFileToGenerate
                 (
-                    Id: 110,
+                    Id: (int)FileStackId.CreateModalCsHtmlTemplate,
                     Name: "CreateModalCsHtmlTemplate",
                     Path: Configuration.GetConfig("ViewDirectory") + @"\createModal.cshtml",
                     TemplateName: "createModalCsHtml.tpt",
                     TemplateDirectory: TemplateDirectory,
-                    ItemFieldTypePlaceHolder: "",
+                    ItemFieldTypePlaceHolder: @"//XXXFieldsHtmlXXX".ToString(),
                     ItemToReplaces: ItemToReplaces
                 ),
                 new ItemFileToGenerate
                 (
-                    Id: 105,
+                    Id: (int)FileStackId.UpdateCsHtmlTemplate,
                     Name: "UpdateCsHtmlTemplate",
                     Path: Configuration.GetConfig("ViewDirectory") + @"\editModal.cshtml",
                     TemplateName: "createModalCsHtml.tpt",
                     TemplateDirectory: TemplateDirectory,
-                    ItemFieldTypePlaceHolder: "",
+                    ItemFieldTypePlaceHolder: @"//XXXFieldsHtmlXXX".ToString(),
                     ItemToReplaces: ItemToReplaces
                 ),
                 
@@ -83,7 +85,12 @@ namespace MG.MyCollege
             };
 
         }
-        
+
+        public string[] LoadedClass()
+        {
+            return System.IO.File.ReadAllLines(this.Configuration.GetConfig("ClassPath"));
+        }
+
         public void txtEntityNameSingular_TextChanged()
         {
             throw new NotImplementedException();
