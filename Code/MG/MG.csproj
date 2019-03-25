@@ -58,6 +58,7 @@
       <DependentUpon>frmVisor.cs</DependentUpon>
     </Compile>
     <Compile Include="MyCollege\ClassInfoData.cs" />
+    <Compile Include="MyCollege\ComboParameter.cs" />
     <Compile Include="MyCollege\Configuration.cs" />
     <Compile Include="MyCollege\CrudGenerator.cs" />
     <Compile Include="MyCollege\FileStackId.cs" />

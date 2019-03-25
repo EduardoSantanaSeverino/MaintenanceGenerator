@@ -16,8 +16,8 @@ namespace MG.MyCollege
             string TemplateName,
             string TemplateDirectory,
             List<ItemToReplace> ItemToReplaces,
-            string ItemFieldTypePlaceHolder,
             ClassInfoData ClassInfoData,
+            List<ComboParameter> ComboParameters = null,
             List<ItemFieldTypeTemplate> ItemFieldTypeTemplates = null,
             bool IsFromOriginalFile = false
         )
@@ -27,8 +27,8 @@ namespace MG.MyCollege
             this.Path = Path;
             this.TemplateName = TemplateName;
             this.TemplateDirectory = TemplateDirectory;
-            this.ItemFieldTypePlaceHolder = ItemFieldTypePlaceHolder;
             this.ItemToReplaces = ItemToReplaces;
+            this.ComboParameters = ComboParameters;
             this.ItemFieldTypeTemplates = ItemFieldTypeTemplates;
             this.IsFromOriginalFile = IsFromOriginalFile;
             this.ClassInfoData = ClassInfoData;
@@ -44,10 +44,20 @@ namespace MG.MyCollege
         public string TemplateMarkup { get; set; }
         public bool IsFromOriginalFile { get; set; }
         public string TemplateDirectory { get; set; }
-        public string ItemFieldTypePlaceHolder { get; set; }
+        public List<ComboParameter> ComboParameters { get; set; }
         public ClassInfoData ClassInfoData { get; set; }
         public List<ItemToReplace> ItemToReplaces { get; set; }
         public List<ItemFieldTypeTemplate> ItemFieldTypeTemplates { get; set; }
+
+        public string GetFieldTypeTemplate(string name)
+        {
+            return this.ItemFieldTypeTemplates?.FirstOrDefault(p => p.Name == name)?.TemplateMarkup;
+        }
+
+        public string GetFieldTypeTemplate(int id)
+        {
+            return this.ItemFieldTypeTemplates?.FirstOrDefault(p => p.Id == id)?.TemplateMarkup;
+        }
 
         private string ReadTemplate()
         {
@@ -65,10 +75,12 @@ namespace MG.MyCollege
 
         private string ReplaceAllKeysWithRealValues(string markup)
         {
+          
             foreach (var item in ItemToReplaces)
             {
                 markup = markup.Replace(item.Key, item.Value);
             }
+            
             markup += "\n";
             return markup;
         }
@@ -79,27 +91,61 @@ namespace MG.MyCollege
             if (this.Id == (int)FileStackId.CreateModalCsHtmlTemplate)
             {
                 var strinWithFields = GenerateFielListForCreateCsHtml(ClassInfoData.Fields);
-                this.TemplateMarkup = this.TemplateMarkup.Replace(this.ItemFieldTypePlaceHolder, strinWithFields); 
+                this.TemplateMarkup = this.TemplateMarkup.Replace(@"//XXXFieldsHtmlXXX".ToString(), strinWithFields); 
             }
         }
 
+
+
+
+        private string XXXInsertPermissionNamesXXX = "//XXXInsertPermissionNamesXXX";
+        private string XXXInsertNavitationProviderXXX = "//XXXInsertNavitationProviderXXX";
+        private string XXXInsertAuthorizationProviderXXX = "//XXXInsertAuthorizationProviderXXX";
+        private string XXXInsertAppJsMenuXXX = "//XXXInsertAppJsMenuXXX";
+        private string XXXFieldKeyXXX = "XXXFieldKeyXXX";
+
+        private string XXXEntityPluralXXX = "XXXEntityPluralXXX";
+        private string XXXEntitySingularXXX = "XXXEntitySingularXXX";
+        private string XXXEntityLowerSingularXXX = "XXXEntityLowerSingularXXX";
+        private string XXXEntityLowerPluralXXX = "XXXEntityLowerPluralXXX";
+        private string XXXInsertMenuItemXXX = "//XXXInsertMenuItemXXX";
+
+        private string XXXServicesUsedDeclarationXXX = "XXXServicesUsedDeclarationXXX";
+        private string XXXServicesUsedSettingXXX = "XXXServicesUsedSettingXXX";
+
+        private string XXXFieldNameCamelXXX = "XXXFieldNameCamelXXX";
+        private string XXXFieldNameCapitalXXX = "XXXFieldNameCapitalXXX";
+        private string XXXFieldNameCapitalPluralXXX = "XXXFieldNameCapitalPluralXXX";
+        private string XXXFieldNameCamelSingularXXX = "XXXFieldNameCamelSingularXXX";
+
+        private string XXXrequiredXXX = "XXXrequiredXXX";
+        private string XXXProjectNameXXX = "XXXProjectNameXXX";
+
+        private static string XXXRepositorySettingListXXX = "XXXRepositorySettingListXXX";
+        private static string XXXRepositoryDeclarationListXXX = "XXXRepositoryDeclarationListXXX";
+
+        private string XXXFirstFieldNameXXX = "XXXFirstFieldNameXXX";
+
+        private string XXXFieldNameCapitalSingularXXX = "XXXFieldNameCapitalSingularXXX";
+        private string XXXFieldNameCamelPluralXXX = "XXXFieldNameCamelPluralXXX";
+
         private string GenerateFielListForCreateCsHtml(List<TripleValue<string, string, string, string>> fielList)
         {
-            List<string> fieldListForIndexCsHtml = new List<string>();
+            var fieldListForIndexCsHtml = new List<string>();
 
-            var FieldStringTemplate = UsingTemplates.CsHtmlCreator.FieldString;
+            var FieldStringTemplate = GetFieldTypeTemplate("FieldStringTemplate"); // UsingTemplates.CsHtmlCreator.FieldString;
             FieldStringTemplate = ReplaceAllKeysWithRealValues(FieldStringTemplate);
             
-            var FieldDateTimeTemplate = UsingTemplates.CsHtmlCreator.FieldDatetime;
+            var FieldDateTimeTemplate = GetFieldTypeTemplate("FieldDateTimeTemplate"); //UsingTemplates.CsHtmlCreator.FieldDatetime;
             FieldDateTimeTemplate = ReplaceAllKeysWithRealValues(FieldDateTimeTemplate);
 
-            var FieldBooleanTemplate = UsingTemplates.CsHtmlCreator.FieldBoolean;
+            var FieldBooleanTemplate = GetFieldTypeTemplate("FieldBooleanTemplate"); //UsingTemplates.CsHtmlCreator.FieldBoolean;
             FieldBooleanTemplate = ReplaceAllKeysWithRealValues(FieldBooleanTemplate);
 
-            var FieldNumberTemplate = UsingTemplates.CsHtmlCreator.FieldNumber;
+            var FieldNumberTemplate = GetFieldTypeTemplate("FieldNumberTemplate"); //UsingTemplates.CsHtmlCreator.FieldNumber;
             FieldNumberTemplate = ReplaceAllKeysWithRealValues(FieldNumberTemplate);
 
-            var FieldRelatedTemplate = UsingTemplates.CsHtmlCreator.FieldRelated;
+            var FieldRelatedTemplate = GetFieldTypeTemplate("FieldComboTemplate");
             FieldRelatedTemplate = ReplaceAllKeysWithRealValues(FieldRelatedTemplate);
 
             foreach (var item in fielList)
@@ -134,7 +180,9 @@ namespace MG.MyCollege
 
                     if (item.Key == "int" || item.Key == "long" || item.Key == "decimal" || item.Key == "Decimal" || item.Key == "double"
                         || item.Key == "Double" || item.Key == "Integer" || item.Key == "Int64" || item.Key == "Int32" || item.Key == "Int16")
+                    {
                         newField = FieldNumberTemplate.Replace(XXXFieldNameCamelXXX, nameCamel);
+                    }
 
                     if (item.Key == "bool" || item.Key == "Bool" || item.Key == "Boolean" || item.Key == "boolean")
                     {
@@ -153,6 +201,11 @@ namespace MG.MyCollege
             }
 
             return string.Join("", fieldListForIndexCsHtml.ToArray());
+        }
+
+        private ComboParameter GetComboParameter(string FieldNameValue)
+        {
+            return this.ComboParameters?.FirstOrDefault(p=>p.FieldNameValue == FieldNameValue);
         }
 
     }

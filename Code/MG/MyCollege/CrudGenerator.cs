@@ -14,6 +14,7 @@ namespace MG.MyCollege
         public string TemplateDirectory { get { return Configuration.TemplateDirectory; } }
         public string ProjectName { get { return Configuration.ProjectName; } }
 
+        public List<ComboParameter> ComboParameters { get; set; }
         public List<ItemToReplace> ItemToReplaces { get; set; }
         public List<ItemFieldTypeTemplate> ItemFieldTypeTemplates { get; set; }
         public List<ItemFileToGenerate> ItemFileToGenerates { get; set; }
@@ -57,8 +58,8 @@ namespace MG.MyCollege
                     Path: Configuration.GetConfig("ViewDirectory") + @"\index.cshtml",
                     TemplateName: "indexCsHtml.tpt",
                     TemplateDirectory: TemplateDirectory,
-                    ItemFieldTypePlaceHolder: "",
-                    ItemToReplaces: ItemToReplaces
+                    ItemToReplaces: this.ItemToReplaces,
+                    ClassInfoData: this.ClassInfoData
                 ),
                 new ItemFileToGenerate
                 (
@@ -67,8 +68,37 @@ namespace MG.MyCollege
                     Path: Configuration.GetConfig("ViewDirectory") + @"\createModal.cshtml",
                     TemplateName: "createModalCsHtml.tpt",
                     TemplateDirectory: TemplateDirectory,
-                    ItemFieldTypePlaceHolder: @"//XXXFieldsHtmlXXX".ToString(),
-                    ItemToReplaces: ItemToReplaces
+                    ItemToReplaces: this.ItemToReplaces,
+                    ClassInfoData: this.ClassInfoData,
+                    ComboParameters: this.ComboParameters,
+                    ItemFieldTypeTemplates: new List<ItemFieldTypeTemplate>
+                    {
+                        new ItemFieldTypeTemplate(TemplateDirectory)
+                        {
+                            Name = "FieldNumberTemplate",
+                            TemplateName = "FieldNumberTemplate.tpt"
+                        },
+                        new ItemFieldTypeTemplate(TemplateDirectory)
+                        {
+                            Name = "FieldStringTemplate",
+                            TemplateName = "FieldStringTemplate.tpt"
+                        },
+                        new ItemFieldTypeTemplate(TemplateDirectory)
+                        {
+                            Name = "FieldDateTimeTemplate",
+                            TemplateName = "FieldDateTimeTemplate.tpt"
+                        },
+                        new ItemFieldTypeTemplate(TemplateDirectory)
+                        {
+                            Name = "FieldBooleanTemplate",
+                            TemplateName = "FieldBooleanTemplate.tpt"
+                        },
+                        new ItemFieldTypeTemplate(TemplateDirectory)
+                        {
+                            Name = "FieldComboTemplate",
+                            TemplateName = "FieldComboTemplate.tpt"
+                        },
+                    }
                 ),
                 new ItemFileToGenerate
                 (
@@ -84,6 +114,16 @@ namespace MG.MyCollege
 
             };
 
+        }
+
+        public void AddComboParameter(ComboParameter comboParameter)
+        {
+            if (this.ComboParameters == null)
+            {
+                this.ComboParameters = new List<ComboParameter>();
+            }
+            this.ComboParameters.Add(comboParameter);
+            LoadItemFileToCreate();
         }
 
         public string[] LoadedClass()
