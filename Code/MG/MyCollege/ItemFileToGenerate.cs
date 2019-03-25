@@ -88,7 +88,8 @@ namespace MG.MyCollege
         // this moment i run out of ideas to put this here
         private void ProcessFile()
         {
-            if (this.Id == (int)FileStackId.CreateModalCsHtmlTemplate)
+            if (this.Id == (int)FileStackId.CreateModalCsHtmlTemplate ||
+                this.Id == (int)FileStackId.UpdateCsHtmlTemplate )
             {
                 var strinWithFields = GenerateFielListForCreateCsHtml(ClassInfoData.Fields);
                 this.TemplateMarkup = this.TemplateMarkup.Replace(@"//XXXFieldsHtmlXXX".ToString(), strinWithFields); 

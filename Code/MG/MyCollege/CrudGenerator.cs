@@ -105,12 +105,40 @@ namespace MG.MyCollege
                     Id: (int)FileStackId.UpdateCsHtmlTemplate,
                     Name: "UpdateCsHtmlTemplate",
                     Path: Configuration.GetConfig("ViewDirectory") + @"\editModal.cshtml",
-                    TemplateName: "createModalCsHtml.tpt",
+                    TemplateName: "editModalCsHtml.tpt",
                     TemplateDirectory: TemplateDirectory,
-                    ItemFieldTypePlaceHolder: @"//XXXFieldsHtmlXXX".ToString(),
-                    ItemToReplaces: ItemToReplaces
+                    ItemToReplaces: this.ItemToReplaces,
+                    ClassInfoData: this.ClassInfoData,
+                    ComboParameters: this.ComboParameters,
+                    ItemFieldTypeTemplates: new List<ItemFieldTypeTemplate>
+                    {
+                        new ItemFieldTypeTemplate(TemplateDirectory)
+                        {
+                            Name = "FieldNumberTemplate",
+                            TemplateName = "FieldNumberTemplate.tpt"
+                        },
+                        new ItemFieldTypeTemplate(TemplateDirectory)
+                        {
+                            Name = "FieldStringTemplate",
+                            TemplateName = "FieldStringTemplate.tpt"
+                        },
+                        new ItemFieldTypeTemplate(TemplateDirectory)
+                        {
+                            Name = "FieldDateTimeTemplate",
+                            TemplateName = "FieldDateTimeTemplate.tpt"
+                        },
+                        new ItemFieldTypeTemplate(TemplateDirectory)
+                        {
+                            Name = "FieldBooleanTemplate",
+                            TemplateName = "FieldBooleanTemplate.tpt"
+                        },
+                        new ItemFieldTypeTemplate(TemplateDirectory)
+                        {
+                            Name = "FieldComboTemplate",
+                            TemplateName = "FieldComboTemplate.tpt"
+                        },
+                    }
                 ),
-                
 
             };
 
