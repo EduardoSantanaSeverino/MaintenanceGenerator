@@ -10,7 +10,10 @@ namespace MG.MyCollege
     {
         IndexCsHtmlTemplate,
         CreateModalCsHtmlTemplate,
-        UpdateCsHtmlTemplate
+        UpdateCsHtmlTemplate,
+        IndexJSTemplate,
+        CreateJSTemplate,
+        UpdateJSTemplate
     }
     
 }

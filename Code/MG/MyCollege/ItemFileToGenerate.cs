@@ -85,25 +85,143 @@ namespace MG.MyCollege
             return markup;
         }
 
-        // this moment i run out of ideas to put this here
+        // this moment i run out of ideas to put this here / when i started to put code static for just one file, i run out of ideas. 
         private void ProcessFile()
         {
             if (this.Id == (int)FileStackId.CreateModalCsHtmlTemplate ||
                 this.Id == (int)FileStackId.UpdateCsHtmlTemplate )
             {
-                var strinWithFields = GenerateFielListForCreateCsHtml(ClassInfoData.Fields);
+                string strinWithFields = GenerateFielListForCreateCsHtml(ClassInfoData.Fields);
                 this.TemplateMarkup = this.TemplateMarkup.Replace(@"//XXXFieldsHtmlXXX".ToString(), strinWithFields); 
             }
+
+            if (this.Id == (int)FileStackId.IndexJSTemplate)
+            {
+                string strinWithFields = GenerateFielListForIndexJs(ClassInfoData.Fields);
+                this.TemplateMarkup = this.TemplateMarkup.Replace(@"//XXXFieldsHtmlXXX".ToString(), strinWithFields);
+                this.TemplateMarkup = this.TemplateMarkup.Replace(XXXFieldNameCapitalXXX, ClassInfoData.Fields.First().Value.ToString());
+
+            }
+
+            if (this.Id == (int)FileStackId.CreateJSTemplate ||
+                this.Id == (int)FileStackId.UpdateJSTemplate)
+            {
+                string ServiceDeclaration = generateListOfServiceDeclaration(ClassInfoData.Fields);
+                string ServiceSetting = generateListOfServiceSetting(ClassInfoData.Fields);
+                string ServiceCalls = generateListOfServiceCall(ClassInfoData.Fields);
+                this.TemplateMarkup = this.TemplateMarkup.Replace(@"//XXXInsertCallRelatedEntitiesXXX".ToString(), GenerateFielListForCreateJs(ClassInfoData.Fields));
+                this.TemplateMarkup = ReplaceAllKeysWithRealValues(this.TemplateMarkup);
+                this.TemplateMarkup = this.TemplateMarkup.Replace(XXXFieldNameCapitalXXX, ClassInfoData.Fields.First().Value.ToString());
+                this.TemplateMarkup = this.TemplateMarkup.Replace(XXXServicesUsedDeclarationXXX, ServiceDeclaration);
+                this.TemplateMarkup = this.TemplateMarkup.Replace(XXXServicesUsedSettingXXX, ServiceSetting);
+                this.TemplateMarkup = this.TemplateMarkup.Replace(XXXServiceCallsXXX, ServiceCalls);
+                this.TemplateMarkup += "\n";
+
+            }
+
         }
 
+        private string generateListOfServiceDeclaration(List<TripleValue<string, string, string, String>> fielList)
+        {
+            var RelatedEntities = "";
+            foreach (var item in fielList)
+            {
 
 
+                var comboParameter = GetComboParameter(item.Value);
+                if (comboParameter != null)
+                {
+                    var templateSeletedted = "'abp.services.app.XXXEntityLowerSingularXXX',";
+                    templateSeletedted = templateSeletedted.Replace(XXXEntityLowerSingularXXX, comboParameter.EntityCamelSingular);
 
+                    RelatedEntities += templateSeletedted + "";
+                }
+            }
+            return RelatedEntities;
+        }
+
+        private string generateListOfServiceSetting(List<TripleValue<string, string, string, String>> fielList)
+        {
+            var RelatedEntities = "";
+            foreach (var item in fielList)
+            {
+                var comboParameter = GetComboParameter(item.Value);
+                if (comboParameter != null)
+                {
+                    var templateSeletedted = ", XXXEntityLowerSingularXXXService";
+                    templateSeletedted = templateSeletedted.Replace(XXXEntityLowerSingularXXX, comboParameter.EntityCamelSingular);
+                    RelatedEntities += templateSeletedted + "";
+                }
+            }
+            return RelatedEntities;
+        }
+
+        private string generateListOfServiceCall(List<TripleValue<string, string, string, String>> fielList)
+        {
+            var RelatedEntities = "";
+            foreach (var item in fielList)
+            {
+                var comboParameter = GetComboParameter(item.Value);
+                if (comboParameter != null)
+                {
+                    var templateSeletedted = "                vm.getXXXEntityPluralXXX();\n";
+                    templateSeletedted = templateSeletedted.Replace(XXXEntityPluralXXX, comboParameter.EntityPlural);
+                    RelatedEntities += templateSeletedted + "";
+                }
+            }
+            return RelatedEntities;
+        }
+
+        private string GenerateFielListForIndexJs(List<TripleValue<string, string, string, String>> fielList)
+        {
+            var fieldListForIndexJs = new List<string>();
+            foreach (var item in fielList)
+            {
+                string newField = "";
+                newField += "                    {\n";
+                newField += "                    name: App.localize('XXXEntitySingularXXX" + item.Value + "'),\n";
+                //AddLocalization(txtCapitalSingular.Text + item.Value);
+                //AddLocalization(item.Value);
+                //TODO
+                newField += "                    field: '" + item.Value.Substring(0, 1).ToLower() + item.Value.Substring(1) + "',\n";
+                newField += "                    minWidth: 125\n";
+                newField += "                    },\n";
+                fieldListForIndexJs.Add(newField);
+            }
+
+            return string.Join("", fieldListForIndexJs.ToArray());
+        }
+
+        private string GenerateFielListForCreateJs(List<TripleValue<string, string, string, String>> fielList)
+        {
+            string RelatedEntities = "//XXXInsertCallRelatedEntitiesXXX\n\n";
+            List<string> fieldListForIndexJs = new List<string>();
+            foreach (var item in fielList)
+            {
+                var comboParameter = GetComboParameter(item.Value);
+                if (comboParameter != null)
+                {
+                    var templateSeletedted = UsingTemplates.JSCreator.FieldRelatedJS;
+                    templateSeletedted = templateSeletedted.Replace(XXXFieldNameCamelPluralXXX, comboParameter.EntityCamelPlural);
+                    templateSeletedted = templateSeletedted.Replace(XXXFieldNameCapitalPluralXXX, comboParameter.EntityPlural);
+                    templateSeletedted = templateSeletedted.Replace(XXXEntityLowerSingularXXX, comboParameter.EntityCamelSingular);
+
+                    RelatedEntities += templateSeletedted + "\n\n";
+                }
+
+            }
+
+            return RelatedEntities;
+        }
+
+        private string XXXServiceCallsXXX = "XXXServiceCallsXXX";
         private string XXXInsertPermissionNamesXXX = "//XXXInsertPermissionNamesXXX";
         private string XXXInsertNavitationProviderXXX = "//XXXInsertNavitationProviderXXX";
         private string XXXInsertAuthorizationProviderXXX = "//XXXInsertAuthorizationProviderXXX";
         private string XXXInsertAppJsMenuXXX = "//XXXInsertAppJsMenuXXX";
         private string XXXFieldKeyXXX = "XXXFieldKeyXXX";
+
+        private string XXXRepositoryConstructorListXXX = "XXXRepositoryConstructorListXXX";
 
         private string XXXEntityPluralXXX = "XXXEntityPluralXXX";
         private string XXXEntitySingularXXX = "XXXEntitySingularXXX";

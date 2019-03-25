@@ -139,6 +139,36 @@ namespace MG.MyCollege
                         },
                     }
                 ),
+                new ItemFileToGenerate
+                (
+                    Id: (int)FileStackId.IndexJSTemplate,
+                    Name: "IndexJSTemplate",
+                    Path: Configuration.GetConfig("ViewDirectory") + @"\index.js",
+                    TemplateName: "indexJS.tpt",
+                    TemplateDirectory: TemplateDirectory,
+                    ItemToReplaces: this.ItemToReplaces,
+                    ClassInfoData: this.ClassInfoData
+                ),
+                new ItemFileToGenerate
+                (
+                    Id: (int)FileStackId.CreateJSTemplate,
+                    Name: "CreateJSTemplate",
+                    Path: Configuration.GetConfig("ViewDirectory") + @"\createModal.js",
+                    TemplateName: "createModalJS.tpt",
+                    TemplateDirectory: TemplateDirectory,
+                    ItemToReplaces: this.ItemToReplaces,
+                    ClassInfoData: this.ClassInfoData
+                ),
+                 new ItemFileToGenerate
+                (
+                    Id: (int)FileStackId.UpdateJSTemplate,
+                    Name: "UpdateJSTemplate",
+                    Path: Configuration.GetConfig("ViewDirectory") + @"\editModal.js",
+                    TemplateName: "editModalJS.tpt",
+                    TemplateDirectory: TemplateDirectory,
+                    ItemToReplaces: this.ItemToReplaces,
+                    ClassInfoData: this.ClassInfoData
+                ),
 
             };
 

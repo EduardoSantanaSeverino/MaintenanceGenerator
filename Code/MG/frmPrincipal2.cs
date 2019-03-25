@@ -288,7 +288,9 @@ namespace MG
             var LoadedClass = System.IO.File.ReadAllLines(ClassPath);
 
             String CallRelatedEntities = "";
+
             FielList = GenerateDtos(LoadedClass);
+
             List<string> FielListForIndexJs = GenerateFielListForIndexJs(FielList, out CallRelatedEntities);
             List<string> FielListForCreateCsHtml = GenerateFielListForCreateCsHtml(FielList);
 
