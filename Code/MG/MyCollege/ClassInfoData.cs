@@ -13,12 +13,21 @@ namespace MG.MyCollege
         private List<TripleValue<string, string, string, string>> _fields { get; set; }
         private string[] _loadedClass { get; set; }
 
-        public ClassInfoData(string classPath)
+        public ClassInfoData
+        (
+            string classPath,
+            List<ItemToReplace> itemToReplaces,
+            List<ComboParameter> comboParameters = null
+        )
         {
+            this.ItemToReplaces = itemToReplaces;
+            this.ComboParameters = comboParameters;
             this._classPath = classPath;
             _loadedClass = System.IO.File.ReadAllLines(this._classPath);
             this._fields = this.GetFieldListFromEntity();
         }
+
+        public string DefaultIconMenu { get; set; }
 
         public string ClassPath { get => this._classPath; }
 
@@ -27,6 +36,10 @@ namespace MG.MyCollege
         public string[] LoadedClass { get => this._loadedClass; }
 
         public List<TripleValue<string, string, string, string>> Fields { get => this._fields; }
+
+        public List<ComboParameter> ComboParameters { get; set; }
+
+        public List<ItemToReplace> ItemToReplaces { get; set; }
 
         private List<TripleValue<string, string, string, string>> GetFieldListFromEntity()
         {
@@ -145,6 +158,25 @@ namespace MG.MyCollege
 
             maxlenghtX = Line.Substring(index + buscado.Length, indexEndMaxLeng - (index + buscado.Length));
             return maxlenghtX;
+        }
+
+        public string GetItemToReplace(string key)
+        {
+            return this.ItemToReplaces?.FirstOrDefault(p => p.Key == key)?.Value;
+        }
+
+        public string GetItemToReplace(int id)
+        {
+            return this.ItemToReplaces?.FirstOrDefault(p => p.Id == id)?.Value;
+        }
+
+        public void AddComboParameter(ComboParameter comboParameter)
+        {
+            if (this.ComboParameters == null)
+            {
+                this.ComboParameters = new List<ComboParameter>();
+            }
+            this.ComboParameters.Add(comboParameter);
         }
 
     }

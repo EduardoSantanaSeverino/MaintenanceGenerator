@@ -15,7 +15,5 @@ namespace MG.UsingTemplates
         public static string UpdateJS = "";
 
         public static string FieldRelatedJS = "";
-
-
     }
 }

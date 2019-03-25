@@ -73,6 +73,11 @@ namespace MG.MyCollege
             return "";
         }
 
+        public string GetItemToReplaces(string key)
+        {
+            return ItemToReplaces.FirstOrDefault(p => p.Key == key)?.Value;
+        }
+
         private string ReplaceAllKeysWithRealValues(string markup)
         {
           
@@ -116,10 +121,129 @@ namespace MG.MyCollege
                 this.TemplateMarkup = this.TemplateMarkup.Replace(XXXServicesUsedSettingXXX, ServiceSetting);
                 this.TemplateMarkup = this.TemplateMarkup.Replace(XXXServiceCallsXXX, ServiceCalls);
                 this.TemplateMarkup += "\n";
+            }
 
+            if (this.Id == (int)FileStackId.DtoTemplate)
+            {
+                this.TemplateMarkup = ReplaceAllKeysWithRealValues(this.TemplateMarkup);
+                GenerateDtoTemplate();
+                this.TemplateMarkup = ReplaceAllKeyTypes(this.TemplateMarkup);
+            }
+            if (this.Id == (int)FileStackId.CreateDtoTemplate)
+            {
+                this.TemplateMarkup = ReplaceAllKeysWithRealValues(this.TemplateMarkup);
+                GenerateDtoCreate();
+                this.TemplateMarkup = ReplaceAllKeyTypes(this.TemplateMarkup);
             }
 
         }
+
+        public static string GetTypeString(String Line)
+        {
+            string currentType = "";
+
+            var index = Line.IndexOf("public");
+            var indexType = Line.IndexOf(" ", index + 1);
+            var indexProperty = Line.IndexOf(" ", indexType + 1);
+            currentType = Line.Substring(indexType + 1, indexProperty - indexType - 1);
+            return currentType;
+        }
+
+        public static string GetPropertyString(String Line)
+        {
+            string property = "";
+
+            var index = Line.IndexOf("public");
+            var indexType = Line.IndexOf(" ", index + 1);
+            var indexProperty = Line.IndexOf(" ", indexType + 1);
+            var indexPropertyEnd = Line.IndexOf(" ", indexProperty + 1);
+            property = Line.Substring(indexProperty + 1, indexPropertyEnd - indexProperty - 1).Replace('}', ' ').Replace('{', ' ').TrimEnd();
+            return property;
+        }
+
+        public static string GetMaxLengString(string Line)
+        {
+            string maxlenghtX = string.Empty;
+            string buscado = "Length(";
+
+            var index = Line.IndexOf(buscado);
+            if (index < 0)
+                return maxlenghtX;
+            var indexEndMaxLeng = Line.IndexOf(")", index);
+
+            maxlenghtX = Line.Substring(index + buscado.Length, indexEndMaxLeng - (index + buscado.Length));
+            return maxlenghtX;
+        }
+
+        public static string GetMaxLengIntForString(string Line)
+        {
+            string maxlenghtX = string.Empty;
+            string buscado = "Length(";
+
+            var index = Line.IndexOf(buscado);
+            if (index < 0)
+                return maxlenghtX;
+            var indexEndMaxLeng = Line.IndexOf(",", index);
+            if (indexEndMaxLeng < 0)
+                indexEndMaxLeng = Line.IndexOf(")", index);
+
+            maxlenghtX = Line.Substring(index + buscado.Length, indexEndMaxLeng - (index + buscado.Length));
+            return maxlenghtX;
+        }
+
+        private void GenerateDtoTemplate()
+        {
+
+            this.TemplateMarkup += "              public int Id {get;set;} \n";
+
+            foreach (var item in ClassInfoData.Fields)
+            {
+                this.TemplateMarkup += "              public " + item.Key + " " + item.Value + " {get;set;} \n";
+
+                this.TemplateMarkup += (!string.IsNullOrEmpty(item.ValueAlt) ? "\n              [StringLength(" + item.ValueAlt + ")]  " : "")
+                + "\n              public " + item.Key + " " + item.Value + " {get;set;} \n";
+
+                this.TemplateMarkup += (!string.IsNullOrEmpty(item.ValueAlt) ? "\n              [StringLength(" + item.ValueAlt + ")] " : "")
+                    + "\n              public " + item.Key + " " + item.Value + " {get;set;} \n";
+            }
+
+            this.TemplateMarkup += "              public bool IsActive {get;set;} \n";
+            this.TemplateMarkup += "              public DateTime CreationTime {get;set;} \n";
+            this.TemplateMarkup += "              public long? CreatorUserId {get;set;} \n";
+            this.TemplateMarkup += "\n         }\n}";
+
+        }
+
+        private void GenerateDtoCreate()
+        {
+            this.TemplateMarkup += "\n";
+            foreach (var item in ClassInfoData.Fields)
+            {
+                this.TemplateMarkup += (!string.IsNullOrEmpty(item.ValueAlt) ? "\n              [StringLength(" + item.ValueAlt + ")] " : "")
+                    + "\n              public " + item.Key + " " + item.Value + " {get;set;} \n";
+            }
+            this.TemplateMarkup += "              public bool IsActive {get;set;} \n";
+            this.TemplateMarkup += "              public DateTime CreationTime {get;set;} \n";
+            this.TemplateMarkup += "              public long? CreatorUserId {get;set;} \n";
+            this.TemplateMarkup += "\n         }\n}";
+        
+        }
+
+        private string ReplaceAllKeyTypes(string AllStrings)
+        {
+            var returnedStrings = AllStrings.Replace(", int,", ", " + ClassInfoData.SpecificType + ",");
+            returnedStrings = returnedStrings.Replace(",int,", "," + ClassInfoData.SpecificType + ",");
+            returnedStrings = returnedStrings.Replace("<int>", "<" + ClassInfoData.SpecificType + ">");
+            returnedStrings = returnedStrings.Replace("int> _" + GetItemToReplaces("XXXEntityLowerSingularXXX") + "Repository", ClassInfoData.SpecificType + "> _" + GetItemToReplaces("XXXEntityLowerSingularXXX") + "Repository");
+            returnedStrings = returnedStrings.Replace("int> " + GetItemToReplaces("XXXEntityLowerSingularXXX") + "Repository", ClassInfoData.SpecificType + "> " + GetItemToReplaces("XXXEntityLowerSingularXXX") + "Repository");
+            returnedStrings = returnedStrings.Replace("int> repository", ClassInfoData.SpecificType + "> repository");
+            returnedStrings = returnedStrings.Replace("int> _bank", ", " + ClassInfoData.SpecificType + ",");
+            returnedStrings = returnedStrings.Replace("EntityDto<int>", "EntityDto<" + ClassInfoData.SpecificType + ">");
+
+
+            return returnedStrings;
+        }
+
 
         private string generateListOfServiceDeclaration(List<TripleValue<string, string, string, String>> fielList)
         {
@@ -248,6 +372,7 @@ namespace MG.MyCollege
         private string XXXFieldNameCapitalSingularXXX = "XXXFieldNameCapitalSingularXXX";
         private string XXXFieldNameCamelPluralXXX = "XXXFieldNameCamelPluralXXX";
 
+      
         private string GenerateFielListForCreateCsHtml(List<TripleValue<string, string, string, string>> fielList)
         {
             var fieldListForIndexCsHtml = new List<string>();
