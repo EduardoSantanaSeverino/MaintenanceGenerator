@@ -15,9 +15,7 @@ namespace MG.MyCollege
             string Path,
             string TemplateName,
             string TemplateDirectory,
-            List<ItemToReplace> ItemToReplaces,
             ClassInfoData ClassInfoData,
-            List<ComboParameter> ComboParameters = null,
             List<ItemFieldTypeTemplate> ItemFieldTypeTemplates = null,
             bool IsFromOriginalFile = false
         )
@@ -27,8 +25,6 @@ namespace MG.MyCollege
             this.Path = Path;
             this.TemplateName = TemplateName;
             this.TemplateDirectory = TemplateDirectory;
-            this.ItemToReplaces = ItemToReplaces;
-            this.ComboParameters = ComboParameters;
             this.ItemFieldTypeTemplates = ItemFieldTypeTemplates;
             this.IsFromOriginalFile = IsFromOriginalFile;
             this.ClassInfoData = ClassInfoData;
@@ -44,9 +40,7 @@ namespace MG.MyCollege
         public string TemplateMarkup { get; set; }
         public bool IsFromOriginalFile { get; set; }
         public string TemplateDirectory { get; set; }
-        public List<ComboParameter> ComboParameters { get; set; }
         public ClassInfoData ClassInfoData { get; set; }
-        public List<ItemToReplace> ItemToReplaces { get; set; }
         public List<ItemFieldTypeTemplate> ItemFieldTypeTemplates { get; set; }
 
         public string GetFieldTypeTemplate(string name)
@@ -75,13 +69,13 @@ namespace MG.MyCollege
 
         public string GetItemToReplaces(string key)
         {
-            return ItemToReplaces.FirstOrDefault(p => p.Key == key)?.Value;
+            return ClassInfoData?.ItemToReplaces?.FirstOrDefault(p => p.Key == key)?.Value;
         }
 
         private string ReplaceAllKeysWithRealValues(string markup)
         {
           
-            foreach (var item in ItemToReplaces)
+            foreach (var item in ClassInfoData?.ItemToReplaces)
             {
                 markup = markup.Replace(item.Key, item.Value);
             }
@@ -123,17 +117,11 @@ namespace MG.MyCollege
                 this.TemplateMarkup += "\n";
             }
 
-            if (this.Id == (int)FileStackId.DtoTemplate)
+            if (this.Id == (int)FileStackId.DtoTemplate ||
+                this.Id == (int)FileStackId.CreateDtoTemplate ||
+                this.Id == (int)FileStackId.UpdateDtoTemplate)
             {
-                this.TemplateMarkup = ReplaceAllKeysWithRealValues(this.TemplateMarkup);
                 GenerateDtoTemplate();
-                this.TemplateMarkup = ReplaceAllKeyTypes(this.TemplateMarkup);
-            }
-            if (this.Id == (int)FileStackId.CreateDtoTemplate)
-            {
-                this.TemplateMarkup = ReplaceAllKeysWithRealValues(this.TemplateMarkup);
-                GenerateDtoCreate();
-                this.TemplateMarkup = ReplaceAllKeyTypes(this.TemplateMarkup);
             }
 
         }
@@ -193,18 +181,26 @@ namespace MG.MyCollege
 
         private void GenerateDtoTemplate()
         {
+            this.TemplateMarkup = ReplaceAllKeysWithRealValues(this.TemplateMarkup);
 
             this.TemplateMarkup += "              public int Id {get;set;} \n";
 
             foreach (var item in ClassInfoData.Fields)
             {
-                this.TemplateMarkup += "              public " + item.Key + " " + item.Value + " {get;set;} \n";
-
-                this.TemplateMarkup += (!string.IsNullOrEmpty(item.ValueAlt) ? "\n              [StringLength(" + item.ValueAlt + ")]  " : "")
-                + "\n              public " + item.Key + " " + item.Value + " {get;set;} \n";
-
-                this.TemplateMarkup += (!string.IsNullOrEmpty(item.ValueAlt) ? "\n              [StringLength(" + item.ValueAlt + ")] " : "")
+                if (this.Id == (int)FileStackId.DtoTemplate)
+                {
+                    this.TemplateMarkup += "              public " + item.Key + " " + item.Value + " {get;set;} \n";
+                }
+                if (this.Id == (int)FileStackId.CreateDtoTemplate)
+                {
+                    this.TemplateMarkup += (!string.IsNullOrEmpty(item.ValueAlt) ? "\n              [StringLength(" + item.ValueAlt + ")] " : "")
                     + "\n              public " + item.Key + " " + item.Value + " {get;set;} \n";
+                }
+                if (this.Id == (int)FileStackId.UpdateDtoTemplate)
+                {
+                    this.TemplateMarkup += (!string.IsNullOrEmpty(item.ValueAlt) ? "\n              [StringLength(" + item.ValueAlt + ")]  " : "")
+                    + "\n              public " + item.Key + " " + item.Value + " {get;set;} \n";
+                }
             }
 
             this.TemplateMarkup += "              public bool IsActive {get;set;} \n";
@@ -212,21 +208,7 @@ namespace MG.MyCollege
             this.TemplateMarkup += "              public long? CreatorUserId {get;set;} \n";
             this.TemplateMarkup += "\n         }\n}";
 
-        }
-
-        private void GenerateDtoCreate()
-        {
-            this.TemplateMarkup += "\n";
-            foreach (var item in ClassInfoData.Fields)
-            {
-                this.TemplateMarkup += (!string.IsNullOrEmpty(item.ValueAlt) ? "\n              [StringLength(" + item.ValueAlt + ")] " : "")
-                    + "\n              public " + item.Key + " " + item.Value + " {get;set;} \n";
-            }
-            this.TemplateMarkup += "              public bool IsActive {get;set;} \n";
-            this.TemplateMarkup += "              public DateTime CreationTime {get;set;} \n";
-            this.TemplateMarkup += "              public long? CreatorUserId {get;set;} \n";
-            this.TemplateMarkup += "\n         }\n}";
-        
+            this.TemplateMarkup = ReplaceAllKeyTypes(this.TemplateMarkup);
         }
 
         private string ReplaceAllKeyTypes(string AllStrings)
@@ -243,7 +225,6 @@ namespace MG.MyCollege
 
             return returnedStrings;
         }
-
 
         private string generateListOfServiceDeclaration(List<TripleValue<string, string, string, String>> fielList)
         {
@@ -372,7 +353,6 @@ namespace MG.MyCollege
         private string XXXFieldNameCapitalSingularXXX = "XXXFieldNameCapitalSingularXXX";
         private string XXXFieldNameCamelPluralXXX = "XXXFieldNameCamelPluralXXX";
 
-      
         private string GenerateFielListForCreateCsHtml(List<TripleValue<string, string, string, string>> fielList)
         {
             var fieldListForIndexCsHtml = new List<string>();
@@ -449,7 +429,7 @@ namespace MG.MyCollege
 
         private ComboParameter GetComboParameter(string FieldNameValue)
         {
-            return this.ComboParameters?.FirstOrDefault(p=>p.FieldNameValue == FieldNameValue);
+            return this.ClassInfoData?.ComboParameters?.FirstOrDefault(p=>p.FieldNameValue == FieldNameValue);
         }
 
     }

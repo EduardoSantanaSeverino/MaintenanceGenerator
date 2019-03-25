@@ -24,13 +24,35 @@ namespace MG.MyCollege
                 new ItemConfig { Id = 50, Name = "ClassesPath", Value = ProjectName + @".Core\Models\" },
                 new ItemConfig { Id = 60, Name = "DtosPath", Value = ProjectName + @".Application\" },
                 new ItemConfig { Id = 70, Name = "SideBarFileName", Value = "header.js" },
-                new ItemConfig { Id = 80, Name = "pathDirectoryApp", Value = ProjectName + @".Application\" }
+                new ItemConfig { Id = 80, Name = "PathDirectoryApp", Value = ProjectName + @".Application\" }
             };
+            CreateDirectory();
+        }
+
+        public void CreateDirectory()
+        {
+            foreach (var item in this.ItemConfigs)
+            {
+                if (item.CreateDirectory)
+                {
+                    if (!System.IO.Directory.Exists(item.Value))
+                    {
+                        System.IO.Directory.CreateDirectory(item.Value);
+                    }
+                }
+            }
         }
 
         public void AddConfig(ItemConfig ItemConfig)
         {
             ItemConfigs.Add(ItemConfig);
+            CreateDirectory();
+        }
+
+        public void AddConfig(List<ItemConfig> ItemConfigs)
+        {
+            ItemConfigs.AddRange(ItemConfigs);
+            CreateDirectory();
         }
 
         public string GetConfig(int id)
@@ -44,7 +66,7 @@ namespace MG.MyCollege
 
         public string GetConfig(string name)
         {
-            var retVal = ItemConfigs.FirstOrDefault(p => p.Name == name);
+            var retVal = ItemConfigs.FirstOrDefault(p => p.Name.ToLower() == name.ToLower());
             if (retVal != null)
                 return retVal.Value;
 

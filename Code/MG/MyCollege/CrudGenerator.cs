@@ -19,29 +19,37 @@ namespace MG.MyCollege
 
         public CrudGenerator(Configuration Configuration, List<ItemToReplace> ItemToReplaces)
         {
+            string entity = ItemToReplaces.FirstOrDefault(p => p.Name == "XXXEntityPluralXXX").Value;
+            this.ClassInfoData = new ClassInfoData(Configuration.GetConfig("ClassesPath") + entity + ".cs", ItemToReplaces);
 
-            Configuration.AddConfig(new ItemConfig
-            {
-                Name = "ViewDirectory",
-                Value = Configuration.GetConfig("ViewsDirectory") + ItemToReplaces.FirstOrDefault(p => p.Name == "XXXEntityLowerPluralXXX")
-            });
-
-            Configuration.AddConfig(new ItemConfig
-            {
-                Name = "ClassPath",
-                Value = Configuration.GetConfig("ClassesPath") + ItemToReplaces.FirstOrDefault(p=>p.Name == "XXXEntityPluralXXX") + ".cs"
-            });
-
-            Configuration.AddConfig(new ItemConfig
-            {
-                Name = "DtoPath",
-                Value = Configuration.GetConfig("DtosPath") + ItemToReplaces.FirstOrDefault(p => p.Name == "XXXEntityPluralXXX") + @"\Dto\"
+            Configuration.AddConfig(new List<ItemConfig> {
+                new ItemConfig
+                {
+                    Name = "ClassPath",
+                    Value = Configuration.GetConfig("ClassesPath") + this.ClassInfoData.XXXEntityPluralXXX + ".cs"
+                },
+                new ItemConfig
+                {
+                    CreateDirectory = true,
+                    Name = "ViewDirectory",
+                    Value = Configuration.GetConfig("ViewsDirectory") + this.ClassInfoData.XXXEntityLowerPluralXXX
+                },
+                new ItemConfig
+                {
+                    CreateDirectory = true,
+                    Name = "DtoPath",
+                    Value = Configuration.GetConfig("DtosPath") + this.ClassInfoData.XXXEntityPluralXXX + @"\Dto\"
+                },
+                new ItemConfig
+                {
+                    CreateDirectory = true,
+                    Name = "PathDirectoryAppService",
+                    Value = Configuration.GetConfig("PathDirectoryApp") + this.ClassInfoData.XXXEntityPluralXXX
+                }
             });
 
             this.Configuration = Configuration;
 
-            // string PathDirectoryAppService = pathDirectoryApp + txtCapitalPlural.Text;
-            this.ClassInfoData = new ClassInfoData(Configuration.GetConfig("ClassPath"), ItemToReplaces);
             LoadItemFileToCreate();
         }
 
@@ -56,7 +64,6 @@ namespace MG.MyCollege
                     Path: Configuration.GetConfig("ViewDirectory") + @"\index.cshtml",
                     TemplateName: "indexCsHtml.tpt",
                     TemplateDirectory: TemplateDirectory,
-                    ItemToReplaces: this.ItemToReplaces,
                     ClassInfoData: this.ClassInfoData
                 ),
                 new ItemFileToGenerate
@@ -66,9 +73,7 @@ namespace MG.MyCollege
                     Path: Configuration.GetConfig("ViewDirectory") + @"\createModal.cshtml",
                     TemplateName: "createModalCsHtml.tpt",
                     TemplateDirectory: TemplateDirectory,
-                    ItemToReplaces: this.ItemToReplaces,
                     ClassInfoData: this.ClassInfoData,
-                    ComboParameters: this.ComboParameters,
                     ItemFieldTypeTemplates: new List<ItemFieldTypeTemplate>
                     {
                         new ItemFieldTypeTemplate(TemplateDirectory)
@@ -105,9 +110,7 @@ namespace MG.MyCollege
                     Path: Configuration.GetConfig("ViewDirectory") + @"\editModal.cshtml",
                     TemplateName: "editModalCsHtml.tpt",
                     TemplateDirectory: TemplateDirectory,
-                    ItemToReplaces: this.ItemToReplaces,
                     ClassInfoData: this.ClassInfoData,
-                    ComboParameters: this.ComboParameters,
                     ItemFieldTypeTemplates: new List<ItemFieldTypeTemplate>
                     {
                         new ItemFieldTypeTemplate(TemplateDirectory)
@@ -144,7 +147,6 @@ namespace MG.MyCollege
                     Path: Configuration.GetConfig("ViewDirectory") + @"\index.js",
                     TemplateName: "indexJS.tpt",
                     TemplateDirectory: TemplateDirectory,
-                    ItemToReplaces: this.ItemToReplaces,
                     ClassInfoData: this.ClassInfoData
                 ),
                 new ItemFileToGenerate
@@ -154,31 +156,109 @@ namespace MG.MyCollege
                     Path: Configuration.GetConfig("ViewDirectory") + @"\createModal.js",
                     TemplateName: "createModalJS.tpt",
                     TemplateDirectory: TemplateDirectory,
-                    ItemToReplaces: this.ItemToReplaces,
                     ClassInfoData: this.ClassInfoData
                 ),
-                 new ItemFileToGenerate
+                new ItemFileToGenerate
                 (
                     Id: (int)FileStackId.UpdateJSTemplate,
                     Name: "UpdateJSTemplate",
                     Path: Configuration.GetConfig("ViewDirectory") + @"\editModal.js",
                     TemplateName: "editModalJS.tpt",
                     TemplateDirectory: TemplateDirectory,
-                    ItemToReplaces: this.ItemToReplaces,
                     ClassInfoData: this.ClassInfoData
                 ),
                 new ItemFileToGenerate
                 (
                     Id: (int)FileStackId.DtoTemplate,
                     Name: "DtoTemplate",
-                    Path: Configuration.GetConfig("DtoPath") + GetItemToReplaces("XXXEntityPluralXXX") + "Dto.cs", 
+                    Path: Configuration.GetConfig("DtoPath") + ClassInfoData.XXXEntityPluralXXX + "Dto.cs", 
                     TemplateName: "Dto.tpt",
                     TemplateDirectory: TemplateDirectory,
-                    ItemToReplaces: this.ItemToReplaces,
+                    ClassInfoData: this.ClassInfoData
+                ),
+                new ItemFileToGenerate
+                (
+                    Id: (int)FileStackId.CreateDtoTemplate,
+                    Name: "CreateDtoTemplate",
+                    Path: Configuration.GetConfig("DtoPath") + ClassInfoData.XXXEntityPluralXXX + "CreateDto.cs",
+                    TemplateName: "CreateDto.tpt",
+                    TemplateDirectory: TemplateDirectory,
+                    ClassInfoData: this.ClassInfoData
+                ),
+                new ItemFileToGenerate
+                (
+                    Id: (int)FileStackId.UpdateDtoTemplate,
+                    Name: "UpdateDtoTemplate",
+                    Path: Configuration.GetConfig("DtoPath") + ClassInfoData.XXXEntityPluralXXX + "UpdateDto.cs",
+                    TemplateName: "UpdateDto.tpt",
+                    TemplateDirectory: TemplateDirectory,
+                    ClassInfoData: this.ClassInfoData
+                ),
+                new ItemFileToGenerate
+                (
+                    Id: (int)FileStackId.IAppServiceTemplate,
+                    Name: "IAppServiceTemplate",
+                    Path: Configuration.GetConfig("PathDirectoryAppService") + @"\I" + ClassInfoData.XXXEntitySingularXXX + "AppService.cs",
+                    TemplateName: "IAppService.tpt",
+                    TemplateDirectory: TemplateDirectory,
+                    ClassInfoData: this.ClassInfoData
+                ),
+                new ItemFileToGenerate
+                (
+                    Id: (int)FileStackId.AppServiceTemplate,
+                    Name: "AppServiceTemplate",
+                    Path: Configuration.GetConfig("PathDirectoryAppService") + @"\" + ClassInfoData.XXXEntitySingularXXX + "AppService.cs",
+                    TemplateName: "AppService.tpt",
+                    TemplateDirectory: TemplateDirectory,
+                    ClassInfoData: this.ClassInfoData
+                ),
+                new ItemFileToGenerate
+                (
+                    Id: (int)FileStackId.AuthorizationProviderTemplate,
+                    Name: "AuthorizationProviderTemplate",
+                    Path: Configuration.GetConfig("") + @"\" + ClassInfoData.XXXEntitySingularXXX + "AppService.cs",
+                    TemplateName: "AuthorizationProvider.tpt",
+                    TemplateDirectory: TemplateDirectory,
+                    ClassInfoData: this.ClassInfoData
+                ),
+                new ItemFileToGenerate
+                (
+                    Id: (int)FileStackId.PermissionNameTemplate,
+                    Name: "PermissionNameTemplate",
+                    Path: Configuration.GetConfig("") + @"\" + ClassInfoData.XXXEntitySingularXXX + "AppService.cs",
+                    TemplateName: "PermissionName.tpt",
+                    TemplateDirectory: TemplateDirectory,
+                    ClassInfoData: this.ClassInfoData
+                ),
+                new ItemFileToGenerate
+                (
+                    Id: (int)FileStackId.AppJsMenuTemplate,
+                    Name: "AppJsMenuTemplate",
+                    Path: Configuration.GetConfig("") + @"\" + ClassInfoData.XXXEntitySingularXXX + "AppService.cs",
+                    TemplateName: "AppJsMenu.tpt",
+                    TemplateDirectory: TemplateDirectory,
+                    ClassInfoData: this.ClassInfoData
+                ),
+                new ItemFileToGenerate
+                (
+                    Id: (int)FileStackId.NavigationProviderTemplate,
+                    Name: "NavigationProviderTemplate",
+                    Path: Configuration.GetConfig("") + @"\" + ClassInfoData.XXXEntitySingularXXX + "AppService.cs",
+                    TemplateName: "NavigationProvider.tpt",
+                    TemplateDirectory: TemplateDirectory,
+                    ClassInfoData: this.ClassInfoData
+                ),
+                new ItemFileToGenerate
+                (
+                    Id: (int)FileStackId.MenuSideBarNavTemplate,
+                    Name: "MenuSideBarNavTemplate",
+                    Path: Configuration.GetConfig("") + @"\" + ClassInfoData.XXXEntitySingularXXX + "AppService.cs",
+                    TemplateName: "MenuSideBarNav.tpt",
+                    TemplateDirectory: TemplateDirectory,
                     ClassInfoData: this.ClassInfoData
                 ),
 
-            };
+        };
 
         }
 

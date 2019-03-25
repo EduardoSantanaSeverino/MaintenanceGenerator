@@ -27,6 +27,11 @@ namespace MG.MyCollege
             this._fields = this.GetFieldListFromEntity();
         }
 
+        public string XXXEntityPluralXXX { get => GetItemToReplace("XXXEntityPluralXXX"); } // txtCapitalPlural.Text
+        public string XXXEntityLowerPluralXXX { get => GetItemToReplace("XXXEntityLowerPluralXXX"); } // txtCamelPlural.Text
+        public string XXXEntitySingularXXX { get => GetItemToReplace("XXXEntitySingularXXX"); } //  txtCapitalSingular.Text);
+        public string XXXEntityLowerSingularXXX { get => GetItemToReplace("XXXEntityLowerSingularXXX"); } // txtCamelSingular.Text
+
         public string DefaultIconMenu { get; set; }
 
         public string ClassPath { get => this._classPath; }
