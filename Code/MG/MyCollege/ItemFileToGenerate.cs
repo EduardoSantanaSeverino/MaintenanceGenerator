@@ -16,8 +16,8 @@ namespace MG.MyCollege
             string TemplateName,
             string TemplateDirectory,
             ClassInfoData ClassInfoData,
-            List<ItemFieldTypeTemplate> ItemFieldTypeTemplates = null,
-            bool IsFromOriginalFile = false
+            string ControlName,
+            List<ItemFieldTypeTemplate> ItemFieldTypeTemplates = null
         )
         {
             this.Id = Id;
@@ -26,8 +26,8 @@ namespace MG.MyCollege
             this.TemplateName = TemplateName;
             this.TemplateDirectory = TemplateDirectory;
             this.ItemFieldTypeTemplates = ItemFieldTypeTemplates;
-            this.IsFromOriginalFile = IsFromOriginalFile;
             this.ClassInfoData = ClassInfoData;
+            this.ControlName = ControlName;
             this.TemplateMarkup = ReadTemplate();
             ProcessFile();
             this.TemplateMarkup = ReplaceAllKeysWithRealValues(this.TemplateMarkup);
@@ -38,9 +38,9 @@ namespace MG.MyCollege
         public string Path { get; set; }
         public string TemplateName { get; set; }
         public string TemplateMarkup { get; set; }
-        public bool IsFromOriginalFile { get; set; }
         public string TemplateDirectory { get; set; }
         public ClassInfoData ClassInfoData { get; set; }
+        public string ControlName { get; set; }
         public List<ItemFieldTypeTemplate> ItemFieldTypeTemplates { get; set; }
 
         public string GetFieldTypeTemplate(string name)
@@ -169,6 +169,8 @@ namespace MG.MyCollege
                 appJsOriginal = this.GetFieldTypeTemplate("AppJsFile")
                    .Replace(XXXInsertAppJsMenuXXX, AppJsTemplate + "\n\n" + XXXInsertAppJsMenuXXX).Replace("XXXFaIconXXX", ClassInfoData.DefaultIconMenu);
 
+            this.TemplateMarkup = appJsOriginal;
+
         }
 
         private void GenerateNavigationProviderTemplate()
@@ -180,6 +182,8 @@ namespace MG.MyCollege
             if (!this.GetFieldTypeTemplate("NavigationProviderFile").Contains(autorizacionActualExistente))
                 navigationProviderOriginal = this.GetFieldTypeTemplate("NavigationProviderFile")
                     .Replace(XXXInsertNavitationProviderXXX, NavigationProviderTemplate + "\n\n" + XXXInsertNavitationProviderXXX);
+
+            this.TemplateMarkup = navigationProviderOriginal;
         }
 
         private void GeneratePermissionNameTemplate()
@@ -193,7 +197,7 @@ namespace MG.MyCollege
                 permissionNameOriginal = this.GetFieldTypeTemplate("PermissionNamesFile")
                    .Replace(XXXInsertPermissionNamesXXX, PermisionNameTemplate + "\n\n" + XXXInsertPermissionNamesXXX);
 
-            this.TemplateMarkup = PermisionNameTemplate;
+            this.TemplateMarkup = permissionNameOriginal;
         }
 
         private void GenerateMenuSideBarNavTemplate()
@@ -205,7 +209,7 @@ namespace MG.MyCollege
                 MenuSideBarNavOriginal = this.GetFieldTypeTemplate("NavBarJSFile")
                    .Replace(XXXInsertMenuItemXXX, MenuSideBarNavTemplate + "\n\n" + XXXInsertMenuItemXXX);
 
-            this.TemplateMarkup = MenuSideBarNavTemplate;
+            this.TemplateMarkup = MenuSideBarNavOriginal;
         }
 
         private void GenerateAuthorizationProviderTemplate()
@@ -217,7 +221,7 @@ namespace MG.MyCollege
                 authorizationProviderOriginal = this.GetFieldTypeTemplate("AuthorizationProviderFile")
                     .Replace(XXXInsertAuthorizationProviderXXX, AuthorizationProviderTemplate + "\n\n" + XXXInsertAuthorizationProviderXXX);
 
-            this.TemplateMarkup = AuthorizationProviderTemplate;
+            this.TemplateMarkup = authorizationProviderOriginal;
         }
 
         public string getLevel(string except, string valorCompleto, string removeFinal)
@@ -413,60 +417,6 @@ namespace MG.MyCollege
                 }
             }
             return RelatedEntities;
-        }
-
-
-        public static string GetTypeString(String Line)
-        {
-            string currentType = "";
-
-            var index = Line.IndexOf("public");
-            var indexType = Line.IndexOf(" ", index + 1);
-            var indexProperty = Line.IndexOf(" ", indexType + 1);
-            currentType = Line.Substring(indexType + 1, indexProperty - indexType - 1);
-            return currentType;
-        }
-
-        public static string GetPropertyString(String Line)
-        {
-            string property = "";
-
-            var index = Line.IndexOf("public");
-            var indexType = Line.IndexOf(" ", index + 1);
-            var indexProperty = Line.IndexOf(" ", indexType + 1);
-            var indexPropertyEnd = Line.IndexOf(" ", indexProperty + 1);
-            property = Line.Substring(indexProperty + 1, indexPropertyEnd - indexProperty - 1).Replace('}', ' ').Replace('{', ' ').TrimEnd();
-            return property;
-        }
-
-        public static string GetMaxLengString(string Line)
-        {
-            string maxlenghtX = string.Empty;
-            string buscado = "Length(";
-
-            var index = Line.IndexOf(buscado);
-            if (index < 0)
-                return maxlenghtX;
-            var indexEndMaxLeng = Line.IndexOf(")", index);
-
-            maxlenghtX = Line.Substring(index + buscado.Length, indexEndMaxLeng - (index + buscado.Length));
-            return maxlenghtX;
-        }
-
-        public static string GetMaxLengIntForString(string Line)
-        {
-            string maxlenghtX = string.Empty;
-            string buscado = "Length(";
-
-            var index = Line.IndexOf(buscado);
-            if (index < 0)
-                return maxlenghtX;
-            var indexEndMaxLeng = Line.IndexOf(",", index);
-            if (indexEndMaxLeng < 0)
-                indexEndMaxLeng = Line.IndexOf(")", index);
-
-            maxlenghtX = Line.Substring(index + buscado.Length, indexEndMaxLeng - (index + buscado.Length));
-            return maxlenghtX;
         }
 
         private void GenerateDtoTemplate()

@@ -14,7 +14,7 @@ namespace MG.MyCollege
         public string TemplateDirectory { get => Configuration.TemplateDirectory; } 
         public string ProjectName { get => Configuration.ProjectName; } 
 
-        public List<ItemFileToGenerate> ItemFileToGenerates { get; set; }
+        public List<ItemFileToGenerate> ItemFileToGenerates { get; private set; }
 
         public CrudGenerator(Configuration Configuration, List<ItemToReplace> ItemToReplaces)
         {
@@ -72,7 +72,8 @@ namespace MG.MyCollege
                     Path: Configuration.GetConfig("ViewDirectory") + @"\index.cshtml",
                     TemplateName: "indexCsHtml.tpt",
                     TemplateDirectory: TemplateDirectory,
-                    ClassInfoData: this.ClassInfoData
+                    ClassInfoData: this.ClassInfoData,
+                    ControlName: "rtbIndexCshtmlGenerator"
                 ),
                 new ItemFileToGenerate
                 (
@@ -82,6 +83,7 @@ namespace MG.MyCollege
                     TemplateName: "createModalCsHtml.tpt",
                     TemplateDirectory: TemplateDirectory,
                     ClassInfoData: this.ClassInfoData,
+                    ControlName: "rtbCreateCsHtmlGenerator",
                     ItemFieldTypeTemplates: new List<ItemFieldTypeTemplate>
                     {
                         new ItemFieldTypeTemplate(TemplateDirectory)
@@ -119,6 +121,7 @@ namespace MG.MyCollege
                     TemplateName: "editModalCsHtml.tpt",
                     TemplateDirectory: TemplateDirectory,
                     ClassInfoData: this.ClassInfoData,
+                    ControlName: "rtbUpdateCsHtmlGenerator",
                     ItemFieldTypeTemplates: new List<ItemFieldTypeTemplate>
                     {
                         new ItemFieldTypeTemplate(TemplateDirectory)
@@ -155,7 +158,8 @@ namespace MG.MyCollege
                     Path: Configuration.GetConfig("ViewDirectory") + @"\index.js",
                     TemplateName: "indexJS.tpt",
                     TemplateDirectory: TemplateDirectory,
-                    ClassInfoData: this.ClassInfoData
+                    ClassInfoData: this.ClassInfoData,
+                    ControlName: "rtbIndexJsGenerator"
                 ),
                 new ItemFileToGenerate
                 (
@@ -164,7 +168,8 @@ namespace MG.MyCollege
                     Path: Configuration.GetConfig("ViewDirectory") + @"\createModal.js",
                     TemplateName: "createModalJS.tpt",
                     TemplateDirectory: TemplateDirectory,
-                    ClassInfoData: this.ClassInfoData
+                    ClassInfoData: this.ClassInfoData,
+                    ControlName: "rtbCreateJsGenerator"
                 ),
                 new ItemFileToGenerate
                 (
@@ -173,7 +178,8 @@ namespace MG.MyCollege
                     Path: Configuration.GetConfig("ViewDirectory") + @"\editModal.js",
                     TemplateName: "editModalJS.tpt",
                     TemplateDirectory: TemplateDirectory,
-                    ClassInfoData: this.ClassInfoData
+                    ClassInfoData: this.ClassInfoData,
+                    ControlName: "rtbUpdateJsGenerator"
                 ),
                 new ItemFileToGenerate
                 (
@@ -182,7 +188,8 @@ namespace MG.MyCollege
                     Path: Configuration.GetConfig("DtoPath") + ClassInfoData.XXXEntityPluralXXX + "Dto.cs",
                     TemplateName: "Dto.tpt",
                     TemplateDirectory: TemplateDirectory,
-                    ClassInfoData: this.ClassInfoData
+                    ClassInfoData: this.ClassInfoData,
+                    ControlName: "rtbEntityDtoGenerator"
                 ),
                 new ItemFileToGenerate
                 (
@@ -191,7 +198,8 @@ namespace MG.MyCollege
                     Path: Configuration.GetConfig("DtoPath") + ClassInfoData.XXXEntityPluralXXX + "CreateDto.cs",
                     TemplateName: "CreateDto.tpt",
                     TemplateDirectory: TemplateDirectory,
-                    ClassInfoData: this.ClassInfoData
+                    ClassInfoData: this.ClassInfoData,
+                    ControlName: "rtbEntityCreateDtoGenerator"
                 ),
                 new ItemFileToGenerate
                 (
@@ -200,7 +208,8 @@ namespace MG.MyCollege
                     Path: Configuration.GetConfig("DtoPath") + ClassInfoData.XXXEntityPluralXXX + "UpdateDto.cs",
                     TemplateName: "UpdateDto.tpt",
                     TemplateDirectory: TemplateDirectory,
-                    ClassInfoData: this.ClassInfoData
+                    ClassInfoData: this.ClassInfoData,
+                    ControlName: "rtbEntityUpdateDtoGenerator"
                 ),
                 new ItemFileToGenerate
                 (
@@ -209,7 +218,8 @@ namespace MG.MyCollege
                     Path: Configuration.GetConfig("PathDirectoryAppService") + @"\I" + ClassInfoData.XXXEntitySingularXXX + "AppService.cs",
                     TemplateName: "IAppService.tpt",
                     TemplateDirectory: TemplateDirectory,
-                    ClassInfoData: this.ClassInfoData
+                    ClassInfoData: this.ClassInfoData,
+                    ControlName: "rtbIAppSericeGenerator"
                 ),
                 new ItemFileToGenerate
                 (
@@ -218,7 +228,8 @@ namespace MG.MyCollege
                     Path: Configuration.GetConfig("PathDirectoryAppService") + @"\" + ClassInfoData.XXXEntitySingularXXX + "AppService.cs",
                     TemplateName: "AppService.tpt",
                     TemplateDirectory: TemplateDirectory,
-                    ClassInfoData: this.ClassInfoData
+                    ClassInfoData: this.ClassInfoData,
+                    ControlName: "rtbAppSericeGenerator"
                 ),
                 new ItemFileToGenerate
                 (
@@ -228,6 +239,7 @@ namespace MG.MyCollege
                     TemplateName: "AuthorizationProvider.tpt",
                     TemplateDirectory: TemplateDirectory,
                     ClassInfoData: this.ClassInfoData,
+                    ControlName: "rtbAutorizationProviderGenerator",
                     ItemFieldTypeTemplates: new List<ItemFieldTypeTemplate>
                     {
                         new ItemFieldTypeTemplate("")
@@ -245,6 +257,7 @@ namespace MG.MyCollege
                     TemplateName: "PermissionName.tpt",
                     TemplateDirectory: TemplateDirectory,
                     ClassInfoData: this.ClassInfoData,
+                    ControlName: "rtbPermissionNameGenerator",
                     ItemFieldTypeTemplates: new List<ItemFieldTypeTemplate>
                     {
                         new ItemFieldTypeTemplate("")
@@ -268,6 +281,7 @@ namespace MG.MyCollege
                     TemplateName: "AppJsMenu.tpt",
                     TemplateDirectory: TemplateDirectory,
                     ClassInfoData: this.ClassInfoData,
+                    ControlName: "rtbAppJsGenerator",
                     ItemFieldTypeTemplates: new List<ItemFieldTypeTemplate>
                     {
                         new ItemFieldTypeTemplate("")
@@ -285,6 +299,7 @@ namespace MG.MyCollege
                     TemplateName: "NavigationProvider.tpt",
                     TemplateDirectory: TemplateDirectory,
                     ClassInfoData: this.ClassInfoData,
+                    ControlName: "rtbNavigationProviderGenerator",
                     ItemFieldTypeTemplates: new List<ItemFieldTypeTemplate>
                     {
                         new ItemFieldTypeTemplate(TemplateDirectory)
@@ -307,6 +322,7 @@ namespace MG.MyCollege
                     TemplateName: "MenuSideBarNav.tpt",
                     TemplateDirectory: TemplateDirectory,
                     ClassInfoData: this.ClassInfoData,
+                    ControlName: "rtbMenuNavBarGenerator",
                     ItemFieldTypeTemplates: new List<ItemFieldTypeTemplate>
                     {
                         new ItemFieldTypeTemplate("")

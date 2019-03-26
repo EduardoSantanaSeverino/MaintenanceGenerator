@@ -86,7 +86,18 @@ namespace MG
                         Value = config.ProjectName
                     }
                 };
+
             CrudGenerator.btnGenerate_Click(config, itemsToReplace);
+
+            foreach (var item in CrudGenerator.ItemFileToGenerates)
+            {
+                var c = this.Controls.Find(item.ControlName, true);
+                if (c != null && c.Any())
+                {
+                    ((RichTextBox)c[0]).Text = item.TemplateMarkup;
+                }
+            }
+
         }
 
         private void btnSaveOnDisk_Click(object sender, EventArgs e)
