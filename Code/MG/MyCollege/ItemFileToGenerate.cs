@@ -621,7 +621,6 @@ namespace MG.MyCollege
         private string XXXEntityPluralXXX = "XXXEntityPluralXXX";
         private string XXXEntitySingularXXX = "XXXEntitySingularXXX";
         private string XXXEntityLowerSingularXXX = "XXXEntityLowerSingularXXX";
-        private string XXXEntityLowerPluralXXX = "XXXEntityLowerPluralXXX";
         private string XXXInsertMenuItemXXX = "//XXXInsertMenuItemXXX";
 
         private string XXXServicesUsedDeclarationXXX = "XXXServicesUsedDeclarationXXX";
@@ -637,8 +636,6 @@ namespace MG.MyCollege
 
         private static string XXXRepositorySettingListXXX = "XXXRepositorySettingListXXX";
         private static string XXXRepositoryDeclarationListXXX = "XXXRepositoryDeclarationListXXX";
-
-        private string XXXFirstFieldNameXXX = "XXXFirstFieldNameXXX";
 
         private string XXXFieldNameCapitalSingularXXX = "XXXFieldNameCapitalSingularXXX";
         private string XXXFieldNameCamelPluralXXX = "XXXFieldNameCamelPluralXXX";

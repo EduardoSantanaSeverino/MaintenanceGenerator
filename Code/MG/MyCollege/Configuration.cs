@@ -87,16 +87,44 @@ namespace MG.MyCollege
             }
         }
 
-        public void AddConfig(ItemConfig ItemConfig)
+        public void AddConfig(ItemConfig ItemConfig, bool reload = true)
         {
-            ItemConfigs.Add(ItemConfig);
-            ReadFromConfigFile();
-            CreateDirectory();
+            ItemConfig temp = null;
+
+            if (ItemConfig.Id > 0)
+            {
+                temp = this.ItemConfigs.FirstOrDefault(p => p.Name == ItemConfig.Name || p.Id == ItemConfig.Id);
+            }
+            else
+            {
+                temp = this.ItemConfigs.FirstOrDefault(p => p.Name == ItemConfig.Name);
+            }
+
+            if (temp != null)
+            {
+                temp.Value = ItemConfig.Value;
+                temp.IsChecked = false;
+            }
+            else
+            {
+                ItemConfigs.Add(ItemConfig);
+            }
+
+            if (reload)
+            {
+                ReadFromConfigFile();
+                CreateDirectory();
+            }
         }
 
         public void AddConfig(List<ItemConfig> ItemConfigs)
         {
-            ItemConfigs.AddRange(ItemConfigs);
+
+            foreach (var item in ItemConfigs)
+            {
+                AddConfig(item, false);
+            }
+
             ReadFromConfigFile();
             CreateDirectory();
         }

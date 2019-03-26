@@ -16,7 +16,7 @@ namespace MG
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmPrincipal());
+            Application.Run(new frmPrincipal(new MyCollege.CrudGenerator(new MyCollege.Configuration(), new List<MyCollege.ItemToReplace>())));
         }
     }
 }

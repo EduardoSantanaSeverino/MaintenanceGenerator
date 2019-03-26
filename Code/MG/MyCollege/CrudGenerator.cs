@@ -8,59 +8,57 @@ namespace MG.MyCollege
 {
     public class CrudGenerator
     {
-        public ClassInfoData ClassInfoData { get; set; }
-        public Configuration Configuration { get; set; }
-        public string Version { get { return Configuration.Version; } }
-        public string TemplateDirectory { get { return Configuration.TemplateDirectory; } }
-        public string ProjectName { get { return Configuration.ProjectName; } }
+        public ClassInfoData ClassInfoData { get; private set; }
+        public Configuration Configuration { get; private set; }
+        public string Version { get => Configuration.Version;  }
+        public string TemplateDirectory { get => Configuration.TemplateDirectory; } 
+        public string ProjectName { get => Configuration.ProjectName; } 
 
-        public List<ItemFieldTypeTemplate> ItemFieldTypeTemplates { get; set; }
         public List<ItemFileToGenerate> ItemFileToGenerates { get; set; }
 
         public CrudGenerator(Configuration Configuration, List<ItemToReplace> ItemToReplaces)
         {
-            string entity = ItemToReplaces.FirstOrDefault(p => p.Name == "XXXEntityPluralXXX").Value;
-            this.ClassInfoData = new ClassInfoData(Configuration.GetConfig("ClassesPath"), entity + ".cs", ItemToReplaces);
+            Initialize(Configuration, ItemToReplaces);
+        }
 
-            /*
-             
-            frmPrincipal.AuthorizationProviderFile = frmPrincipal.AuthorizationDirectory + @"\" + Utils.ProjectName + "AuthorizationProvider.cs";
-            frmPrincipal.PermissionNamesFile = frmPrincipal.AuthorizationDirectory + @"\PermissionNames.cs";
-            frmPrincipal.AppJsFile = frmPrincipal.WebMainDirectory + @"app.js";
-            frmPrincipal.NavigationProviderFile = frmPrincipal.WebDirectory + @"App_Start\"+Utils.ProjectName +"NavigationProvider.cs";
-            frmPrincipal.NavBarJSFile = frmPrincipal.ViewsDirectory + @"layout\" + Utils.SideBarFileName;
-             
-             */
+        private void Initialize(Configuration Configuration, List<ItemToReplace> ItemToReplaces)
+        {
+            if (ItemToReplaces.Any())
+            {
+                string entity = ItemToReplaces.FirstOrDefault(p => p.Name == "XXXEntityPluralXXX").Value;
+                this.ClassInfoData = new ClassInfoData(Configuration.GetConfig("ClassesPath"), entity + ".cs", ItemToReplaces);
 
-            Configuration.AddConfig(new List<ItemConfig> {
-                new ItemConfig
-                {
-                    Name = "ClassPath",
-                    Value = Configuration.GetConfig("ClassesPath") + this.ClassInfoData.XXXEntityPluralXXX + ".cs"
-                },
-                new ItemConfig
-                {
-                    CreateDirectory = true,
-                    Name = "ViewDirectory",
-                    Value = Configuration.GetConfig("ViewsDirectory") + this.ClassInfoData.XXXEntityLowerPluralXXX
-                },
-                new ItemConfig
-                {
-                    CreateDirectory = true,
-                    Name = "DtoPath",
-                    Value = Configuration.GetConfig("DtosPath") + this.ClassInfoData.XXXEntityPluralXXX + @"\Dto\"
-                },
-                new ItemConfig
-                {
-                    CreateDirectory = true,
-                    Name = "PathDirectoryAppService",
-                    Value = Configuration.GetConfig("PathDirectoryApp") + this.ClassInfoData.XXXEntityPluralXXX
-                }
-            });
+                Configuration.AddConfig(new List<ItemConfig> {
+                    new ItemConfig
+                    {
+                        Name = "ClassPath",
+                        Value = Configuration.GetConfig("ClassesPath") + this.ClassInfoData.XXXEntityPluralXXX + ".cs"
+                    },
+                    new ItemConfig
+                    {
+                        CreateDirectory = true,
+                        Name = "ViewDirectory",
+                        Value = Configuration.GetConfig("ViewsDirectory") + this.ClassInfoData.XXXEntityLowerPluralXXX
+                    },
+                    new ItemConfig
+                    {
+                        CreateDirectory = true,
+                        Name = "DtoPath",
+                        Value = Configuration.GetConfig("DtosPath") + this.ClassInfoData.XXXEntityPluralXXX + @"\Dto\"
+                    },
+                    new ItemConfig
+                    {
+                        CreateDirectory = true,
+                        Name = "PathDirectoryAppService",
+                        Value = Configuration.GetConfig("PathDirectoryApp") + this.ClassInfoData.XXXEntityPluralXXX
+                    }
+                });
 
-            this.Configuration = Configuration;
+                this.Configuration = Configuration;
 
-            LoadItemFileToCreate();
+                LoadItemFileToCreate();
+            }
+            
         }
 
         private void LoadItemFileToCreate()
@@ -181,7 +179,7 @@ namespace MG.MyCollege
                 (
                     Id: (int)FileStackId.DtoTemplate,
                     Name: "DtoTemplate",
-                    Path: Configuration.GetConfig("DtoPath") + ClassInfoData.XXXEntityPluralXXX + "Dto.cs", 
+                    Path: Configuration.GetConfig("DtoPath") + ClassInfoData.XXXEntityPluralXXX + "Dto.cs",
                     TemplateName: "Dto.tpt",
                     TemplateDirectory: TemplateDirectory,
                     ClassInfoData: this.ClassInfoData
@@ -317,13 +315,9 @@ namespace MG.MyCollege
                             TemplateName = this.Configuration.GetConfig("NavBarJSFile")
                         }
                     }
-                ),
-
-        };
-
+                )
+            };
         }
-
-       
 
         public void AddComboParameter(ComboParameter comboParameter)
         {
@@ -331,25 +325,26 @@ namespace MG.MyCollege
             LoadItemFileToCreate();
         }
 
-        public void txtEntityNameSingular_TextChanged()
+        public void btnGenerate_Click(Configuration Configuration, List<ItemToReplace> ItemToReplaces)
         {
-            throw new NotImplementedException();
-        }
-
-        public void btnGenerate_Click()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void btnGenerate_Click(object p)
-        {
-            throw new NotImplementedException();
+            Initialize(Configuration, ItemToReplaces);
         }
 
         public void btnSaveOnDisk_Click()
         {
-            throw new NotImplementedException();
+            foreach (var item in this.ItemFileToGenerates)
+            {
+                createSpecificFileOnDisk(item.Path, item.TemplateMarkup);
+            }
+            System.Threading.Thread.Sleep(1000);
         }
-        
+
+        private void createSpecificFileOnDisk(string fileName, string containerText)
+        {
+            if (System.IO.File.Exists(fileName))
+                System.IO.File.Delete(fileName);
+            System.IO.File.AppendAllText(fileName, containerText);
+        }
+
     }
 }

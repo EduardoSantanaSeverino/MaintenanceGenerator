@@ -23,7 +23,34 @@ namespace MG
         {
             try
             {
-                CrudGenerator.txtEntityNameSingular_TextChanged();
+
+                string camell = "";
+                var lower = txtCamelSingular.Text;
+                if (lower.ToLower().Substring(lower.Length - 1, 1) == "s")
+                    camell = lower + "es";
+                else if (lower.ToLower().Substring(lower.Length - 1, 1) == "y" &&
+                    (
+                        (lower.ToLower().Substring(lower.Length - 2, 1) != "a") &&
+                        (lower.ToLower().Substring(lower.Length - 2, 1) != "e") &&
+                        (lower.ToLower().Substring(lower.Length - 2, 1) != "i") &&
+                        (lower.ToLower().Substring(lower.Length - 2, 1) != "o") &&
+                        (lower.ToLower().Substring(lower.Length - 2, 1) != "u")
+                    )
+                    )
+                {
+                    camell = lower.Substring(0, lower.Length - 1) + "ies";
+                }
+                else
+                    camell = lower + "s";
+
+                var capital = camell.Substring(0, 1).ToUpper() + camell.Substring(1);
+                var capitalSingular = lower.Substring(0, 1).ToUpper() + lower.Substring(1);
+
+                txtCamelPlural.Text = camell;
+                txtCapitalPlural.Text = capital;
+                txtCapitalSingular.Text = capitalSingular;
+
+                btnGenerate_Click(null, null);
             }
             catch (Exception err)
             { }
@@ -31,7 +58,35 @@ namespace MG
 
         private void btnGenerate_Click(object sender, EventArgs e)
         {
-            CrudGenerator.btnGenerate_Click();
+            var config = new MyCollege.Configuration();
+            var itemsToReplace = new List<ItemToReplace>
+                {
+                    new ItemToReplace
+                    {
+                        Key = "XXXEntityPluralXXX",
+                        Value = txtCapitalPlural.Text
+                    },
+                    new ItemToReplace
+                    {
+                        Key = "XXXEntityLowerPluralXXX",
+                        Value = txtCamelPlural.Text
+                    },
+                    new ItemToReplace
+                    {
+                        Key = "XXXEntitySingularXXX",
+                        Value = txtCapitalSingular.Text
+                    },
+                    new ItemToReplace
+                    {
+                        Key = "XXXEntityLowerSingularXXX",
+                        Value = txtCamelSingular.Text
+                    },new ItemToReplace
+                    {
+                        Key = "XXXProjectNameXXX",
+                        Value = config.ProjectName
+                    }
+                };
+            CrudGenerator.btnGenerate_Click(config, itemsToReplace);
         }
 
         private void btnSaveOnDisk_Click(object sender, EventArgs e)
@@ -88,7 +143,7 @@ namespace MG
             txtRelateEntity.Clear();
             txtRelateFieldDisplay.Clear();
             txtRelateFieldValue.Clear();
-            CrudGenerator.btnGenerate_Click(null, null);
+            btnGenerate_Click(null, null);
         }
 
         private void txtRelateFieldValue_TextChanged(object sender, EventArgs e)
@@ -97,12 +152,12 @@ namespace MG
             if (txtRelateFieldValue.Text.Length == 0)
                 return;
 
-            if (CrudGenerator.ExistInFielList(txtRelateFieldValue.Text))
+            if (CrudGenerator.ClassInfoData.ExistInFielList(txtRelateFieldValue.Text))
             {
                 txtRelateFieldValue.BackColor = Color.Green;
                 btnAgregarCombo.Enabled = true;
             }
-            else if (!CrudGenerator.ExistInFielList(txtRelateFieldValue.Text))
+            else if (!CrudGenerator.ClassInfoData.ExistInFielList(txtRelateFieldValue.Text))
             {
                 txtRelateFieldValue.BackColor = Color.Red;
                 btnAgregarCombo.Enabled = false;
@@ -115,7 +170,7 @@ namespace MG
             if (txtRelateEntity.Text.Length == 0)
                 return;
 
-            if (CrudGenerator.getFieldListFromEntity(txtRelateEntity.Text).Count == 0)
+            if (CrudGenerator.ClassInfoData.GetFieldListFromEntity(txtRelateEntity.Text).Count == 0)
                 txtRelateEntity.BackColor = Color.Red;
             else
                 txtRelateEntity.BackColor = Color.Green;
@@ -127,13 +182,12 @@ namespace MG
             if (txtRelateFieldDisplay.Text.Length == 0)
                 return;
 
-
-            if (CrudGenerator.ExistInRelatedFielList(txtRelateFieldDisplay.Text))
+            if (CrudGenerator.ClassInfoData.ExistInRelatedFielList(txtRelateFieldDisplay.Text, txtRelateEntity.Text))
             {
                 txtRelateFieldDisplay.BackColor = Color.Green;
                 btnAgregarCombo.Enabled = true;
             }
-            else if (!CrudGenerator.ExistInRelatedFielList(txtRelateFieldDisplay.Text))
+            else if (!CrudGenerator.ClassInfoData.ExistInRelatedFielList(txtRelateFieldDisplay.Text, txtRelateEntity.Text))
             {
                 txtRelateFieldDisplay.BackColor = Color.Red;
                 btnAgregarCombo.Enabled = false;

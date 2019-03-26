@@ -8,12 +8,6 @@ namespace MG.MyCollege
 {
     public class ClassInfoData
     {
-        private string _classPath { get; set; }
-        private string _classesPath { get; set; }
-        private string _specificType { get; set; }
-        private List<TripleValue<string, string, string, string>> _fields { get; set; }
-        private string[] _loadedClass { get; set; }
-
         public ClassInfoData
         (
             string classesPath,
@@ -24,10 +18,10 @@ namespace MG.MyCollege
         {
             this.ItemToReplaces = itemToReplaces;
             this.ComboParameters = comboParameters;
-            this._classPath = classesPath + className;
-            this._classesPath = classesPath;
-            _loadedClass = System.IO.File.ReadAllLines(this._classPath);
-            this._fields = this.GetFieldListFromEntity(this._loadedClass);
+            this.ClassPath = classesPath + className;
+            this.ClassesPath = classesPath;
+            LoadedClass = System.IO.File.ReadAllLines(this.ClassPath);
+            this.Fields = this.GetFieldListFromEntity(this.LoadedClass);
         }
 
         public string XXXEntityPluralXXX { get => GetItemToReplace("XXXEntityPluralXXX"); } // txtCapitalPlural.Text
@@ -35,23 +29,21 @@ namespace MG.MyCollege
         public string XXXEntitySingularXXX { get => GetItemToReplace("XXXEntitySingularXXX"); } //  txtCapitalSingular.Text);
         public string XXXEntityLowerSingularXXX { get => GetItemToReplace("XXXEntityLowerSingularXXX"); } // txtCamelSingular.Text
 
-
-
         public string DefaultIconMenu { get; set; }
 
-        public string ClassPath { get => this._classPath; }
+        public string ClassPath { get; private set; }
 
-        public string ClassesPath { get => this._classesPath; }
+        public string ClassesPath { get; private set; }
 
-        public string SpecificType { get => this._specificType; }
+        public string SpecificType { get; private set; }
 
-        public string[] LoadedClass { get => this._loadedClass; }
+        public string[] LoadedClass { get; private set; }
 
-        public List<TripleValue<string, string, string, string>> Fields { get => this._fields; }
+        public List<TripleValue<string, string, string, string>> Fields { get; private set; }
 
-        public List<ComboParameter> ComboParameters { get; set; }
+        public List<ComboParameter> ComboParameters { get; private set; }
 
-        public List<ItemToReplace> ItemToReplaces { get; set; }
+        public List<ItemToReplace> ItemToReplaces { get; private set; }
 
         private List<TripleValue<string, string, string, string>> GetFieldListFromEntity(string[] loadedClass)
         {
@@ -64,7 +56,7 @@ namespace MG.MyCollege
                     var index = classHeader.IndexOf("<");
                     var specificInitial = classHeader.Substring(index + 1, 1);
                     if (specificInitial != "i")
-                        _specificType = "long";
+                        this.SpecificType = "long";
                 }
 
                 var allowedtypes = new List<string>()
@@ -125,7 +117,7 @@ namespace MG.MyCollege
             {
                 //esto es usado solo para tener el nombre de la entidad en sus diferentes case
                 ComboParameter cb = new ComboParameter(EntityNameSingular, "", "");
-                var ClassPath = _classesPath + cb.EntityPlural + ".cs";
+                var ClassPath = this.ClassesPath + cb.EntityPlural + ".cs";
                 var loadedClass = System.IO.File.ReadAllLines(ClassPath);
                 return this.GetFieldListFromEntity(loadedClass);
             }
@@ -203,6 +195,16 @@ namespace MG.MyCollege
                 this.ComboParameters = new List<ComboParameter>();
             }
             this.ComboParameters.Add(comboParameter);
+        }
+
+        public bool ExistInFielList(string field)
+        {
+            return Fields.Any(x => x.Value == field);
+        }
+
+        public bool ExistInRelatedFielList(string field, string relatedEnitity)
+        {
+            return this.GetFieldListFromEntity(relatedEnitity).Any(x => x.Value == field);
         }
 
     }
