@@ -10,15 +10,20 @@ namespace MG.MyCollege
     {
         public ClassInfoData ClassInfoData { get; private set; }
         public Configuration Configuration { get; private set; }
-        public string Version { get => Configuration.Version;  }
-        public string TemplateDirectory { get => Configuration.TemplateDirectory; } 
-        public string ProjectName { get => Configuration.ProjectName; } 
+        public string Version { get; private set; }
+        public string TemplateDirectory { get; private set; }
+        public string ProjectName { get; private set; }
 
         public List<ItemFileToGenerate> ItemFileToGenerates { get; private set; }
 
         public CrudGenerator(Configuration Configuration, List<ItemToReplace> ItemToReplaces)
         {
             Initialize(Configuration, ItemToReplaces);
+
+            this.Version = Configuration.GetConfig("Version");
+            this.TemplateDirectory = Configuration.GetConfig("TemplateDirectory");
+            this.ProjectName = Configuration.GetConfig("ProjectName");
+
         }
 
         private void Initialize(Configuration Configuration, List<ItemToReplace> ItemToReplaces)
