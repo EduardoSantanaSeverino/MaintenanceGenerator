@@ -34,9 +34,24 @@ namespace MG
                         SpecificType = "long";
                 }
                 
-
-                List<string> allowedtypes = new List<string>() { "int", "string", "String","Integer","DateTime","Date","decimal","Decimal","float","double","Double","long","int32",
-                "int16","int64","bool","Boolean" };
+                List<string> allowedtypes = new List<string>() {
+                    "int",
+                    "string",
+                    "String",
+                    "Integer",
+                    "DateTime",
+                    "Date",
+                    "decimal",
+                    "Decimal",
+                    "float",
+                    "double",
+                    "Double",
+                    "long",
+                    "int32",
+                    "int16",
+                    "int64",
+                    "bool",
+                    "Boolean" };
 
 
                 for (int i = 0; i < loadedClass.Length; i++)

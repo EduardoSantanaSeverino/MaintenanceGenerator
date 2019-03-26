@@ -9,22 +9,25 @@ namespace MG.MyCollege
     public class ClassInfoData
     {
         private string _classPath { get; set; }
+        private string _classesPath { get; set; }
         private string _specificType { get; set; }
         private List<TripleValue<string, string, string, string>> _fields { get; set; }
         private string[] _loadedClass { get; set; }
 
         public ClassInfoData
         (
-            string classPath,
+            string classesPath,
+            string className,
             List<ItemToReplace> itemToReplaces,
             List<ComboParameter> comboParameters = null
         )
         {
             this.ItemToReplaces = itemToReplaces;
             this.ComboParameters = comboParameters;
-            this._classPath = classPath;
+            this._classPath = classesPath + className;
+            this._classesPath = classesPath;
             _loadedClass = System.IO.File.ReadAllLines(this._classPath);
-            this._fields = this.GetFieldListFromEntity();
+            this._fields = this.GetFieldListFromEntity(this._loadedClass);
         }
 
         public string XXXEntityPluralXXX { get => GetItemToReplace("XXXEntityPluralXXX"); } // txtCapitalPlural.Text
@@ -32,9 +35,13 @@ namespace MG.MyCollege
         public string XXXEntitySingularXXX { get => GetItemToReplace("XXXEntitySingularXXX"); } //  txtCapitalSingular.Text);
         public string XXXEntityLowerSingularXXX { get => GetItemToReplace("XXXEntityLowerSingularXXX"); } // txtCamelSingular.Text
 
+
+
         public string DefaultIconMenu { get; set; }
 
         public string ClassPath { get => this._classPath; }
+
+        public string ClassesPath { get => this._classesPath; }
 
         public string SpecificType { get => this._specificType; }
 
@@ -46,12 +53,12 @@ namespace MG.MyCollege
 
         public List<ItemToReplace> ItemToReplaces { get; set; }
 
-        private List<TripleValue<string, string, string, string>> GetFieldListFromEntity()
+        private List<TripleValue<string, string, string, string>> GetFieldListFromEntity(string[] loadedClass)
         {
             var fieldList = new List<TripleValue<string, string, string, string>>();
             try
             {
-                var classHeader = this._loadedClass.Where(x => x.Contains("Tenant<")).ToList().FirstOrDefault();
+                var classHeader = loadedClass.Where(x => x.Contains("Tenant<")).ToList().FirstOrDefault();
                 if (classHeader != null)
                 {
                     var index = classHeader.IndexOf("<");
@@ -82,9 +89,9 @@ namespace MG.MyCollege
                 };
 
 
-                for (int i = 0; i < this._loadedClass.Length; i++)
+                for (int i = 0; i < loadedClass.Length; i++)
                 {
-                    var lineX = this._loadedClass[i];
+                    var lineX = loadedClass[i];
                     if (!lineX.Contains("public"))
                         continue;
 
@@ -100,7 +107,7 @@ namespace MG.MyCollege
 
                     if (!allowedtypes.Contains(type.Replace("?", "")))
                         continue;
-                    var LineXAnterior = this._loadedClass[i - 1];
+                    var LineXAnterior = loadedClass[i - 1];
                     var MaxLenght = GetMaxLengString(LineXAnterior);
                     var MaxLenghtJustInt = GetMaxLengIntForString(LineXAnterior);
 
@@ -110,6 +117,20 @@ namespace MG.MyCollege
             }
             catch (Exception err) { }
             return fieldList;
+        }
+
+        public List<TripleValue<string, string, string, string>> GetFieldListFromEntity(String EntityNameSingular)
+        {
+            try
+            {
+                //esto es usado solo para tener el nombre de la entidad en sus diferentes case
+                ComboParameter cb = new ComboParameter(EntityNameSingular, "", "");
+                var ClassPath = _classesPath + cb.EntityPlural + ".cs";
+                var loadedClass = System.IO.File.ReadAllLines(ClassPath);
+                return this.GetFieldListFromEntity(loadedClass);
+            }
+            catch (Exception err) { }
+            return new List<TripleValue<string, string, string, string>>();
         }
 
         private string GetTypeString(string Line)

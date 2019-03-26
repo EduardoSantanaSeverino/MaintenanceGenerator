@@ -20,7 +20,17 @@ namespace MG.MyCollege
         public CrudGenerator(Configuration Configuration, List<ItemToReplace> ItemToReplaces)
         {
             string entity = ItemToReplaces.FirstOrDefault(p => p.Name == "XXXEntityPluralXXX").Value;
-            this.ClassInfoData = new ClassInfoData(Configuration.GetConfig("ClassesPath") + entity + ".cs", ItemToReplaces);
+            this.ClassInfoData = new ClassInfoData(Configuration.GetConfig("ClassesPath"), entity + ".cs", ItemToReplaces);
+
+            /*
+             
+            frmPrincipal.AuthorizationProviderFile = frmPrincipal.AuthorizationDirectory + @"\" + Utils.ProjectName + "AuthorizationProvider.cs";
+            frmPrincipal.PermissionNamesFile = frmPrincipal.AuthorizationDirectory + @"\PermissionNames.cs";
+            frmPrincipal.AppJsFile = frmPrincipal.WebMainDirectory + @"app.js";
+            frmPrincipal.NavigationProviderFile = frmPrincipal.WebDirectory + @"App_Start\"+Utils.ProjectName +"NavigationProvider.cs";
+            frmPrincipal.NavBarJSFile = frmPrincipal.ViewsDirectory + @"layout\" + Utils.SideBarFileName;
+             
+             */
 
             Configuration.AddConfig(new List<ItemConfig> {
                 new ItemConfig
@@ -216,46 +226,97 @@ namespace MG.MyCollege
                 (
                     Id: (int)FileStackId.AuthorizationProviderTemplate,
                     Name: "AuthorizationProviderTemplate",
-                    Path: Configuration.GetConfig("") + @"\" + ClassInfoData.XXXEntitySingularXXX + "AppService.cs",
+                    Path: this.Configuration.GetConfig("AuthorizationProviderFile"),
                     TemplateName: "AuthorizationProvider.tpt",
                     TemplateDirectory: TemplateDirectory,
-                    ClassInfoData: this.ClassInfoData
+                    ClassInfoData: this.ClassInfoData,
+                    ItemFieldTypeTemplates: new List<ItemFieldTypeTemplate>
+                    {
+                        new ItemFieldTypeTemplate("")
+                        {
+                            Name = "AuthorizationProviderFile",
+                            TemplateName = this.Configuration.GetConfig("AuthorizationProviderFile")
+                        }
+                    }
                 ),
                 new ItemFileToGenerate
                 (
                     Id: (int)FileStackId.PermissionNameTemplate,
                     Name: "PermissionNameTemplate",
-                    Path: Configuration.GetConfig("") + @"\" + ClassInfoData.XXXEntitySingularXXX + "AppService.cs",
+                    Path: this.Configuration.GetConfig("PermissionNamesFile"),
                     TemplateName: "PermissionName.tpt",
                     TemplateDirectory: TemplateDirectory,
-                    ClassInfoData: this.ClassInfoData
+                    ClassInfoData: this.ClassInfoData,
+                    ItemFieldTypeTemplates: new List<ItemFieldTypeTemplate>
+                    {
+                        new ItemFieldTypeTemplate("")
+                        {
+                            Name = "PermissionNamesFile",
+                            TemplateName = this.Configuration.GetConfig("PermissionNamesFile")
+                        },
+                        new ItemFieldTypeTemplate(TemplateDirectory)
+                        {
+                            Name = "AuthorizationProviderTemplate",
+                            TemplateName = "AuthorizationProvider.tpt"
+                        },
+
+                    }
                 ),
                 new ItemFileToGenerate
                 (
                     Id: (int)FileStackId.AppJsMenuTemplate,
                     Name: "AppJsMenuTemplate",
-                    Path: Configuration.GetConfig("") + @"\" + ClassInfoData.XXXEntitySingularXXX + "AppService.cs",
+                    Path: this.Configuration.GetConfig("AppJsFile"),
                     TemplateName: "AppJsMenu.tpt",
                     TemplateDirectory: TemplateDirectory,
-                    ClassInfoData: this.ClassInfoData
+                    ClassInfoData: this.ClassInfoData,
+                    ItemFieldTypeTemplates: new List<ItemFieldTypeTemplate>
+                    {
+                        new ItemFieldTypeTemplate("")
+                        {
+                            Name = "AppJsFile",
+                            TemplateName = this.Configuration.GetConfig("AppJsFile")
+                        }
+                    }
                 ),
                 new ItemFileToGenerate
                 (
                     Id: (int)FileStackId.NavigationProviderTemplate,
                     Name: "NavigationProviderTemplate",
-                    Path: Configuration.GetConfig("") + @"\" + ClassInfoData.XXXEntitySingularXXX + "AppService.cs",
+                    Path: this.Configuration.GetConfig("NavigationProviderFile"),
                     TemplateName: "NavigationProvider.tpt",
                     TemplateDirectory: TemplateDirectory,
-                    ClassInfoData: this.ClassInfoData
+                    ClassInfoData: this.ClassInfoData,
+                    ItemFieldTypeTemplates: new List<ItemFieldTypeTemplate>
+                    {
+                        new ItemFieldTypeTemplate(TemplateDirectory)
+                        {
+                            Name = "AuthorizationProviderTemplate",
+                            TemplateName = "AuthorizationProvider.tpt"
+                        },
+                        new ItemFieldTypeTemplate("")
+                        {
+                            Name = "NavigationProviderFile",
+                            TemplateName = this.Configuration.GetConfig("NavigationProviderFile")
+                        }
+                    }
                 ),
                 new ItemFileToGenerate
                 (
                     Id: (int)FileStackId.MenuSideBarNavTemplate,
                     Name: "MenuSideBarNavTemplate",
-                    Path: Configuration.GetConfig("") + @"\" + ClassInfoData.XXXEntitySingularXXX + "AppService.cs",
+                    Path: this.Configuration.GetConfig("NavBarJSFile"),
                     TemplateName: "MenuSideBarNav.tpt",
                     TemplateDirectory: TemplateDirectory,
-                    ClassInfoData: this.ClassInfoData
+                    ClassInfoData: this.ClassInfoData,
+                    ItemFieldTypeTemplates: new List<ItemFieldTypeTemplate>
+                    {
+                        new ItemFieldTypeTemplate("")
+                        {
+                            Name = "NavBarJSFile",
+                            TemplateName = this.Configuration.GetConfig("NavBarJSFile")
+                        }
+                    }
                 ),
 
         };

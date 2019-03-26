@@ -124,7 +124,297 @@ namespace MG.MyCollege
                 GenerateDtoTemplate();
             }
 
+            if (this.Id == (int)FileStackId.AppServiceTemplate)
+            {
+                GenerateAppService();
+            }
+
+            if (this.Id == (int)FileStackId.IAppServiceTemplate)
+            {
+                GenerateIAppService();
+            }
+
+            if (this.Id == (int)FileStackId.AuthorizationProviderTemplate)
+            {
+                GenerateAuthorizationProviderTemplate();
+            }
+
+            if (this.Id == (int)FileStackId.MenuSideBarNavTemplate)
+            {
+                GenerateMenuSideBarNavTemplate();
+            }
+
+            if (this.Id == (int)FileStackId.PermissionNameTemplate)
+            {
+                GeneratePermissionNameTemplate();
+            }
+
+            if (this.Id == (int)FileStackId.NavigationProviderTemplate)
+            {
+                GenerateNavigationProviderTemplate();
+            }
+            if (this.Id == (int)FileStackId.AppJsMenuTemplate)
+            {
+                GenerateAppJsMenuTemplate();
+            }
+
         }
+
+        private void GenerateAppJsMenuTemplate()
+        {
+            var AppJsTemplate = ReplaceAllKeysWithRealValues(this.TemplateMarkup);
+            var appJsOriginal = this.GetFieldTypeTemplate("AppJsFile");
+            var appJsctualExistente = getLevel("if (abp.auth.hasPermission('", AppJsTemplate, "')").TrimEnd().TrimStart();
+            if (!this.GetFieldTypeTemplate("AppJsFile").Contains(appJsctualExistente))
+                appJsOriginal = this.GetFieldTypeTemplate("AppJsFile")
+                   .Replace(XXXInsertAppJsMenuXXX, AppJsTemplate + "\n\n" + XXXInsertAppJsMenuXXX).Replace("XXXFaIconXXX", ClassInfoData.DefaultIconMenu);
+
+        }
+
+        private void GenerateNavigationProviderTemplate()
+        {
+            var AuthorizationProviderTemplate = ReplaceAllKeysWithRealValues(this.GetFieldTypeTemplate("AuthorizationProviderTemplate"));
+            var autorizacionActualExistente = getLevel("context.CreatePermission(", AuthorizationProviderTemplate, ",").TrimEnd().TrimStart();
+            var NavigationProviderTemplate = ReplaceAllKeysWithRealValues(this.TemplateMarkup);
+            var navigationProviderOriginal = this.GetFieldTypeTemplate("NavigationProviderFile");
+            if (!this.GetFieldTypeTemplate("NavigationProviderFile").Contains(autorizacionActualExistente))
+                navigationProviderOriginal = this.GetFieldTypeTemplate("NavigationProviderFile")
+                    .Replace(XXXInsertNavitationProviderXXX, NavigationProviderTemplate + "\n\n" + XXXInsertNavitationProviderXXX);
+        }
+
+        private void GeneratePermissionNameTemplate()
+        {
+            var AuthorizationProviderTemplate = ReplaceAllKeysWithRealValues(this.GetFieldTypeTemplate("AuthorizationProviderTemplate"));
+            var PermisionNameTemplate = ReplaceAllKeysWithRealValues(this.TemplateMarkup);
+            var permissionNameOriginal = this.GetFieldTypeTemplate("PermissionNamesFile");
+            var autorizacionActualExistente = getLevel("context.CreatePermission(", AuthorizationProviderTemplate, ",").TrimEnd().TrimStart();
+            var permisionNameExistente = autorizacionActualExistente.Replace("PermissionNames.", "");
+            if (!this.GetFieldTypeTemplate("PermissionNamesFile").Contains(permisionNameExistente))
+                permissionNameOriginal = this.GetFieldTypeTemplate("PermissionNamesFile")
+                   .Replace(XXXInsertPermissionNamesXXX, PermisionNameTemplate + "\n\n" + XXXInsertPermissionNamesXXX);
+
+            this.TemplateMarkup = PermisionNameTemplate;
+        }
+
+        private void GenerateMenuSideBarNavTemplate()
+        {
+            var MenuSideBarNavTemplate = ReplaceAllKeysWithRealValues(this.TemplateMarkup);
+            var MenuSideBarNavOriginal = this.GetFieldTypeTemplate("NavBarJSFile");
+            var MenuSideBarExistente = getLevel(",createMenuItem(App.localize(", MenuSideBarNavTemplate, ")").TrimEnd().TrimStart();
+            if (!this.GetFieldTypeTemplate("NavBarJSFile").Contains(MenuSideBarExistente))
+                MenuSideBarNavOriginal = this.GetFieldTypeTemplate("NavBarJSFile")
+                   .Replace(XXXInsertMenuItemXXX, MenuSideBarNavTemplate + "\n\n" + XXXInsertMenuItemXXX);
+
+            this.TemplateMarkup = MenuSideBarNavTemplate;
+        }
+
+        private void GenerateAuthorizationProviderTemplate()
+        {
+            var AuthorizationProviderTemplate = ReplaceAllKeysWithRealValues(this.TemplateMarkup);
+            var authorizationProviderOriginal = this.GetFieldTypeTemplate("AuthorizationProviderFile");
+            var autorizacionActualExistente = getLevel("context.CreatePermission(", AuthorizationProviderTemplate, ",").TrimEnd().TrimStart();
+            if (!this.GetFieldTypeTemplate("AuthorizationProviderFile").Contains(autorizacionActualExistente))
+                authorizationProviderOriginal = this.GetFieldTypeTemplate("AuthorizationProviderFile")
+                    .Replace(XXXInsertAuthorizationProviderXXX, AuthorizationProviderTemplate + "\n\n" + XXXInsertAuthorizationProviderXXX);
+
+            this.TemplateMarkup = AuthorizationProviderTemplate;
+        }
+
+        public string getLevel(string except, string valorCompleto, string removeFinal)
+        {
+            var valorSinFinal = "";
+
+            if (!string.IsNullOrEmpty(removeFinal))
+            {
+                var indiceElementoFinal = valorCompleto.IndexOf(removeFinal);
+                valorSinFinal = valorCompleto.Substring(0, indiceElementoFinal);
+            }
+            else
+                valorSinFinal = valorCompleto;
+            return valorSinFinal.Replace(except, "").TrimEnd().TrimStart();
+        }
+
+        private void GenerateIAppService()
+        {
+            var stringDataIAppService = this.TemplateMarkup.Replace(XXXEntitySingularXXX, ClassInfoData.XXXEntitySingularXXX);
+            stringDataIAppService = stringDataIAppService.Replace(XXXEntityPluralXXX, ClassInfoData.XXXEntityPluralXXX);
+            stringDataIAppService = stringDataIAppService.Replace(XXXProjectNameXXX, ClassInfoData.GetItemToReplace(XXXProjectNameXXX));
+            stringDataIAppService = ReplaceAllKeyTypes(stringDataIAppService);
+            this.TemplateMarkup = stringDataIAppService;
+        }
+
+        private void GenerateAppService()
+        {
+
+            List<TripleValue<string, string, string, String>> fielListUsed = ClassInfoData.Fields;
+            if (fielListUsed.Count == 0)
+                return;
+
+            string FirstStringField = "";
+            if (fielListUsed.Any(x => x.Value == "Name"))
+                FirstStringField = "Name";
+
+            if (FirstStringField == "")
+            {
+                var stringf = fielListUsed.FirstOrDefault(x => x.Key.ToLower() == "string");
+                if (stringf != null)
+                    FirstStringField = stringf.Value;
+            }
+            if (FirstStringField == "")
+            {
+                var stringf = fielListUsed.FirstOrDefault(x => x.Value.ToLower() != "hoscodigo");
+                if (stringf != null)
+                    FirstStringField = stringf.Value;
+            }
+
+            // TODO
+            //AddLocalization("CreateNew" + txtCapitalSingular.Text);
+            //AddLocalization("Edit" + txtCapitalSingular.Text);
+            //AddLocalization("New" + txtCapitalSingular.Text);
+            //AddLocalization(txtCapitalPlural.Text);
+
+            var stringDataIAppService = this.TemplateMarkup.Replace(XXXEntitySingularXXX, ClassInfoData.XXXEntitySingularXXX);
+
+            //AddLocalization(txtCapitalSingular.Text);
+            stringDataIAppService = stringDataIAppService.Replace(XXXEntityPluralXXX, ClassInfoData.XXXEntityPluralXXX);
+            stringDataIAppService = stringDataIAppService.Replace(XXXProjectNameXXX, ClassInfoData.GetItemToReplace(XXXProjectNameXXX));
+            stringDataIAppService = ReplaceAllKeyTypes(stringDataIAppService);
+            //rtbIAppSericeGenerator.Clear();
+            //rtbIAppSericeGenerator.AppendText(stringDataIAppService);
+
+            String StringWitRepositoryDeclarationList = generateListOfRepositoryDeclaration(fielListUsed);
+            String StringWitRepositoryConstructorList = generateListOfRepositoryContructor(fielListUsed);
+            String StringWitRepositorySettingList = generateListOfRepositorySetting(fielListUsed);
+
+            var stringDataAppService = this.TemplateMarkup.Replace(XXXEntitySingularXXX, ClassInfoData.XXXEntitySingularXXX);
+
+            var FieldAlternativeSequence = "";
+
+            if (fielListUsed.Any(x => x.Value.Contains("Sequence")))
+                FieldAlternativeSequence = "Sequence";
+            else if (fielListUsed.Any(x => x.Value.Contains("Number")))
+                FieldAlternativeSequence = "Number";
+
+            if (FieldAlternativeSequence.Length > 0)
+            {
+                var newSequenceString = @"
+                var sequence = 1;
+                try
+                {
+                    using (CurrentUnitOfWork.DisableFilter(AbpDataFilters.SoftDelete, AbpDataFilters.MustHaveTenant))
+                    {
+                        sequence = _mcTransactionRepository.GetAllList(x => x.TenantId == AbpSession.TenantId).Max(x => x.xxxSequencexxx) + 1;
+                    }
+                }
+                catch{}
+                message.xxxSequencexxx = sequence;
+            ";
+
+
+                stringDataAppService = stringDataAppService.Replace("//XXXInsertAlternativeSequenceXXX", newSequenceString);
+
+                stringDataAppService = stringDataAppService.Replace("xxxSequencexxx", FieldAlternativeSequence);
+            }
+
+
+            stringDataAppService = ReplaceAllKeysWithRealValues(stringDataAppService);
+            stringDataAppService = stringDataAppService.Replace(XXXRepositoryDeclarationListXXX, StringWitRepositoryDeclarationList);
+            stringDataAppService = stringDataAppService.Replace(XXXRepositoryConstructorListXXX, StringWitRepositoryConstructorList);
+            stringDataAppService = stringDataAppService.Replace(XXXRepositorySettingListXXX, StringWitRepositorySettingList);
+            stringDataAppService = ReplaceAllKeyTypes(stringDataAppService);
+
+            stringDataAppService = stringDataAppService.Replace("x.Name.Contains", "x." + FirstStringField + ".Contains");
+            stringDataAppService = stringDataAppService.Replace("r.Name", "r." + FirstStringField);
+
+
+
+
+            //rtbAppSericeGenerator.Clear();
+
+            //rtbAppSericeGenerator.AppendText(stringDataAppService);
+
+            //ClassPath = ClassesPath + txtCapitalPlural.Text + ".cs";
+
+            //var LoadedClass = System.IO.File.ReadAllLines(ClassPath);
+
+            //String CallRelatedEntities = "";
+
+            //FielList = GenerateDtos(LoadedClass);
+
+            //List<string> FielListForIndexJs = GenerateFielListForIndexJs(FielList, out CallRelatedEntities);
+            //List<string> FielListForCreateCsHtml = GenerateFielListForCreateCsHtml(FielList);
+
+            //GenerateJsFiles(FielList, FielListForIndexJs, CallRelatedEntities);
+
+            //GenerateCsHtmlFiles(FielListForCreateCsHtml);
+
+            //GenerateNavigationYAuthorizationEditions();
+
+            //for (int i = 0; i < ListOfLocalizationKeys.Count; i++)
+            //{
+            //    ListOfLocalizationKeys[i] = ListOfLocalizationKeys[i].Replace(XXXEntitySingularXXX, txtCapitalSingular.Text);
+            //    Localizations.AppendText(ListOfLocalizationKeys[i] + "\n");
+            //}
+
+
+        }
+
+        private string generateListOfRepositoryDeclaration(List<TripleValue<string, string, string, String>> fielList)
+        {
+            var RelatedEntities = "\n";
+            foreach (var item in fielList)
+            {
+                var comboParameter = GetComboParameter(item.Value);
+                if (comboParameter != null)
+                {
+                    var templateSeletedted = "		    private readonly IRepository<Models.XXXEntityPluralXXX, int> _XXXEntityLowerSingularXXXRepository;";
+                    templateSeletedted = templateSeletedted.Replace(XXXEntityPluralXXX, comboParameter.EntityPlural);
+                    templateSeletedted = templateSeletedted.Replace(XXXEntityLowerSingularXXX, comboParameter.EntityCamelSingular);
+
+                    RelatedEntities += templateSeletedted + "\n";
+                }
+            }
+            return RelatedEntities;
+        }
+
+        private string generateListOfRepositoryContructor(List<TripleValue<string, string, string, String>> fielList)
+        {
+            var RelatedEntities = "";
+            foreach (var item in fielList)
+            {
+                var comboParameter = GetComboParameter(item.Value);
+                if (comboParameter != null)
+                {
+                    var templateSeletedted = ",\n            IRepository<Models.XXXEntityPluralXXX, int> XXXEntityLowerSingularXXXRepository";
+                    templateSeletedted = templateSeletedted.Replace(XXXEntityPluralXXX, comboParameter.EntityPlural);
+                    templateSeletedted = templateSeletedted.Replace(XXXEntityLowerSingularXXX, comboParameter.EntityCamelSingular);
+
+                    RelatedEntities += templateSeletedted + "\n";
+                }
+            }
+            return RelatedEntities;
+        }
+
+        private string generateListOfRepositorySetting(List<TripleValue<string, string, string, String>> fielList)
+        {
+            var RelatedEntities = "\n";
+            foreach (var item in fielList)
+            {
+
+
+                var comboParameter = GetComboParameter(item.Value);
+                if (comboParameter != null)
+                {
+                    var templateSeletedted = "            _XXXEntityLowerSingularXXXRepository = XXXEntityLowerSingularXXXRepository;\n";
+                    templateSeletedted = templateSeletedted.Replace(XXXEntityPluralXXX, comboParameter.EntityPlural);
+                    templateSeletedted = templateSeletedted.Replace(XXXEntityLowerSingularXXX, comboParameter.EntityCamelSingular);
+
+                    RelatedEntities += templateSeletedted + "\n";
+                }
+            }
+            return RelatedEntities;
+        }
+
 
         public static string GetTypeString(String Line)
         {
