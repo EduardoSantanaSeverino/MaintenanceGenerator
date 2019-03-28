@@ -10,7 +10,7 @@ namespace MG.Generic
     {
         List<IItemToReplace> ItemToReplaces { get; }
 
-        void AddInputControls();
+        void AddInputControls(IFrmMainApp form);
 
         void AddOutputControls();
     }

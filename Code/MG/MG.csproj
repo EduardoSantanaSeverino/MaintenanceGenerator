@@ -90,7 +90,8 @@
     <Compile Include="Generic\IFrmMainApp.cs" />
     <Compile Include="MyCollege\ItemFileToGenerate.cs" />
     <Compile Include="Generic\ItemConfig.cs" />
-    <Compile Include="Generic\ItemToReplace.cs" />
+    <Compile Include="Generic\ItemToReplaceBase.cs" />
+    <Compile Include="MyCollege\ItemToReplace.cs" />
     <Compile Include="TripleValue.cs" />
     <Compile Include="UsingTemplates\AppServiceCreator.cs" />
     <Compile Include="UsingTemplates\CsHtmlCreator.cs" />

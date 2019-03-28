@@ -8,18 +8,21 @@ namespace MG.Generic
 {
     public abstract class GenerateControlsBase : IGenerateControls
     {
-        private IFrmMainApp Form { get; set; }
+        private IFrmMainApp _form { get; set; }
 
-        public GenerateControlsBase(List<IItemToReplace> itemToReplaces, IFrmMainApp form)
+        private IConfiguration _configuration { get; set; }
+
+        public GenerateControlsBase(IConfiguration configuration)
         {
-            this.ItemToReplaces = itemToReplaces;
-            this.Form = form;
+            this._configuration = configuration;
+            this.ItemToReplaces = this._configuration.GetItemToReplaces();
         }
 
         public List<IItemToReplace> ItemToReplaces { get; private set; }
 
-        public void AddInputControls()
+        public void AddInputControls(IFrmMainApp form)
         {
+            this._form = form;
             foreach (var item in this.ItemToReplaces)
             {
                 var group = new System.Windows.Forms.FlowLayoutPanel();
@@ -29,18 +32,18 @@ namespace MG.Generic
                 group.Margin = new System.Windows.Forms.Padding(0);
                 group.Controls.Add(GetLabel(item));
                 group.Controls.Add(GetTextBox(item));
-                Form.FlowInput.Controls.Add(group);
+                _form.FlowInput.Controls.Add(group);
             }
-            Form.FlowInput.Controls.Add(GetSaveButton());
+            _form.FlowInput.Controls.Add(GetSaveButton());
         }
 
         public void AddOutputControls()
         {
-            foreach (var item in this.Form.CrudGenerator.ItemFileToGenerates)
+            foreach (var item in this._form.CrudGenerator.ItemFileToGenerates)
             {
                 if (!string.IsNullOrEmpty(item.ControlName))
                 {
-                    Form.FlowOutput.Controls.Add(GetRichTextBox(item));
+                    _form.FlowOutput.Controls.Add(GetRichTextBox(item));
                 }
             }
         }
@@ -98,10 +101,10 @@ namespace MG.Generic
         {
             try
             {
-                var c10 = (System.Windows.Forms.TextBox)Form.FlowInput.Controls.Find(GetItem(10), true)[0];
-                var c11 = (System.Windows.Forms.TextBox)Form.FlowInput.Controls.Find(GetItem(11), true)[0];
-                var c12 = (System.Windows.Forms.TextBox)Form.FlowInput.Controls.Find(GetItem(12), true)[0];
-                var c13 = (System.Windows.Forms.TextBox)Form.FlowInput.Controls.Find(GetItem(13), true)[0];
+                var c10 = (System.Windows.Forms.TextBox)_form.FlowInput.Controls.Find(GetItem(10), true)[0];
+                var c11 = (System.Windows.Forms.TextBox)_form.FlowInput.Controls.Find(GetItem(11), true)[0];
+                var c12 = (System.Windows.Forms.TextBox)_form.FlowInput.Controls.Find(GetItem(12), true)[0];
+                var c13 = (System.Windows.Forms.TextBox)_form.FlowInput.Controls.Find(GetItem(13), true)[0];
 
                 string camell = "";
                 var lower = c10.Text;
@@ -131,14 +134,14 @@ namespace MG.Generic
 
                 foreach (var item in ItemToReplaces)
                 {
-                    var c = this.Form.FlowInput.Controls.Find(item.Key, true);
+                    var c = this._form.FlowInput.Controls.Find(item.Key, true);
                     if (c != null && c.Any() && c[0].Name != c10.Name)
                     {
                         item.Value = ((System.Windows.Forms.TextBox)c[0]).Text; ;
                     }
                 }
 
-                Form.CrudGenerator.SetItemToReplace(this.ItemToReplaces);
+                _form.CrudGenerator.SetItemToReplace(this.ItemToReplaces);
 
             }
             catch (Exception err)
@@ -167,11 +170,11 @@ namespace MG.Generic
 
         private void btnSaveOnDisk_Click(object sender, EventArgs e)
         {
-            var btnSaveOnDisk = Form.FlowInput.Controls.Find("btnSaveOnDisk", true)[0];
+            var btnSaveOnDisk = _form.FlowInput.Controls.Find("btnSaveOnDisk", true)[0];
             btnSaveOnDisk.Visible = false;
             try
             {
-                Form.CrudGenerator.btnSaveOnDisk_Click();
+                _form.CrudGenerator.btnSaveOnDisk_Click();
                 System.Windows.Forms.MessageBox.Show("Mantenimiento generado exitosamente");
             }
             catch (Exception err)

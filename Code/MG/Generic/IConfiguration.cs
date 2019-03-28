@@ -27,5 +27,7 @@ namespace MG.Generic
         string GetConfig(string name);
 
         void ReadFromConfigFile();
+
+        List<IItemToReplace> GetItemToReplaces();
     }
 }

@@ -11,7 +11,7 @@ namespace MG.MyCollege
     public class Configuration : ConfigurationBase, IConfiguration
     {
       
-        public List<IItemToReplace> GetItemToReplaces()
+        public override List<IItemToReplace> GetItemToReplaces()
         {
             return new List<IItemToReplace>
             {

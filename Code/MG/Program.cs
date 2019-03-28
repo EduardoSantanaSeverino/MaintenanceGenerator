@@ -28,15 +28,15 @@ namespace MG
             container.Register(Component.For<IGenerateControls>().ImplementedBy<GenerateControls>());
             container.Register(Component.For<IItemFileToGenerate>().ImplementedBy<ItemFileToGenerate>());
             container.Register(Component.For<IItemToReplace>().ImplementedBy<ItemToReplace>());
-            container.Register(Component.For<List<IItemToReplace>>().ImplementedBy<List<IItemToReplace>>());
            
             // Resolve an object of type ICompositionRoot (ask the container for an instance)
             // This is analagous to calling new() in a non-IoC application.
-            var root = container.Resolve<ICrudGenerator>();
+            var crudGenerator = container.Resolve<ICrudGenerator>();
+            var generateControls = container.Resolve<IGenerateControls>();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmMainApp());
+            Application.Run(new frmMainApp(crudGenerator, generateControls));
          //   Application.Run(new frmPrincipal(new MyCollege.CrudGenerator(new MyCollege.Configuration(), new List<MyCollege.ItemToReplace>())));
         }
     }

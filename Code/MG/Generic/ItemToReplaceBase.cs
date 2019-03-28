@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MG.Generic
 {
-    public class ItemToReplace : IItemToReplace
+    public abstract class ItemToReplaceBase : IItemToReplace
     {
         public int Id { get; set; }
         public string Key { get; set; }

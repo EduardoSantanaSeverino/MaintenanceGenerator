@@ -109,5 +109,6 @@ namespace MG.Generic
             }
         }
 
+        public abstract List<IItemToReplace> GetItemToReplaces();
     }
 }

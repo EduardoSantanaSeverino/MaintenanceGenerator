@@ -9,7 +9,7 @@ namespace MG.MyCollege
 {
     public class GenerateControls : GenerateControlsBase, IGenerateControls
     {
-        public GenerateControls(List<IItemToReplace> itemToReplaces, IFrmMainApp form) : base(itemToReplaces, form)
+        public GenerateControls(IConfiguration configuration) : base(configuration)
         {
         }
     }

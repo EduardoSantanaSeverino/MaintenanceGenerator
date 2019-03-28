@@ -9,9 +9,9 @@ namespace MG.MyCollege
 {
     public class CrudGenerator : CrudGeneratorBase, ICrudGenerator
     {
-        public CrudGenerator(IConfiguration Configuration, List<IItemToReplace> ItemToReplaces)
+        public CrudGenerator(IConfiguration Configuration)
         {
-            Initialize(Configuration, ItemToReplaces);
+            Initialize(Configuration, Configuration.GetItemToReplaces());
 
             this.Version = Configuration.GetConfig("Version");
             this.TemplateDirectory = Configuration.GetConfig("TemplateDirectory");

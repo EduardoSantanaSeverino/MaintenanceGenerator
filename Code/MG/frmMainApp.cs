@@ -16,18 +16,12 @@ namespace MG
         public ICrudGenerator CrudGenerator { get; set; }
         public IGenerateControls GenerateControls { get; set; }
        
-        public frmMainApp()
+        public frmMainApp(ICrudGenerator crudGenerator, IGenerateControls generateControls)
         {
             InitializeComponent();
-            Init();
-        }
-
-        private void Init()
-        {
-            var config = new MyCollege.Configuration();
-            this.CrudGenerator = new MyCollege.CrudGenerator(config, config.GetItemToReplaces());
-            this.GenerateControls = new MyCollege.GenerateControls(config.GetItemToReplaces(), this);
-            this.GenerateControls.AddInputControls();
+            this.CrudGenerator = crudGenerator;
+            this.GenerateControls = generateControls;
+            this.GenerateControls.AddInputControls(this);
             this.GenerateControls.AddOutputControls();
         }
 
