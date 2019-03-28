@@ -33,10 +33,5 @@ namespace MG
         {
             this.Text = CrudGenerator.Version;
         }
-
-        private void flowInput_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
     }
 }

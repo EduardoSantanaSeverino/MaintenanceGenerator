@@ -15,15 +15,15 @@ namespace MG.MyCollege
         CreateJSTemplate,
         UpdateJSTemplate,
         DtoTemplate,
-        UpdateDtoTemplate, // = ReadTemplate("UpdateDto.tpt");
-        CreateDtoTemplate, // = ReadTemplate("CreateDto.tpt");
-        IAppServiceTemplate, // = ReadTemplate("IAppService.tpt");
-        AppServiceTemplate, // = ReadTemplate("AppService.tpt");
-        AuthorizationProviderTemplate, // = ReadTemplate("AuthorizationProvider.tpt");
-        PermissionNameTemplate, //= ReadTemplate("PermissionName.tpt");
-        AppJsMenuTemplate, //= ReadTemplate("AppJsMenu.tpt");
-        NavigationProviderTemplate, //= ReadTemplate("NavigationProvider.tpt");
-        MenuSideBarNavTemplate //= ReadTemplate("MenuSideBarNav.tpt");
+        UpdateDtoTemplate, 
+        CreateDtoTemplate, 
+        IAppServiceTemplate, 
+        AppServiceTemplate, 
+        AuthorizationProviderTemplate, 
+        PermissionNameTemplate, 
+        AppJsMenuTemplate, 
+        NavigationProviderTemplate,
+        MenuSideBarNavTemplate 
     }
     
 }

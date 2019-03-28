@@ -42,7 +42,6 @@
             this.flowInput.Name = "flowInput";
             this.flowInput.Size = new System.Drawing.Size(1222, 128);
             this.flowInput.TabIndex = 0;
-            this.flowInput.Paint += new System.Windows.Forms.PaintEventHandler(this.flowInput_Paint);
             // 
             // flowOutput
             // 
