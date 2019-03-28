@@ -60,7 +60,7 @@ namespace MG
         private void btnGenerate_Click(object sender, EventArgs e)
         {
             var config = new MyCollege.Configuration();
-            var itemsToReplace = new List<ItemToReplace>
+            var itemsToReplace = new List<IItemToReplace>
                 {
                     new ItemToReplace
                     {

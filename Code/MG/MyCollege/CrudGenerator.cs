@@ -9,15 +9,7 @@ namespace MG.MyCollege
 {
     public class CrudGenerator : CrudGeneratorBase, ICrudGenerator
     {
-        public IClassInfoData ClassInfoData { get; private set; }
-        public IConfiguration Configuration { get; private set; }
-        public string Version { get; private set; }
-        public string TemplateDirectory { get; private set; }
-        public string ProjectName { get; private set; }
-
-        public List<IItemFileToGenerate> ItemFileToGenerates { get; private set; }
-
-        public CrudGenerator(IConfiguration Configuration, List<ItemToReplace> ItemToReplaces)
+        public CrudGenerator(IConfiguration Configuration, List<IItemToReplace> ItemToReplaces)
         {
             Initialize(Configuration, ItemToReplaces);
 
@@ -27,16 +19,26 @@ namespace MG.MyCollege
 
         }
 
-        public void SetItemToReplace(List<ItemToReplace> itemToReplaces)
+        public override void SetItemToReplace(List<IItemToReplace> itemToReplaces)
         {
             Initialize(this.Configuration, itemToReplaces);
         }
 
-        private void Initialize(IConfiguration Configuration, List<ItemToReplace> ItemToReplaces)
+        public override void AddComboParameter(ComboParameter comboParameter)
         {
-            string entity = ItemToReplaces.FirstOrDefault(p => p.Key == "XXXEntityPluralXXX").Value;
-            this.ClassInfoData = new ClassInfoData(Configuration.GetConfig("ClassesPath"), entity + ".cs", ItemToReplaces);
+            this.ClassInfoData.AddComboParameter(comboParameter);
+            LoadItemFileToCreate();
+        }
 
+        public override void btnGenerate_Click(IConfiguration Configuration, List<IItemToReplace> ItemToReplaces)
+        {
+            Initialize(Configuration, ItemToReplaces);
+        }
+
+        private void Initialize(IConfiguration Configuration, List<IItemToReplace> ItemToReplaces)
+        {
+            string entity = ItemToReplaces.FirstOrDefault(p => p.Key == "XXXEntityPluralXXX")?.Value;
+            this.ClassInfoData = new ClassInfoData(Configuration.GetConfig("ClassesPath"), entity + ".cs", ItemToReplaces);
             Configuration.AddConfig(new List<ItemConfig> {
                 new ItemConfig
                 {
@@ -72,7 +74,7 @@ namespace MG.MyCollege
 
         private void LoadItemFileToCreate()
         {
-            ItemFileToGenerates = new List<ItemFileToGenerate>()
+            ItemFileToGenerates = new List<IItemFileToGenerate>()
             {
                 new ItemFileToGenerate
                 (
@@ -344,31 +346,6 @@ namespace MG.MyCollege
             };
         }
 
-        public void AddComboParameter(ComboParameter comboParameter)
-        {
-            this.ClassInfoData.AddComboParameter(comboParameter);
-            LoadItemFileToCreate();
-        }
-
-        public void btnGenerate_Click(IConfiguration Configuration, List<ItemToReplace> ItemToReplaces)
-        {
-            Initialize(Configuration, ItemToReplaces);
-        }
-
-        public void btnSaveOnDisk_Click()
-        {
-            foreach (var item in this.ItemFileToGenerates)
-            {
-                createSpecificFileOnDisk(item.Path, item.TemplateMarkup);
-            }
-            System.Threading.Thread.Sleep(1000);
-        }
-
-        private void createSpecificFileOnDisk(string fileName, string containerText)
-        {
-            if (System.IO.File.Exists(fileName))
-                System.IO.File.Delete(fileName);
-            System.IO.File.AppendAllText(fileName, containerText);
-        }
+       
     }
 }

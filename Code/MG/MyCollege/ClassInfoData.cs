@@ -13,7 +13,7 @@ namespace MG.MyCollege
         (
             string classesPath,
             string className,
-            List<ItemToReplace> itemToReplaces,
+            List<IItemToReplace> itemToReplaces,
             List<ComboParameter> comboParameters = null
         )
         {

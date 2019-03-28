@@ -8,5 +8,10 @@ namespace MG.Generic
 {
     public interface IGenerateControls
     {
+        List<IItemToReplace> ItemToReplaces { get; }
+
+        void AddInputControls();
+
+        void AddOutputControls();
     }
 }

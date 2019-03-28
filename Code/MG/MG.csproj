@@ -78,6 +78,7 @@
     <Compile Include="Generic\IConfiguration.cs" />
     <Compile Include="Generic\ICrudGenerator.cs" />
     <Compile Include="Generic\IItemFileToGenerate.cs" />
+    <Compile Include="Generic\IItemToReplace.cs" />
     <Compile Include="Generic\ItemFileToGenerateBase.cs" />
     <Compile Include="MyCollege\ClassInfoData.cs" />
     <Compile Include="Generic\ComboParameter.cs" />
@@ -86,7 +87,7 @@
     <Compile Include="MyCollege\FileStackId.cs" />
     <Compile Include="MyCollege\GenerateControls.cs" />
     <Compile Include="Generic\ItemFieldTypeTemplate.cs" />
-    <Compile Include="Generic\IfrmMainApp.cs" />
+    <Compile Include="Generic\IFrmMainApp.cs" />
     <Compile Include="MyCollege\ItemFileToGenerate.cs" />
     <Compile Include="Generic\ItemConfig.cs" />
     <Compile Include="Generic\ItemToReplace.cs" />

@@ -66,7 +66,5 @@ namespace MG.Generic
         {
             return this.ClassInfoData?.ComboParameters?.FirstOrDefault(p => p.FieldNameValue == FieldNameValue);
         }
-
-
     }
 }

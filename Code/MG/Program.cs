@@ -27,6 +27,8 @@ namespace MG
             container.Register(Component.For<ICrudGenerator>().ImplementedBy<CrudGenerator>());
             container.Register(Component.For<IGenerateControls>().ImplementedBy<GenerateControls>());
             container.Register(Component.For<IItemFileToGenerate>().ImplementedBy<ItemFileToGenerate>());
+            container.Register(Component.For<IItemToReplace>().ImplementedBy<ItemToReplace>());
+            container.Register(Component.For<List<IItemToReplace>>().ImplementedBy<List<IItemToReplace>>());
            
             // Resolve an object of type ICompositionRoot (ask the container for an instance)
             // This is analagous to calling new() in a non-IoC application.

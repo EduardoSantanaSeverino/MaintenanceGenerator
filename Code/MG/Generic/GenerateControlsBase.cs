@@ -10,13 +10,13 @@ namespace MG.Generic
     {
         private IFrmMainApp Form { get; set; }
 
-        public GenerateControlsBase(List<ItemToReplace> itemToReplaces, IFrmMainApp form)
+        public GenerateControlsBase(List<IItemToReplace> itemToReplaces, IFrmMainApp form)
         {
             this.ItemToReplaces = itemToReplaces;
             this.Form = form;
         }
 
-        public List<ItemToReplace> ItemToReplaces { get; private set; }
+        public List<IItemToReplace> ItemToReplaces { get; private set; }
 
         public void AddInputControls()
         {
@@ -45,7 +45,7 @@ namespace MG.Generic
             }
         }
 
-        private System.Windows.Forms.Label GetLabel(ItemToReplace item)
+        private System.Windows.Forms.Label GetLabel(IItemToReplace item)
         {
             var l = new System.Windows.Forms.Label
             {
@@ -59,7 +59,7 @@ namespace MG.Generic
             return l;
         }
 
-        private System.Windows.Forms.TextBox GetTextBox(ItemToReplace item)
+        private System.Windows.Forms.TextBox GetTextBox(IItemToReplace item)
         {
             var t = new System.Windows.Forms.TextBox
             {

@@ -27,7 +27,7 @@ namespace MG.Generic
 
         public List<ComboParameter> ComboParameters { get; protected set; }
 
-        public List<ItemToReplace> ItemToReplaces { get; protected set; }
+        public List<IItemToReplace> ItemToReplaces { get; protected set; }
 
         public abstract List<TripleValue<string, string, string, string>> GetFieldListFromEntity(String EntityNameSingular);
 
