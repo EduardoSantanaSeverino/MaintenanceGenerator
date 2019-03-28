@@ -16,7 +16,7 @@ namespace MG.MyCollege
             string Path,
             string TemplateName,
             string TemplateDirectory,
-            ClassInfoData ClassInfoData,
+            IClassInfoData ClassInfoData,
             string ControlName,
             List<ItemFieldTypeTemplate> ItemFieldTypeTemplates = null
         )
@@ -38,60 +38,6 @@ namespace MG.MyCollege
             {
             }
             this.TemplateMarkup = ReplaceAllKeysWithRealValues(this.TemplateMarkup);
-        }
-
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Path { get; set; }
-        public string TemplateName { get; set; }
-        public string TemplateMarkup { get; set; }
-        public string TemplateDirectory { get; set; }
-        public ClassInfoData ClassInfoData { get; set; }
-        public string ControlName { get; set; }
-        public List<ItemFieldTypeTemplate> ItemFieldTypeTemplates { get; set; }
-
-        public string GetFieldTypeTemplate(string name)
-        {
-            return this.ItemFieldTypeTemplates?.FirstOrDefault(p => p.Name == name)?.TemplateMarkup;
-        }
-
-        public string GetFieldTypeTemplate(int id)
-        {
-            return this.ItemFieldTypeTemplates?.FirstOrDefault(p => p.Id == id)?.TemplateMarkup;
-        }
-
-        private string ReadTemplate()
-        {
-            try
-            {
-                if (!string.IsNullOrEmpty(this.TemplateDirectory) && !string.IsNullOrEmpty(this.TemplateName))
-                {
-                    return System.IO.File.ReadAllText(this.TemplateDirectory + this.TemplateName);
-                }
-            }
-            catch (Exception err)
-            { }
-            return "";
-        }
-
-        public string GetItemToReplaces(string key)
-        {
-            return ClassInfoData?.ItemToReplaces?.FirstOrDefault(p => p.Key == key)?.Value;
-        }
-
-        private string ReplaceAllKeysWithRealValues(string markup)
-        {
-            if (!string.IsNullOrEmpty(markup))
-            {
-                foreach (var item in ClassInfoData?.ItemToReplaces)
-                {
-                    markup = markup.Replace(item.Key, item.Value);
-                }
-
-                markup += "\n";
-            }
-            
-            return markup;
         }
 
         // this moment i run out of ideas to put this here / when i started to put code static for just one file, i run out of ideas. 
@@ -471,8 +417,6 @@ namespace MG.MyCollege
             returnedStrings = returnedStrings.Replace("int> repository", ClassInfoData.SpecificType + "> repository");
             returnedStrings = returnedStrings.Replace("int> _bank", ", " + ClassInfoData.SpecificType + ",");
             returnedStrings = returnedStrings.Replace("EntityDto<int>", "EntityDto<" + ClassInfoData.SpecificType + ">");
-
-
             return returnedStrings;
         }
 
@@ -569,44 +513,13 @@ namespace MG.MyCollege
             return RelatedEntities;
         }
 
-        private string XXXServiceCallsXXX = "XXXServiceCallsXXX";
-        private string XXXInsertPermissionNamesXXX = "//XXXInsertPermissionNamesXXX";
-        private string XXXInsertNavitationProviderXXX = "//XXXInsertNavitationProviderXXX";
-        private string XXXInsertAuthorizationProviderXXX = "//XXXInsertAuthorizationProviderXXX";
-        private string XXXInsertAppJsMenuXXX = "//XXXInsertAppJsMenuXXX";
-        private string XXXFieldKeyXXX = "XXXFieldKeyXXX";
-
-        private string XXXRepositoryConstructorListXXX = "XXXRepositoryConstructorListXXX";
-
-        private string XXXEntityPluralXXX = "XXXEntityPluralXXX";
-        private string XXXEntitySingularXXX = "XXXEntitySingularXXX";
-        private string XXXEntityLowerSingularXXX = "XXXEntityLowerSingularXXX";
-        private string XXXInsertMenuItemXXX = "//XXXInsertMenuItemXXX";
-
-        private string XXXServicesUsedDeclarationXXX = "XXXServicesUsedDeclarationXXX";
-        private string XXXServicesUsedSettingXXX = "XXXServicesUsedSettingXXX";
-
-        private string XXXFieldNameCamelXXX = "XXXFieldNameCamelXXX";
-        private string XXXFieldNameCapitalXXX = "XXXFieldNameCapitalXXX";
-        private string XXXFieldNameCapitalPluralXXX = "XXXFieldNameCapitalPluralXXX";
-        private string XXXFieldNameCamelSingularXXX = "XXXFieldNameCamelSingularXXX";
-
-        private string XXXrequiredXXX = "XXXrequiredXXX";
-        private string XXXProjectNameXXX = "XXXProjectNameXXX";
-
-        private static string XXXRepositorySettingListXXX = "XXXRepositorySettingListXXX";
-        private static string XXXRepositoryDeclarationListXXX = "XXXRepositoryDeclarationListXXX";
-
-        private string XXXFieldNameCapitalSingularXXX = "XXXFieldNameCapitalSingularXXX";
-        private string XXXFieldNameCamelPluralXXX = "XXXFieldNameCamelPluralXXX";
-
         private string GenerateFielListForCreateCsHtml(List<TripleValue<string, string, string, string>> fielList)
         {
             var fieldListForIndexCsHtml = new List<string>();
 
             var FieldStringTemplate = GetFieldTypeTemplate("FieldStringTemplate"); // UsingTemplates.CsHtmlCreator.FieldString;
             FieldStringTemplate = ReplaceAllKeysWithRealValues(FieldStringTemplate);
-            
+
             var FieldDateTimeTemplate = GetFieldTypeTemplate("FieldDateTimeTemplate"); //UsingTemplates.CsHtmlCreator.FieldDatetime;
             FieldDateTimeTemplate = ReplaceAllKeysWithRealValues(FieldDateTimeTemplate);
 
@@ -674,10 +587,29 @@ namespace MG.MyCollege
             return string.Join("", fieldListForIndexCsHtml.ToArray());
         }
 
-        private ComboParameter GetComboParameter(string FieldNameValue)
-        {
-            return this.ClassInfoData?.ComboParameters?.FirstOrDefault(p=>p.FieldNameValue == FieldNameValue);
-        }
-
+        private string XXXServiceCallsXXX = "XXXServiceCallsXXX";
+        private string XXXInsertPermissionNamesXXX = "//XXXInsertPermissionNamesXXX";
+        private string XXXInsertNavitationProviderXXX = "//XXXInsertNavitationProviderXXX";
+        private string XXXInsertAuthorizationProviderXXX = "//XXXInsertAuthorizationProviderXXX";
+        private string XXXInsertAppJsMenuXXX = "//XXXInsertAppJsMenuXXX";
+        private string XXXFieldKeyXXX = "XXXFieldKeyXXX";
+        private string XXXRepositoryConstructorListXXX = "XXXRepositoryConstructorListXXX";
+        private string XXXEntityPluralXXX = "XXXEntityPluralXXX";
+        private string XXXEntitySingularXXX = "XXXEntitySingularXXX";
+        private string XXXEntityLowerSingularXXX = "XXXEntityLowerSingularXXX";
+        private string XXXInsertMenuItemXXX = "//XXXInsertMenuItemXXX";
+        private string XXXServicesUsedDeclarationXXX = "XXXServicesUsedDeclarationXXX";
+        private string XXXServicesUsedSettingXXX = "XXXServicesUsedSettingXXX";
+        private string XXXFieldNameCamelXXX = "XXXFieldNameCamelXXX";
+        private string XXXFieldNameCapitalXXX = "XXXFieldNameCapitalXXX";
+        private string XXXFieldNameCapitalPluralXXX = "XXXFieldNameCapitalPluralXXX";
+        private string XXXFieldNameCamelSingularXXX = "XXXFieldNameCamelSingularXXX";
+        private string XXXrequiredXXX = "XXXrequiredXXX";
+        private string XXXProjectNameXXX = "XXXProjectNameXXX";
+        private string XXXRepositorySettingListXXX = "XXXRepositorySettingListXXX";
+        private string XXXRepositoryDeclarationListXXX = "XXXRepositoryDeclarationListXXX";
+        private string XXXFieldNameCapitalSingularXXX = "XXXFieldNameCapitalSingularXXX";
+        private string XXXFieldNameCamelPluralXXX = "XXXFieldNameCamelPluralXXX";
+       
     }
 }

@@ -1,11 +1,12 @@
-﻿using MG.MyCollege;
-using System;
+﻿using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using MG.MyCollege;
+using MG.Generic;
 
 namespace MG
 {

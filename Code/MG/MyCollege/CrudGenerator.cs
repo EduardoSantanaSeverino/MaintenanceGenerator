@@ -9,15 +9,15 @@ namespace MG.MyCollege
 {
     public class CrudGenerator : CrudGeneratorBase, ICrudGenerator
     {
-        public ClassInfoData ClassInfoData { get; private set; }
-        public Configuration Configuration { get; private set; }
+        public IClassInfoData ClassInfoData { get; private set; }
+        public IConfiguration Configuration { get; private set; }
         public string Version { get; private set; }
         public string TemplateDirectory { get; private set; }
         public string ProjectName { get; private set; }
 
-        public List<ItemFileToGenerate> ItemFileToGenerates { get; private set; }
+        public List<IItemFileToGenerate> ItemFileToGenerates { get; private set; }
 
-        public CrudGenerator(Configuration Configuration, List<ItemToReplace> ItemToReplaces)
+        public CrudGenerator(IConfiguration Configuration, List<ItemToReplace> ItemToReplaces)
         {
             Initialize(Configuration, ItemToReplaces);
 
@@ -27,13 +27,12 @@ namespace MG.MyCollege
 
         }
 
-
         public void SetItemToReplace(List<ItemToReplace> itemToReplaces)
         {
             Initialize(this.Configuration, itemToReplaces);
         }
 
-        private void Initialize(Configuration Configuration, List<ItemToReplace> ItemToReplaces)
+        private void Initialize(IConfiguration Configuration, List<ItemToReplace> ItemToReplaces)
         {
             string entity = ItemToReplaces.FirstOrDefault(p => p.Key == "XXXEntityPluralXXX").Value;
             this.ClassInfoData = new ClassInfoData(Configuration.GetConfig("ClassesPath"), entity + ".cs", ItemToReplaces);
@@ -351,7 +350,7 @@ namespace MG.MyCollege
             LoadItemFileToCreate();
         }
 
-        public void btnGenerate_Click(Configuration Configuration, List<ItemToReplace> ItemToReplaces)
+        public void btnGenerate_Click(IConfiguration Configuration, List<ItemToReplace> ItemToReplaces)
         {
             Initialize(Configuration, ItemToReplaces);
         }
@@ -371,7 +370,5 @@ namespace MG.MyCollege
                 System.IO.File.Delete(fileName);
             System.IO.File.AppendAllText(fileName, containerText);
         }
-        
-
     }
 }

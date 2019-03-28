@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MG.Generic;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,10 +11,11 @@ using System.Windows.Forms;
 
 namespace MG
 {
-    public partial class frmMainApp : Form
+    public partial class frmMainApp : Form, IFrmMainApp
     {
-        public MyCollege.CrudGenerator CrudGenerator { get; set; }
-        public MyCollege.GenerateControls GenerateControls { get; set; }
+        public ICrudGenerator CrudGenerator { get; set; }
+        public IGenerateControls GenerateControls { get; set; }
+       
         public frmMainApp()
         {
             InitializeComponent();
@@ -33,5 +35,9 @@ namespace MG
         {
             this.Text = CrudGenerator.Version;
         }
+
+        public FlowLayoutPanel FlowInput { get => this.flowInput; set => this.flowInput = value; }
+        public FlowLayoutPanel FlowOutput { get => this.flowOutput; set => this.flowOutput = value; }
+
     }
 }
