@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MG.MyCollege
+namespace MG.CentennialForm
 {
     public class ItemFileToGenerate : ItemFileToGenerateBase, IItemFileToGenerate
     {
@@ -500,7 +500,7 @@ namespace MG.MyCollege
                 var comboParameter = GetComboParameter(item.Value);
                 if (comboParameter != null)
                 {
-                    var templateSeletedted = this.TemplateMarkup; //UsingTemplates.JSCreator.FieldRelatedJS; // View POSSIBLE ERROR    var FieldRelatedTemplate = GetFieldTypeTemplate("FieldComboTemplate");
+                    var templateSeletedted = this.TemplateMarkup; // UsingTemplates.JSCreator.FieldRelatedJS;
                     templateSeletedted = templateSeletedted.Replace(XXXFieldNameCamelPluralXXX, comboParameter.EntityCamelPlural);
                     templateSeletedted = templateSeletedted.Replace(XXXFieldNameCapitalPluralXXX, comboParameter.EntityPlural);
                     templateSeletedted = templateSeletedted.Replace(XXXEntityLowerSingularXXX, comboParameter.EntityCamelSingular);
