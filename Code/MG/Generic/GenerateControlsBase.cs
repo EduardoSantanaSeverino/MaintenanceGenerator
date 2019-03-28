@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MG.Generic
 {
-    class GenerateControlsBase
+    public abstract class GenerateControlsBase : IGenerateControls
     {
     }
 }

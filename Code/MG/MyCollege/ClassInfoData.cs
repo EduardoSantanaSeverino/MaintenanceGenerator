@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using MG.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MG.MyCollege
 {
-    public class ClassInfoData
+    public class ClassInfoData : ClassInfoDataBase, IClassInfoData
     {
         public ClassInfoData
         (

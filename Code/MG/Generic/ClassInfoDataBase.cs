@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MG.Generic
 {
-    class ClassInfoDataBase
+    public abstract class ClassInfoDataBase : IClassInfoData
     {
     }
 }

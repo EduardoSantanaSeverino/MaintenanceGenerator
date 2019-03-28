@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MG.Generic
 {
-    class CrudGeneratorBase
+    public abstract class CrudGeneratorBase : ICrudGenerator
     {
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MG.Generic
 {
-    class ItemFileToGenerateBase
+    public abstract class ItemFileToGenerateBase : IItemFileToGenerate
     {
     }
 }

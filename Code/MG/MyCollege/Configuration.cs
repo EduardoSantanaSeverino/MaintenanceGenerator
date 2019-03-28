@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MG.Generic;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MG.MyCollege
 {
-    public class Configuration
+    public class Configuration : ConfigurationBase, IConfiguration
     {
         public List<ItemConfig> ItemConfigs { get; set; }
         public string Version { get => this.GetConfig("Version"); }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MG.Generic
 {
-    class ConfigurationBase
+    public abstract class ConfigurationBase : IConfiguration
     {
     }
 }

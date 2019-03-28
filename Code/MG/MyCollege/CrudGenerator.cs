@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MG.Generic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MG.MyCollege
 {
-    public class CrudGenerator
+    public class CrudGenerator : CrudGeneratorBase, ICrudGenerator
     {
         public ClassInfoData ClassInfoData { get; private set; }
         public Configuration Configuration { get; private set; }
