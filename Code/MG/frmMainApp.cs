@@ -31,7 +31,7 @@ namespace MG
 
         private void frmMainApp_Load(object sender, EventArgs e)
         {
-
+            this.Text = CrudGenerator.Version;
         }
 
         private void flowInput_Paint(object sender, PaintEventArgs e)
