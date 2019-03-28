@@ -22,7 +22,7 @@ namespace MG.Generic
 
         string ClassesPath { get; }
 
-        string SpecificType { get; }
+        string GetSpecificType();
 
         string[] LoadedClass { get; }
 

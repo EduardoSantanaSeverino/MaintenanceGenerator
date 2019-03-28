@@ -409,14 +409,14 @@ namespace MG.CentennialForm
 
         private string ReplaceAllKeyTypes(string AllStrings)
         {
-            var returnedStrings = AllStrings.Replace(", int,", ", " + ClassInfoData.SpecificType + ",");
-            returnedStrings = returnedStrings.Replace(",int,", "," + ClassInfoData.SpecificType + ",");
-            returnedStrings = returnedStrings.Replace("<int>", "<" + ClassInfoData.SpecificType + ">");
-            returnedStrings = returnedStrings.Replace("int> _" + GetItemToReplaces("XXXEntityLowerSingularXXX") + "Repository", ClassInfoData.SpecificType + "> _" + GetItemToReplaces("XXXEntityLowerSingularXXX") + "Repository");
-            returnedStrings = returnedStrings.Replace("int> " + GetItemToReplaces("XXXEntityLowerSingularXXX") + "Repository", ClassInfoData.SpecificType + "> " + GetItemToReplaces("XXXEntityLowerSingularXXX") + "Repository");
-            returnedStrings = returnedStrings.Replace("int> repository", ClassInfoData.SpecificType + "> repository");
-            returnedStrings = returnedStrings.Replace("int> _bank", ", " + ClassInfoData.SpecificType + ",");
-            returnedStrings = returnedStrings.Replace("EntityDto<int>", "EntityDto<" + ClassInfoData.SpecificType + ">");
+            var returnedStrings = AllStrings.Replace(", int,", ", " + ClassInfoData.GetSpecificType() + ",");
+            returnedStrings = returnedStrings.Replace(",int,", "," + ClassInfoData.GetSpecificType() + ",");
+            returnedStrings = returnedStrings.Replace("<int>", "<" + ClassInfoData.GetSpecificType() + ">");
+            returnedStrings = returnedStrings.Replace("int> _" + GetItemToReplaces("XXXEntityLowerSingularXXX") + "Repository", ClassInfoData.GetSpecificType() + "> _" + GetItemToReplaces("XXXEntityLowerSingularXXX") + "Repository");
+            returnedStrings = returnedStrings.Replace("int> " + GetItemToReplaces("XXXEntityLowerSingularXXX") + "Repository", ClassInfoData.GetSpecificType() + "> " + GetItemToReplaces("XXXEntityLowerSingularXXX") + "Repository");
+            returnedStrings = returnedStrings.Replace("int> repository", ClassInfoData.GetSpecificType() + "> repository");
+            returnedStrings = returnedStrings.Replace("int> _bank", ", " + ClassInfoData.GetSpecificType() + ",");
+            returnedStrings = returnedStrings.Replace("EntityDto<int>", "EntityDto<" + ClassInfoData.GetSpecificType() + ">");
             return returnedStrings;
         }
 

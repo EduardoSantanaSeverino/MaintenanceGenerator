@@ -15,29 +15,29 @@ namespace MG.MyCollege
         {
             return new List<IItemToReplace>
             {
-                new ItemToReplace
+               new ItemToReplace
                 {
                     Id = 10,
                     Key = "XXXEntityPluralXXX",
-                    LabelText = "Enity name singular camel case"
+                    LabelText = "Enity name singular capital case"
                 },
                 new ItemToReplace
                 {
                     Id = 11,
                     Key = "XXXEntityLowerPluralXXX",
-                    LabelText = "Enity name singular capital case"
+                    LabelText = "Enity name pural camel case"
                 },
                 new ItemToReplace
                 {
                     Id = 12,
                     Key = "XXXEntitySingularXXX",
-                    LabelText = "Enity name plural camel case"
+                    LabelText = "Enity name plural capital case"
                 },
                 new ItemToReplace
                 {
                     Id = 13,
                     Key = "XXXEntityLowerSingularXXX",
-                    LabelText = "Enity name plural capital case"
+                    LabelText = "Enity name singular camel case"
                 },
                 new ItemToReplace
                 {

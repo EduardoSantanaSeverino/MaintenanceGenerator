@@ -87,6 +87,7 @@
     <Compile Include="Generic\IItemFileToGenerate.cs" />
     <Compile Include="Generic\IItemToReplace.cs" />
     <Compile Include="Generic\ItemFileToGenerateBase.cs" />
+    <Compile Include="Models\Car.cs" />
     <Compile Include="MyCollege\ClassInfoData.cs" />
     <Compile Include="Generic\ComboParameter.cs" />
     <Compile Include="MyCollege\Configuration.cs" />
@@ -167,6 +168,8 @@
   <ItemGroup>
     <Content Include="if_Gold_Iron_Man_Mask_134237.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="CentennialFormTemplates\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

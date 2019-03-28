@@ -92,22 +92,17 @@ namespace MG.Generic
             return b;
         }
 
-        private string GetItem(int id)
-        {
-            return this.ItemToReplaces.FirstOrDefault(p => p.Id == 10).Key;
-        }
-
         private void txtEntityNameSingular_TextChanged(object sender, EventArgs e)
         {
             try
             {
-                var c10 = (System.Windows.Forms.TextBox)_form.FlowInput.Controls.Find(GetItem(10), true)[0];
-                var c11 = (System.Windows.Forms.TextBox)_form.FlowInput.Controls.Find(GetItem(11), true)[0];
-                var c12 = (System.Windows.Forms.TextBox)_form.FlowInput.Controls.Find(GetItem(12), true)[0];
-                var c13 = (System.Windows.Forms.TextBox)_form.FlowInput.Controls.Find(GetItem(13), true)[0];
+                var XXXEntityLowerSingularXXX = (System.Windows.Forms.TextBox)_form.FlowInput.Controls.Find("XXXEntityLowerSingularXXX", true)[0];
+                var XXXEntityLowerPluralXXX = (System.Windows.Forms.TextBox)_form.FlowInput.Controls.Find("XXXEntityLowerPluralXXX", true)[0];
+                var XXXEntityPluralXXX = (System.Windows.Forms.TextBox)_form.FlowInput.Controls.Find("XXXEntityPluralXXX", true)[0];
+                var XXXEntitySingularXXX = (System.Windows.Forms.TextBox)_form.FlowInput.Controls.Find("XXXEntitySingularXXX", true)[0];
 
                 string camell = "";
-                var lower = c10.Text;
+                var lower = XXXEntityLowerSingularXXX.Text;
                 if (lower.ToLower().Substring(lower.Length - 1, 1) == "s")
                     camell = lower + "es";
                 else if (lower.ToLower().Substring(lower.Length - 1, 1) == "y" &&
@@ -128,14 +123,14 @@ namespace MG.Generic
                 var capital = camell.Substring(0, 1).ToUpper() + camell.Substring(1);
                 var capitalSingular = lower.Substring(0, 1).ToUpper() + lower.Substring(1);
 
-                c11.Text = camell;
-                c12.Text = capital;
-                c13.Text = capitalSingular;
+                XXXEntityLowerPluralXXX.Text = camell;
+                XXXEntityPluralXXX.Text = capital;
+                XXXEntitySingularXXX.Text = capitalSingular;
 
                 foreach (var item in ItemToReplaces)
                 {
                     var c = this._form.FlowInput.Controls.Find(item.Key, true);
-                    if (c != null && c.Any() && c[0].Name != c10.Name)
+                    if (c != null && c.Any() && c[0].Name != XXXEntityLowerSingularXXX.Name)
                     {
                         item.Value = ((System.Windows.Forms.TextBox)c[0]).Text; ;
                     }
