@@ -29,7 +29,13 @@ namespace MG.MyCollege
             this.ClassInfoData = ClassInfoData;
             this.ControlName = ControlName;
             this.TemplateMarkup = ReadTemplate();
-            ProcessFile();
+            try
+            {
+                ProcessFile();
+            }
+            catch (Exception ex)
+            {
+            }
             this.TemplateMarkup = ReplaceAllKeysWithRealValues(this.TemplateMarkup);
         }
 
@@ -74,13 +80,16 @@ namespace MG.MyCollege
 
         private string ReplaceAllKeysWithRealValues(string markup)
         {
-          
-            foreach (var item in ClassInfoData?.ItemToReplaces)
+            if (!string.IsNullOrEmpty(markup))
             {
-                markup = markup.Replace(item.Key, item.Value);
+                foreach (var item in ClassInfoData?.ItemToReplaces)
+                {
+                    markup = markup.Replace(item.Key, item.Value);
+                }
+
+                markup += "\n";
             }
             
-            markup += "\n";
             return markup;
         }
 

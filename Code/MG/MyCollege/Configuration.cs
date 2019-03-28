@@ -21,7 +21,8 @@ namespace MG.MyCollege
                 new ItemConfig { Id = 100, Name = "ProjectName", Value = "MYCOLLEGE" },
                 new ItemConfig { Id = 101, Name = "SideBarFileName", Value = "header.js" },
                 new ItemConfig { Id = 102, Name = "Version", Value = "MaintenanceGenerator Ver. 2.2" },
-                new ItemConfig { Id = 103, Name = "TemplateDirectory", Value = @"MGTemplates\" }
+                new ItemConfig { Id = 103, Name = "TemplateDirectory", Value = @"MGTemplates\" },
+                new ItemConfig { Id = 104, Name = "MenuIcon", Value = "fa-home" }
             };
 
             ReadFromConfigFile();
@@ -168,5 +169,49 @@ namespace MG.MyCollege
             }
         }
 
+        public List<ItemToReplace> GetItemToReplaces()
+        {
+            return new List<ItemToReplace>
+            {
+                new MyCollege.ItemToReplace
+                {
+                    Id = 10,
+                    Key = "XXXEntityPluralXXX",
+                    LabelText = "Enity name singular camel case"
+                },
+                new MyCollege.ItemToReplace
+                {
+                    Id = 11,
+                    Key = "XXXEntityLowerPluralXXX",
+                    LabelText = "Enity name singular capital case"
+                },
+                new MyCollege.ItemToReplace
+                {
+                    Id = 12,
+                    Key = "XXXEntitySingularXXX",
+                    LabelText = "Enity name plural camel case"
+                },
+                new MyCollege.ItemToReplace
+                {
+                    Id = 13,
+                    Key = "XXXEntityLowerSingularXXX",
+                    LabelText = "Enity name plural capital case"
+                },
+                new MyCollege.ItemToReplace
+                {
+                    Id = 14,
+                    Key = "XXXProjectNameXXX",
+                    LabelText = "Project Name",
+                    Value = this.ProjectName
+                },
+                new MyCollege.ItemToReplace
+                {
+                    Id = 15,
+                    Key = "XXXMenuIconXXX",
+                    LabelText = "Fa Icon",
+                    Value = GetConfig("MenuIcon")
+                }
+            };
+        }
     }
 }

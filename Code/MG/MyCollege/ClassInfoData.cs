@@ -20,8 +20,16 @@ namespace MG.MyCollege
             this.ComboParameters = comboParameters;
             this.ClassPath = classesPath + className;
             this.ClassesPath = classesPath;
-            LoadedClass = System.IO.File.ReadAllLines(this.ClassPath);
-            this.Fields = this.GetFieldListFromEntity(this.LoadedClass);
+            if (className.Length > 3)
+            {
+                LoadedClass = System.IO.File.ReadAllLines(this.ClassPath);
+                this.Fields = this.GetFieldListFromEntity(this.LoadedClass);
+            }
+            else
+            {
+                LoadedClass = null;
+                this.Fields = null;
+            }
         }
 
         public string XXXEntityPluralXXX { get => GetItemToReplace("XXXEntityPluralXXX"); } // txtCapitalPlural.Text

@@ -50,6 +50,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComboParameter.cs" />
+    <Compile Include="frmMainApp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMainApp.Designer.cs">
+      <DependentUpon>frmMainApp.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmVisor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -61,6 +67,7 @@
     <Compile Include="MyCollege\Configuration.cs" />
     <Compile Include="MyCollege\CrudGenerator.cs" />
     <Compile Include="MyCollege\FileStackId.cs" />
+    <Compile Include="MyCollege\GenerateControls.cs" />
     <Compile Include="MyCollege\ItemFieldTypeTemplate.cs" />
     <Compile Include="MyCollege\ItemFileToGenerate.cs" />
     <Compile Include="MyCollege\ItemConfig.cs" />
@@ -80,6 +87,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UsingTemplates\JSCreator.cs" />
     <Compile Include="UsingTemplates\NavigationAutorizationCreator.cs" />
+    <EmbeddedResource Include="frmMainApp.resx">
+      <DependentUpon>frmMainApp.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmPrincipal.resx">
       <DependentUpon>frmPrincipal.cs</DependentUpon>
     </EmbeddedResource>

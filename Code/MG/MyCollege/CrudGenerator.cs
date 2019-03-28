@@ -26,43 +26,47 @@ namespace MG.MyCollege
 
         }
 
+
+        public void SetItemToReplace(List<ItemToReplace> itemToReplaces)
+        {
+            Initialize(this.Configuration, itemToReplaces);
+        }
+
         private void Initialize(Configuration Configuration, List<ItemToReplace> ItemToReplaces)
         {
-            if (ItemToReplaces.Any())
-            {
-                string entity = ItemToReplaces.FirstOrDefault(p => p.Name == "XXXEntityPluralXXX").Value;
-                this.ClassInfoData = new ClassInfoData(Configuration.GetConfig("ClassesPath"), entity + ".cs", ItemToReplaces);
+            string entity = ItemToReplaces.FirstOrDefault(p => p.Key == "XXXEntityPluralXXX").Value;
+            this.ClassInfoData = new ClassInfoData(Configuration.GetConfig("ClassesPath"), entity + ".cs", ItemToReplaces);
 
-                Configuration.AddConfig(new List<ItemConfig> {
-                    new ItemConfig
-                    {
-                        Name = "ClassPath",
-                        Value = Configuration.GetConfig("ClassesPath") + this.ClassInfoData.XXXEntityPluralXXX + ".cs"
-                    },
-                    new ItemConfig
-                    {
-                        CreateDirectory = true,
-                        Name = "ViewDirectory",
-                        Value = Configuration.GetConfig("ViewsDirectory") + this.ClassInfoData.XXXEntityLowerPluralXXX
-                    },
-                    new ItemConfig
-                    {
-                        CreateDirectory = true,
-                        Name = "DtoPath",
-                        Value = Configuration.GetConfig("DtosPath") + this.ClassInfoData.XXXEntityPluralXXX + @"\Dto\"
-                    },
-                    new ItemConfig
-                    {
-                        CreateDirectory = true,
-                        Name = "PathDirectoryAppService",
-                        Value = Configuration.GetConfig("PathDirectoryApp") + this.ClassInfoData.XXXEntityPluralXXX
-                    }
-                });
+            Configuration.AddConfig(new List<ItemConfig> {
+                new ItemConfig
+                {
+                    Name = "ClassPath",
+                    Value = Configuration.GetConfig("ClassesPath") + this.ClassInfoData.XXXEntityPluralXXX + ".cs"
+                },
+                new ItemConfig
+                {
+                    CreateDirectory = true,
+                    Name = "ViewDirectory",
+                    Value = Configuration.GetConfig("ViewsDirectory") + this.ClassInfoData.XXXEntityLowerPluralXXX
+                },
+                new ItemConfig
+                {
+                    CreateDirectory = true,
+                    Name = "DtoPath",
+                    Value = Configuration.GetConfig("DtosPath") + this.ClassInfoData.XXXEntityPluralXXX + @"\Dto\"
+                },
+                new ItemConfig
+                {
+                    CreateDirectory = true,
+                    Name = "PathDirectoryAppService",
+                    Value = Configuration.GetConfig("PathDirectoryApp") + this.ClassInfoData.XXXEntityPluralXXX
+                }
+            });
 
-                this.Configuration = Configuration;
+            this.Configuration = Configuration;
 
-                LoadItemFileToCreate();
-            }
+            LoadItemFileToCreate();
+            
             
         }
 
@@ -366,6 +370,7 @@ namespace MG.MyCollege
                 System.IO.File.Delete(fileName);
             System.IO.File.AppendAllText(fileName, containerText);
         }
+        
 
     }
 }

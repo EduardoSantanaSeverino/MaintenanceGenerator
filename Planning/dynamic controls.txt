@@ -1,0 +1,8 @@
+for using dynamic controls with windows form
+
+1. using tabs page for separeting controls.
+create an custom class for create a tab control.
+add the items inside that. 
+
+2. using delegate to asignd an event to the newly created control.
+for example: btn.Click += new EventHandler(btnSubmitClick);
