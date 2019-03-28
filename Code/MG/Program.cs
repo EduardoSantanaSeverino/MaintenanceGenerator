@@ -32,7 +32,6 @@ namespace MG
             // This is analagous to calling new() in a non-IoC application.
             var root = container.Resolve<ICrudGenerator>();
 
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new frmMainApp());

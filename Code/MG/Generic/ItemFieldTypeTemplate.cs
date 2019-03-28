@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MG.MyCollege
+namespace MG.Generic
 {
     public class ItemFieldTypeTemplate 
     {

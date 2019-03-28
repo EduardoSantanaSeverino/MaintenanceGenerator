@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MG.MyCollege
+namespace MG.Generic
 {
-    public class ItemConfig
+    public class ItemToReplace
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string Key { get; set; }
         public string Value { get; set; }
-        public bool CreateDirectory { get; set; }
-        public bool IsChecked { get; set; }
+        public string LabelText { get; set; }
     }
 }

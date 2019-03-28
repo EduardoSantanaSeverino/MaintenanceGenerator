@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MG.MyCollege
+namespace MG.Generic
 {
     public class ComboParameter
     {
