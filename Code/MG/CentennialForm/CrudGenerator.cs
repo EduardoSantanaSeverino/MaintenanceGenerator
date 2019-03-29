@@ -216,6 +216,56 @@ namespace MG.CentennialForm
                     TemplateDirectory: TemplateDirectory,
                     ClassInfoData: this.ClassInfoData
                 ),
+                 new ItemFileToGenerate
+                (
+                    Id: (int)FileStackId.CreateCs,
+                    Path: Configuration.GetConfig("SaveCrudFolder") + "Create.cs",
+                    TemplateName: "Create.cs.tpl",
+                    TemplateDirectory: TemplateDirectory,
+                    ClassInfoData: this.ClassInfoData,
+                    ItemFieldTypeTemplates: new List<ItemFieldTypeTemplate>
+                    {
+                        new ItemFieldTypeTemplate(TemplateDirectory)
+                        {
+                            Name = "//XXXFieldsEdit2TplXXX",
+                            TemplateName = "FieldsEdit2Tpl.tpl"
+                        }
+                    }
+                ),
+                new ItemFileToGenerate
+                (
+                    Id: (int)FileStackId.CreateDesigner,
+                    Path: Configuration.GetConfig("SaveCrudFolder") + "Create.Designer.cs",
+                    TemplateName: "Create.Designer.cs.tpl",
+                    TemplateDirectory: TemplateDirectory,
+                    ClassInfoData: this.ClassInfoData,
+                    ItemFieldTypeTemplates: new List<ItemFieldTypeTemplate>
+                    {
+                        new ItemFieldTypeTemplate(TemplateDirectory)
+                        {
+                            Name = "//XXXFieldsDetailsDesigner1TplXXX",
+                            TemplateName = "FieldsDetailsDesigner1Tpl.tpl",
+                        },
+                        new ItemFieldTypeTemplate(TemplateDirectory)
+                        {
+                            Name = "//XXXFieldsDetailsDesigner2TplXXX",
+                            TemplateName = "FieldsDetailsDesigner2Tpl.tpl"
+                        },
+                        new ItemFieldTypeTemplate(TemplateDirectory)
+                        {
+                            Name = "//XXXFieldsDetailsDesigner3TplXXX",
+                            TemplateName = "FieldsDetailsDesigner3Tpl.tpl"
+                        }
+                    }
+                ),
+                new ItemFileToGenerate
+                (
+                    Id: (int)FileStackId.CreateResx,
+                    Path: Configuration.GetConfig("SaveCrudFolder") + "Create.resx",
+                    TemplateName: "Create.resx.tpl",
+                    TemplateDirectory: TemplateDirectory,
+                    ClassInfoData: this.ClassInfoData
+                ),
             };
         }
        

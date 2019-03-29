@@ -28,17 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtId = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtName = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
+            
+            
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
             // 
+            this.label1 = new System.Windows.Forms.Label();
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
@@ -48,6 +46,7 @@
             // 
             // txtName
             // 
+            this.txtName = new System.Windows.Forms.TextBox();
             this.txtName.Location = new System.Drawing.Point(3, 16);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(223, 20);
@@ -56,16 +55,18 @@
             // 
             // label2
             // 
+            this.label2 = new System.Windows.Forms.Label();
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(3, 39);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(35, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "Name";
-          
+
             // 
             // txtId
             // 
+            this.txtId = new System.Windows.Forms.TextBox();
             this.txtId.Location = new System.Drawing.Point(3, 55);
             this.txtId.Name = "txtId";
             this.txtId.Size = new System.Drawing.Size(223, 20);
@@ -74,6 +75,7 @@
             // 
             // label3
             // 
+            this.label3 = new System.Windows.Forms.Label();
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(12, 9);

@@ -16,7 +16,10 @@ namespace MG.CentennialForm
         EditResx,
         DetailsCs,
         DetailsDesigner,
-        DetailsResx
+        DetailsResx,
+        CreateCs,
+        CreateDesigner,
+        CreateResx
     }
     
 }

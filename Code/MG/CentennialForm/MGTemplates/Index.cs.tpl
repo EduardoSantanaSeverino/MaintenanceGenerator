@@ -63,5 +63,14 @@ namespace DesktopUtils.Desktop.CrudXXXEntityPluralXXX
                 }
             }
         }
+
+		private void btnCreate_Click(object sender, EventArgs e)
+		{
+			var frmCreate = new CrudXXXEntityPluralXXX.Create(repository);
+			if (frmCreate.ShowDialog() == DialogResult.Yes)
+			{
+				dataGridView1.AssignData(repository.List.ToArray());
+			}
+		}
     }
 }

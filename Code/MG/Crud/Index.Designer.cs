@@ -38,6 +38,7 @@
             this.btnEdit = new System.Windows.Forms.DataGridViewButtonColumn();
             this.btnDelete = new System.Windows.Forms.DataGridViewButtonColumn();
             this.btnSearch = new System.Windows.Forms.Button();
+            this.btnCreate = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -142,11 +143,22 @@
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
+            // btnCreate
+            // 
+            this.btnCreate.Location = new System.Drawing.Point(454, 47);
+            this.btnCreate.Name = "btnCreate";
+            this.btnCreate.Size = new System.Drawing.Size(75, 23);
+            this.btnCreate.TabIndex = 5;
+            this.btnCreate.Text = "Create";
+            this.btnCreate.UseVisualStyleBackColor = true;
+            this.btnCreate.Click += new System.EventHandler(this.btnCreate_Click);
+            // 
             // Index
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnCreate);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.txtSearch);
@@ -173,5 +185,6 @@
         private System.Windows.Forms.DataGridViewButtonColumn btnEdit;
         private System.Windows.Forms.DataGridViewButtonColumn btnDelete;
         private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.Button btnCreate;
     }
 }

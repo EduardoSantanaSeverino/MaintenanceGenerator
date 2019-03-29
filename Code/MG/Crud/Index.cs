@@ -63,5 +63,14 @@ namespace DesktopUtils.Desktop.Crud
                 }
             }
         }
+
+        private void btnCreate_Click(object sender, EventArgs e)
+        {
+            var frmCreate = new Crud.Create(repository);
+            if (frmCreate.ShowDialog() == DialogResult.Yes)
+            {
+                dataGridView1.AssignData(repository.List.ToArray());
+            }
+        }
     }
 }
