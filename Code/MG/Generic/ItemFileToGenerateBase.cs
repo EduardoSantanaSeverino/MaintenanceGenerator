@@ -78,14 +78,51 @@ namespace MG.Generic
 
         protected string ProcessField(ItemFieldTypeTemplate itemField)
         {
+            string[] array = itemField.TemplateMarkup.Split('|');
+            bool isMultiType = (array.Length > 1);
+
             var l = new List<string>();
             foreach (var item in this.ClassInfoData.Fields)
             {
-                string n = itemField.TemplateMarkup.Replace("XXXFieldNameXXX", item.Value);
-                n = n.Replace("XXXFieldTypeXXX", item.Key);
-                n = n.Replace("XXXFieldValueAltXXX", item.ValueAlt);
-                n = n.Replace("XXXFieldValueAppenedXXX", item.ValueAppened);
-                l.Add(n);
+                string n = "";
+
+                if (isMultiType)
+                {
+                    bool isFound = false;   
+                    for (int i = 0; i < array.Length; i++)
+                    {
+                        if (array[i] == item.Key)
+                        {
+                            isFound = true;
+                            n = array[i + 1];
+                        }
+                    }
+                    if (!isFound)
+                    {
+                        for (int i = 0; i < array.Length; i++)
+                        {
+                            if (array[i] == "default")
+                            {
+                                n = array[i + 1];
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    n = itemField.TemplateMarkup;
+                }
+
+                if (!string.IsNullOrEmpty(n))
+                {
+                    n = n.Replace("XXXFieldNameXXX", item.Value);
+                    n = n.Replace("XXXFieldTypeXXX", item.Key);
+                    n = n.Replace("XXXFieldValueAltXXX", item.ValueAlt);
+                    n = n.Replace("XXXFieldValueAppenedXXX", item.ValueAppened);
+
+                    l.Add(n);
+                }
+
             }
             return string.Join("\n", l.ToArray());
         }

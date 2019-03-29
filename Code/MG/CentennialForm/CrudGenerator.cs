@@ -20,13 +20,21 @@ namespace MG.CentennialForm
 
         protected override void Initialize(IConfiguration Configuration, List<IItemToReplace> ItemToReplaces)
         {
-            string entity = ItemToReplaces.FirstOrDefault(p => p.Key == "XXXEntitySingularXXX")?.Value;
-            this.ClassInfoData = new ClassInfoData(Configuration.GetConfig("ClassesPath"), entity + ".cs", ItemToReplaces);
+            string entitySingular = ItemToReplaces.FirstOrDefault(p => p.Key == "XXXEntitySingularXXX")?.Value;
+            string entityPlural = ItemToReplaces.FirstOrDefault(p => p.Key == "XXXEntityPluralXXX")?.Value;
+
+            this.ClassInfoData = new ClassInfoData(Configuration.GetConfig("ClassesPath"), entitySingular + ".cs", ItemToReplaces);
             Configuration.AddConfig(new List<ItemConfig> {
                 new ItemConfig
                 {
                     Name = "ClassPath",
                     Value = Configuration.GetConfig("ClassesPath") + this.ClassInfoData.XXXEntitySingularXXX + ".cs"
+                },
+                new ItemConfig
+                {
+                    Name = "SaveCrudFolder",
+                    Value = $@"Crud{entityPlural}\",
+                    CreateDirectory = true
                 }
             });
 
@@ -38,14 +46,12 @@ namespace MG.CentennialForm
 
         protected override void LoadItemFileToCreate()
         {
-            string entity = this.ClassInfoData.GetItemToReplace("XXXEntitySingularXXX");
-
             ItemFileToGenerates = new List<IItemFileToGenerate>()
             {
                 new ItemFileToGenerate
                 (
                     Id: (int)FileStackId.IndexCs,
-                    Path: $@"\Crud{entity}\Index.cs",
+                    Path: Configuration.GetConfig("SaveCrudFolder") + "Index.cs",
                     TemplateName: "Index.cs.tpl",
                     TemplateDirectory: TemplateDirectory,
                     ClassInfoData: this.ClassInfoData
@@ -53,7 +59,7 @@ namespace MG.CentennialForm
                 new ItemFileToGenerate
                 (
                     Id: (int)FileStackId.IndexDesigner,
-                    Path: $@"\Crud{entity}\Index.Designer.cs",
+                    Path: Configuration.GetConfig("SaveCrudFolder") + "Index.Designer.cs",
                     TemplateName: "Index.Designer.cs.tpl",
                     TemplateDirectory: TemplateDirectory,
                     ClassInfoData: this.ClassInfoData,
@@ -79,7 +85,7 @@ namespace MG.CentennialForm
                 new ItemFileToGenerate
                 (
                     Id: (int)FileStackId.IndexResx,
-                    Path: $@"\Crud{entity}\Index.resx",
+                    Path: Configuration.GetConfig("SaveCrudFolder") + "Index.resx",
                     TemplateName: "Index.resx.tpl",
                     TemplateDirectory: TemplateDirectory,
                     ClassInfoData: this.ClassInfoData,
@@ -95,7 +101,7 @@ namespace MG.CentennialForm
                 new ItemFileToGenerate
                 (
                     Id: (int)FileStackId.DetailsCs,
-                    Path: $@"\Crud{entity}\Details.cs",
+                    Path: Configuration.GetConfig("SaveCrudFolder") + "Details.cs",
                     TemplateName: "Details.cs.tpl",
                     TemplateDirectory: TemplateDirectory,
                     ClassInfoData: this.ClassInfoData,
@@ -111,7 +117,7 @@ namespace MG.CentennialForm
                 new ItemFileToGenerate
                 (
                     Id: (int)FileStackId.DetailsDesigner,
-                    Path: $@"\Crud{entity}\Details.Designer.cs",
+                    Path: Configuration.GetConfig("SaveCrudFolder") + "Details.Designer.cs",
                     TemplateName: "Details.Designer.cs.tpl",
                     TemplateDirectory: TemplateDirectory,
                     ClassInfoData: this.ClassInfoData,
@@ -137,7 +143,7 @@ namespace MG.CentennialForm
                 new ItemFileToGenerate
                 (
                     Id: (int)FileStackId.DetailsResx,
-                    Path: $@"\Crud{entity}\Details.resx",
+                    Path: Configuration.GetConfig("SaveCrudFolder") + "Details.resx",
                     TemplateName: "Details.resx.tpl",
                     TemplateDirectory: TemplateDirectory,
                     ClassInfoData: this.ClassInfoData,
@@ -153,7 +159,7 @@ namespace MG.CentennialForm
                 new ItemFileToGenerate
                 (
                     Id: (int)FileStackId.EditCs,
-                    Path: $@"\Crud{entity}\Edit.cs",
+                    Path: Configuration.GetConfig("SaveCrudFolder") + "Edit.cs",
                     TemplateName: "Edit.cs.tpl",
                     TemplateDirectory: TemplateDirectory,
                     ClassInfoData: this.ClassInfoData,
@@ -174,7 +180,7 @@ namespace MG.CentennialForm
                 new ItemFileToGenerate
                 (
                     Id: (int)FileStackId.EditDesigner,
-                    Path: $@"\Crud{entity}\Edit.Designer.cs",
+                    Path: Configuration.GetConfig("SaveCrudFolder") + "Edit.Designer.cs",
                     TemplateName: "Edit.Designer.cs.tpl",
                     TemplateDirectory: TemplateDirectory,
                     ClassInfoData: this.ClassInfoData,
@@ -200,7 +206,7 @@ namespace MG.CentennialForm
                 new ItemFileToGenerate
                 (
                     Id: (int)FileStackId.EditResx,
-                    Path: $@"\Crud{entity}\Edit.resx",
+                    Path: Configuration.GetConfig("SaveCrudFolder") + "Edit.resx",
                     TemplateName: "Edit.resx.tpl",
                     TemplateDirectory: TemplateDirectory,
                     ClassInfoData: this.ClassInfoData
