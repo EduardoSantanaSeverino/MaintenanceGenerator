@@ -32,7 +32,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-                        
+
+//XXXFieldsIndexDesigner4TplXXX 
+
 			this.btnDetails = new System.Windows.Forms.DataGridViewButtonColumn();
             this.btnEdit = new System.Windows.Forms.DataGridViewButtonColumn();
             this.btnDelete = new System.Windows.Forms.DataGridViewButtonColumn();

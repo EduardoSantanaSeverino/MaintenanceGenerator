@@ -10,7 +10,7 @@ namespace DesktopUtils.Desktop.CrudXXXEntityPluralXXX
         public Details(XXXEntitySingularXXX XXXEntitySingularXXX)
         {
             InitializeComponent();
-            this.XXXEntitySingularXXX = XXXEntityLowerSingularXXX;
+            this.XXXEntitySingularXXX = XXXEntitySingularXXX;
         }
 
         private void Details_Load(object sender, EventArgs e)

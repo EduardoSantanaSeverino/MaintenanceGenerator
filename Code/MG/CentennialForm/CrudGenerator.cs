@@ -79,6 +79,11 @@ namespace MG.CentennialForm
                         {
                             Name = "//XXXFieldsIndexDesigner3TplXXX",
                             TemplateName = "FieldsIndexDesigner3Tpl.tpl"
+                        },
+                        new ItemFieldTypeTemplate(TemplateDirectory)
+                        {
+                            Name = "//XXXFieldsIndexDesigner4TplXXX",
+                            TemplateName = "FieldsIndexDesigner4Tpl.tpl"
                         }
                     }
                 ),
