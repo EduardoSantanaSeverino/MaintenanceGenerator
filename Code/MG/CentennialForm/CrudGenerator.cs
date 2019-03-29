@@ -40,8 +40,6 @@ namespace MG.CentennialForm
         {
             string entity = this.ClassInfoData.GetItemToReplace("XXXEntitySingularXXX");
 
-            string nameOf = Enum.GetName(typeof(FileStackId), FileStackId.IndexDesigner);
-
             ItemFileToGenerates = new List<IItemFileToGenerate>()
             {
                 new ItemFileToGenerate

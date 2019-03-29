@@ -43,7 +43,15 @@ namespace MG.Generic
             {
                 if (!string.IsNullOrEmpty(item.ControlName))
                 {
-                    _form.FlowOutput.Controls.Add(GetRichTextBox(item));
+                    var control = _form.FlowOutput.Controls.Find(item.ControlName, true);
+                    if (control.Any())
+                    {
+                        control[0].Text = item.TemplateMarkup;
+                    }
+                    else
+                    {
+                        _form.FlowOutput.Controls.Add(GetRichTextBox(item));
+                    }
                 }
             }
         }
@@ -72,7 +80,7 @@ namespace MG.Generic
                 Height = 26,
                 Margin = new System.Windows.Forms.Padding(0)
             };
-            if (item.Id == 10)
+            if (item.Key == "XXXEntityLowerSingularXXX")
             {
                 t.TextChanged += new EventHandler(txtEntityNameSingular_TextChanged);
             }
@@ -102,16 +110,16 @@ namespace MG.Generic
                 var XXXEntitySingularXXX = (System.Windows.Forms.TextBox)_form.FlowInput.Controls.Find("XXXEntitySingularXXX", true)[0];
 
                 string camell = "";
-                var lower = XXXEntityLowerSingularXXX.Text;
-                if (lower.ToLower().Substring(lower.Length - 1, 1) == "s")
+                var lower = XXXEntityLowerSingularXXX.Text.ToLower();
+                if (lower.Substring(lower.Length - 1, 1) == "s")
                     camell = lower + "es";
-                else if (lower.ToLower().Substring(lower.Length - 1, 1) == "y" &&
+                else if (lower.Substring(lower.Length - 1, 1) == "y" &&
                     (
-                        (lower.ToLower().Substring(lower.Length - 2, 1) != "a") &&
-                        (lower.ToLower().Substring(lower.Length - 2, 1) != "e") &&
-                        (lower.ToLower().Substring(lower.Length - 2, 1) != "i") &&
-                        (lower.ToLower().Substring(lower.Length - 2, 1) != "o") &&
-                        (lower.ToLower().Substring(lower.Length - 2, 1) != "u")
+                        (lower.Substring(lower.Length - 2, 1) != "a") &&
+                        (lower.Substring(lower.Length - 2, 1) != "e") &&
+                        (lower.Substring(lower.Length - 2, 1) != "i") &&
+                        (lower.Substring(lower.Length - 2, 1) != "o") &&
+                        (lower.Substring(lower.Length - 2, 1) != "u")
                     )
                     )
                 {
@@ -130,13 +138,14 @@ namespace MG.Generic
                 foreach (var item in ItemToReplaces)
                 {
                     var c = this._form.FlowInput.Controls.Find(item.Key, true);
-                    if (c != null && c.Any() && c[0].Name != XXXEntityLowerSingularXXX.Name)
+                    if (c != null && c.Any())
                     {
                         item.Value = ((System.Windows.Forms.TextBox)c[0]).Text; ;
                     }
                 }
 
                 _form.CrudGenerator.SetItemToReplace(this.ItemToReplaces);
+                AddOutputControls();
 
             }
             catch (Exception err)

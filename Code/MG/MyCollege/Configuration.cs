@@ -17,15 +17,9 @@ namespace MG.MyCollege
             {
                new ItemToReplace
                 {
-                    Id = 10,
-                    Key = "XXXEntityPluralXXX",
-                    LabelText = "Enity name singular capital case"
-                },
-                new ItemToReplace
-                {
-                    Id = 11,
-                    Key = "XXXEntityLowerPluralXXX",
-                    LabelText = "Enity name pural camel case"
+                    Id = 13,
+                    Key = "XXXEntityLowerSingularXXX",
+                    LabelText = "Enity name singular camel case"
                 },
                 new ItemToReplace
                 {
@@ -33,11 +27,17 @@ namespace MG.MyCollege
                     Key = "XXXEntitySingularXXX",
                     LabelText = "Enity name plural capital case"
                 },
+                 new ItemToReplace
+                {
+                    Id = 11,
+                    Key = "XXXEntityLowerPluralXXX",
+                    LabelText = "Enity name pural camel case"
+                },
                 new ItemToReplace
                 {
-                    Id = 13,
-                    Key = "XXXEntityLowerSingularXXX",
-                    LabelText = "Enity name singular camel case"
+                    Id = 10,
+                    Key = "XXXEntityPluralXXX",
+                    LabelText = "Enity name singular capital case"
                 },
                 new ItemToReplace
                 {

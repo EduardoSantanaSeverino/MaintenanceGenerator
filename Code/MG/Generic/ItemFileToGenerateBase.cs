@@ -71,21 +71,23 @@ namespace MG.Generic
         {
             foreach (var item in this.ItemFieldTypeTemplates)
             {
-                markup.Replace(item.Name, ProcessField(item));
+                markup = markup.Replace(item.Name, ProcessField(item) + "\n" + item.Name);
             }
             return markup;
         }
 
         protected string ProcessField(ItemFieldTypeTemplate itemField)
         {
+            var l = new List<string>();
             foreach (var item in this.ClassInfoData.Fields)
             {
-                itemField.TemplateMarkup.Replace("XXXFieldNameXXX", item.Key);
-                itemField.TemplateMarkup.Replace("XXXFieldValueXXX", item.Value);
-                itemField.TemplateMarkup.Replace("XXXFieldValueAltXXX", item.ValueAlt);
-                itemField.TemplateMarkup.Replace("XXXFieldValueAppenedXXX", item.ValueAppened);
+                string n = itemField.TemplateMarkup.Replace("XXXFieldNameXXX", item.Value);
+                n = n.Replace("XXXFieldTypeXXX", item.Key);
+                n = n.Replace("XXXFieldValueAltXXX", item.ValueAlt);
+                n = n.Replace("XXXFieldValueAppenedXXX", item.ValueAppened);
+                l.Add(n);
             }
-            return itemField.TemplateMarkup;
+            return string.Join("\n", l.ToArray());
         }
     }
 }
