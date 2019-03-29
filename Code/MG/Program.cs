@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using MG.Generic;
-using MG.MyCollege;
+using MG.CentennialForm;
 
 namespace MG
 {
@@ -37,7 +37,6 @@ namespace MG
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new frmMainApp(crudGenerator, generateControls));
-         //   Application.Run(new frmPrincipal(new MyCollege.CrudGenerator(new MyCollege.Configuration(), new List<MyCollege.ItemToReplace>())));
         }
     }
 }

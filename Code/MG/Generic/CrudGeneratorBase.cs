@@ -16,12 +16,6 @@ namespace MG.Generic
 
         public List<IItemFileToGenerate> ItemFileToGenerates { get; protected set; }
 
-        public abstract void SetItemToReplace(List<IItemToReplace> itemToReplaces);
-
-        public abstract void AddComboParameter(ComboParameter comboParameter);
-
-        public abstract void btnGenerate_Click(IConfiguration Configuration, List<IItemToReplace> ItemToReplaces);
-
         public void btnSaveOnDisk_Click()
         {
             foreach (var item in this.ItemFileToGenerates)
@@ -31,11 +25,32 @@ namespace MG.Generic
             System.Threading.Thread.Sleep(1000);
         }
 
+        protected abstract void Initialize(IConfiguration Configuration, List<IItemToReplace> ItemToReplaces);
+
+        protected abstract void LoadItemFileToCreate();
+
         protected void createSpecificFileOnDisk(string fileName, string containerText)
         {
             if (System.IO.File.Exists(fileName))
                 System.IO.File.Delete(fileName);
             System.IO.File.AppendAllText(fileName, containerText);
         }
+
+        public virtual void SetItemToReplace(List<IItemToReplace> itemToReplaces)
+        {
+            Initialize(this.Configuration, itemToReplaces);
+        }
+
+        public virtual void AddComboParameter(ComboParameter comboParameter)
+        {
+            this.ClassInfoData.AddComboParameter(comboParameter);
+            LoadItemFileToCreate();
+        }
+
+        public virtual void btnGenerate_Click(IConfiguration Configuration, List<IItemToReplace> ItemToReplaces)
+        {
+            Initialize(Configuration, ItemToReplaces);
+        }
+
     }
 }

@@ -8,22 +8,15 @@ namespace MG.CentennialForm
 {
     public enum FileStackId
     {
-        IndexCsHtmlTemplate,
-        CreateModalCsHtmlTemplate,
-        UpdateCsHtmlTemplate,
-        IndexJSTemplate,
-        CreateJSTemplate,
-        UpdateJSTemplate,
-        DtoTemplate,
-        UpdateDtoTemplate, 
-        CreateDtoTemplate, 
-        IAppServiceTemplate, 
-        AppServiceTemplate, 
-        AuthorizationProviderTemplate, 
-        PermissionNameTemplate, 
-        AppJsMenuTemplate, 
-        NavigationProviderTemplate,
-        MenuSideBarNavTemplate 
+        IndexCs,
+        IndexDesigner,
+        IndexResx,
+        EditCs,
+        EditDesigner,
+        EditResx,
+        DetailsCs,
+        DetailsDesigner,
+        DetailsResx
     }
     
 }

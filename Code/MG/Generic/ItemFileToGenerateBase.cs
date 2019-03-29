@@ -66,5 +66,26 @@ namespace MG.Generic
         {
             return this.ClassInfoData?.ComboParameters?.FirstOrDefault(p => p.FieldNameValue == FieldNameValue);
         }
+
+        protected string ProcessGenericFields(string markup)
+        {
+            foreach (var item in this.ItemFieldTypeTemplates)
+            {
+                markup.Replace(item.Name, ProcessField(item));
+            }
+            return markup;
+        }
+
+        protected string ProcessField(ItemFieldTypeTemplate itemField)
+        {
+            foreach (var item in this.ClassInfoData.Fields)
+            {
+                itemField.TemplateMarkup.Replace("XXXFieldNameXXX", item.Key);
+                itemField.TemplateMarkup.Replace("XXXFieldValueXXX", item.Value);
+                itemField.TemplateMarkup.Replace("XXXFieldValueAltXXX", item.ValueAlt);
+                itemField.TemplateMarkup.Replace("XXXFieldValueAppenedXXX", item.ValueAppened);
+            }
+            return itemField.TemplateMarkup;
+        }
     }
 }

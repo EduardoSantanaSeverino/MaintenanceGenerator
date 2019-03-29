@@ -19,23 +19,7 @@ namespace MG.MyCollege
 
         }
 
-        public override void SetItemToReplace(List<IItemToReplace> itemToReplaces)
-        {
-            Initialize(this.Configuration, itemToReplaces);
-        }
-
-        public override void AddComboParameter(ComboParameter comboParameter)
-        {
-            this.ClassInfoData.AddComboParameter(comboParameter);
-            LoadItemFileToCreate();
-        }
-
-        public override void btnGenerate_Click(IConfiguration Configuration, List<IItemToReplace> ItemToReplaces)
-        {
-            Initialize(Configuration, ItemToReplaces);
-        }
-
-        private void Initialize(IConfiguration Configuration, List<IItemToReplace> ItemToReplaces)
+        protected override void Initialize(IConfiguration Configuration, List<IItemToReplace> ItemToReplaces)
         {
             string entity = ItemToReplaces.FirstOrDefault(p => p.Key == "XXXEntityPluralXXX")?.Value;
             this.ClassInfoData = new ClassInfoData(Configuration.GetConfig("ClassesPath"), entity + ".cs", ItemToReplaces);
@@ -72,7 +56,7 @@ namespace MG.MyCollege
             
         }
 
-        private void LoadItemFileToCreate()
+        protected override void LoadItemFileToCreate()
         {
             ItemFileToGenerates = new List<IItemFileToGenerate>()
             {
@@ -345,7 +329,6 @@ namespace MG.MyCollege
                 )
             };
         }
-
        
     }
 }
