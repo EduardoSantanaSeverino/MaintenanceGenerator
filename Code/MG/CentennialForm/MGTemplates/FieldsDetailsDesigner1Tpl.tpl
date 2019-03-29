@@ -1,5 +1,4 @@
-﻿
-		    // 
+﻿		    // 
             // lblXXXFieldNameXXX
             // 
 			this.lblXXXFieldNameXXX = new System.Windows.Forms.Label();
@@ -13,5 +12,3 @@
 			this.txtXXXFieldNameXXX = new System.Windows.Forms.TextBox();
             this.txtXXXFieldNameXXX.Name = "txtXXXFieldNameXXX";
             this.txtXXXFieldNameXXX.Size = new System.Drawing.Size(225, 20);
-//XXXFieldsDetailsDesigner1TplXXX
-

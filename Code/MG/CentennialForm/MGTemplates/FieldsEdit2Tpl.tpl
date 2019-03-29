@@ -1,0 +1,1 @@
+﻿			XXXEntitySingularXXX.XXXFieldNameXXX = txtXXXFieldNameXXX.Text;

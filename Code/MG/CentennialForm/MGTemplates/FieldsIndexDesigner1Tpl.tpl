@@ -6,4 +6,3 @@
             this.cXXXFieldNameXXX.HeaderText = "XXXFieldNameXXX";
             this.cXXXFieldNameXXX.Name = "cXXXFieldNameXXX";
             this.cXXXFieldNameXXX.ReadOnly = true;
-//XXXFieldsIndexDesigner1TplXXX 

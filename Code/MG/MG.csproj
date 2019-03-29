@@ -127,6 +127,26 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="CentennialForm\MGTemplates\Details.cs.tpl" />
+    <None Include="CentennialForm\MGTemplates\Details.Designer.cs.tpl" />
+    <None Include="CentennialForm\MGTemplates\Details.resx.tpl" />
+    <None Include="CentennialForm\MGTemplates\Edit.cs.tpl" />
+    <None Include="CentennialForm\MGTemplates\Edit.Designer.cs.tpl" />
+    <None Include="CentennialForm\MGTemplates\Edit.resx.tpl" />
+    <None Include="CentennialForm\MGTemplates\Editcs.tpl" />
+    <None Include="CentennialForm\MGTemplates\FieldsDetailsDesigner1Tpl.tpl" />
+    <None Include="CentennialForm\MGTemplates\FieldsDetailsDesigner2Tpl.tpl" />
+    <None Include="CentennialForm\MGTemplates\FieldsDetailsDesigner3Tpl.tpl" />
+    <None Include="CentennialForm\MGTemplates\FieldsDetailsTpl.tpl" />
+    <None Include="CentennialForm\MGTemplates\FieldsEdit1Tpl.tpl" />
+    <None Include="CentennialForm\MGTemplates\FieldsEdit2Tpl.tpl" />
+    <None Include="CentennialForm\MGTemplates\FieldsIndexDesigner1Tpl.tpl" />
+    <None Include="CentennialForm\MGTemplates\FieldsIndexDesigner2Tpl.tpl" />
+    <None Include="CentennialForm\MGTemplates\FieldsIndexDesigner3Tpl.tpl" />
+    <None Include="CentennialForm\MGTemplates\FieldsIndexResx1Tpl.tpl" />
+    <None Include="CentennialForm\MGTemplates\Index.cs.tpl" />
+    <None Include="CentennialForm\MGTemplates\Index.Designer.cs.tpl" />
+    <None Include="CentennialForm\MGTemplates\Index.resx.tpl" />
     <None Include="MyCollege\MGTemplates\AppJsMenu.tpt" />
     <None Include="MyCollege\MGTemplates\AppService.tpt" />
     <None Include="MyCollege\MGTemplates\AuthorizationProvider.tpt" />
@@ -168,8 +188,6 @@
   <ItemGroup>
     <Content Include="if_Gold_Iron_Man_Mask_134237.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="CentennialFormTemplates\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

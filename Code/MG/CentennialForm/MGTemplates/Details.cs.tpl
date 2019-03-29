@@ -15,8 +15,6 @@ namespace DesktopUtils.Desktop.CrudXXXEntityPluralXXX
 
         private void Details_Load(object sender, EventArgs e)
         {
-            txtId.Text = XXXEntitySingularXXX.Id.ToString();
-            txtId.Enabled = false;
 			
 //XXXFieldsDetailsTplXXX
 
