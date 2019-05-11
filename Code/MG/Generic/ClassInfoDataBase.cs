@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace MG.Generic
 {
@@ -45,7 +44,6 @@ namespace MG.Generic
             catch (Exception err) { }
             return new List<TripleValue<string, string, string, string>>();
         }
-
 
         public string XXXEntityPluralXXX { get => GetItemToReplace("XXXEntityPluralXXX"); } // txtCapitalPlural.Text
         public string XXXEntityLowerPluralXXX { get => GetItemToReplace("XXXEntityLowerPluralXXX"); } // txtCamelPlural.Text
@@ -120,10 +118,14 @@ namespace MG.Generic
                     "bool",
                     "Boolean"
                 };
+                var listFileAttrib = new List<string>();
 
                 for (int i = 0; i < loadedClass.Length; i++)
                 {
                     var lineX = loadedClass[i];
+
+                    FillingFileAttrib(loadedClass, listFileAttrib, i, lineX);
+
                     if (!lineX.Contains("public"))
                         continue;
 
@@ -132,7 +134,6 @@ namespace MG.Generic
 
                     if (lineX.Contains("("))
                         continue;
-
 
                     var type = GetTypeString(lineX);
                     var property = GetPropertyString(lineX);
@@ -143,12 +144,40 @@ namespace MG.Generic
                     var MaxLenght = GetMaxLengString(LineXAnterior);
                     var MaxLenghtJustInt = GetMaxLengIntForString(LineXAnterior);
 
+
                     var field = new TripleValue<string, string, string, string>(type, property, MaxLenght, MaxLenghtJustInt);
+                    field.ShowOnList = listFileAttrib;
                     fieldList.Add(field);
+                    listFileAttrib = new List<string>();
                 }
             }
             catch (Exception err) { }
             return fieldList;
+        }
+
+        private static void FillingFileAttrib(string[] loadedClass, List<string> listFileAttrib, int i, string lineX)
+        {
+            if (lineX.Contains(@"/// <summary>") && loadedClass[i + 1].Contains(@"/// {"))
+            {
+                var linePlusOne = loadedClass[i + 1];
+                var indexStart = linePlusOne.IndexOf("{");
+                var indexEnd = linePlusOne.IndexOf("}");
+                var json = linePlusOne.Substring(indexStart, indexEnd - indexStart);
+
+                var des = JsonConvert.DeserializeObject<AttributeProperty>(json);
+
+                foreach (var prop in des.GetType().GetProperties())
+                {
+                    if (prop.GetType().Name == "bool")
+                    {
+                        var _value = prop.GetValue(des);
+                        if (bool.Parse(_value.ToString()))
+                        {
+                            listFileAttrib.Add(prop.Name);
+                        }
+                    }
+                }
+            }
         }
 
         protected string GetTypeString(string Line)

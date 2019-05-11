@@ -9,36 +9,7 @@ namespace MG.MyCollege
 {
     public class ItemFileToGenerate : ItemFileToGenerateBase, IItemFileToGenerate
     {
-        public ItemFileToGenerate
-        (
-            int Id,
-            string Name,
-            string Path,
-            string TemplateName,
-            string TemplateDirectory,
-            IClassInfoData ClassInfoData,
-            string ControlName,
-            List<ItemFieldTypeTemplate> ItemFieldTypeTemplates = null
-        )
-        {
-            this.Id = Id;
-            this.Name = Name;
-            this.Path = Path;
-            this.TemplateName = TemplateName;
-            this.TemplateDirectory = TemplateDirectory;
-            this.ItemFieldTypeTemplates = ItemFieldTypeTemplates;
-            this.ClassInfoData = ClassInfoData;
-            this.ControlName = ControlName;
-            this.TemplateMarkup = ReadTemplate();
-            try
-            {
-                ProcessFile();
-            }
-            catch (Exception ex)
-            {
-            }
-            this.TemplateMarkup = ReplaceAllKeysWithRealValues(this.TemplateMarkup);
-        }
+        
 
         // this moment i run out of ideas to put this here / when i started to put code static for just one file, i run out of ideas. 
         private void ProcessFile()
@@ -610,6 +581,28 @@ namespace MG.MyCollege
         private string XXXRepositoryDeclarationListXXX = "XXXRepositoryDeclarationListXXX";
         private string XXXFieldNameCapitalSingularXXX = "XXXFieldNameCapitalSingularXXX";
         private string XXXFieldNameCamelPluralXXX = "XXXFieldNameCamelPluralXXX";
-       
+
+        public ItemFileToGenerate
+        (
+            int Id, 
+            string Name, 
+            string Path, 
+            string TemplateName, 
+            string TemplateDirectory, 
+            IClassInfoData ClassInfoData, 
+            List<ItemFieldTypeTemplate> ItemFieldTypeTemplates = null
+        ) 
+        : base
+        (
+              Id, 
+              Name, 
+              Path, 
+              TemplateName, 
+              TemplateDirectory, 
+              ClassInfoData, 
+              ItemFieldTypeTemplates
+        )
+        {
+        }
     }
 }

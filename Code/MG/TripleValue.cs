@@ -14,12 +14,13 @@ namespace MG
             this.Value = _value;
             this.ValueAlt = _valueAlt;
             this.ValueAppened = _valueAppened;
+            this.ShowOnList = new List<string>();
         }
         public T Key { get; set; }
         public X Value { get; set; }
         public Y ValueAlt { get; set; }
         public Z ValueAppened { get; set; }
-
+        public List<string> ShowOnList { get; set; }
         public override string ToString()
         {
             return "Key:" + this.Key.ToString() + ", Value: " + this.Value + ", ValueAlt: " + this.ValueAlt + ", ValueAppened: " + this.ValueAppened;

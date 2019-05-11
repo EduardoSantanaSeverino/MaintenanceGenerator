@@ -17,6 +17,101 @@ namespace MG.Generic
         public IClassInfoData ClassInfoData { get; set; }
         public string ControlName { get; set; }
         public List<ItemFieldTypeTemplate> ItemFieldTypeTemplates { get; set; }
+        public string FileType { get; set; }
+
+        public ItemFileToGenerateBase
+        (
+            int Id,
+            string Name,
+            string Path,
+            string TemplateName,
+            string TemplateDirectory,
+            IClassInfoData ClassInfoData,
+            List<ItemFieldTypeTemplate> ItemFieldTypeTemplates
+        )
+        {
+            this.FileType = "";
+            this.Id = Id;
+            this.Name = Name;
+            this.ControlName = "rtb" + this.Name;
+            this.Path = Path;
+            this.TemplateName = TemplateName;
+            this.TemplateDirectory = TemplateDirectory;
+            this.ItemFieldTypeTemplates = ItemFieldTypeTemplates;
+            this.ClassInfoData = ClassInfoData;
+            this.TemplateMarkup = ReadTemplate();
+
+            if (ListNameForList.Contains(this.Name))
+            {
+                this.FileType = "List";
+            }
+            if (ListNameForUpdate.Contains(this.Name))
+            {
+                this.FileType = "Update";
+            }
+            if (ListNameForCreate.Contains(this.Name))
+            {
+                this.FileType = "Create";
+            }
+            if (ListNameForDelete.Contains(this.Name))
+            {
+                this.FileType = "Delete";
+            }
+
+            try
+            {
+                this.TemplateMarkup = ProcessGenericFields(this.TemplateMarkup);
+            }
+            catch (Exception ex)
+            {
+            }
+
+            this.TemplateMarkup = ReplaceAllKeysWithRealValues(this.TemplateMarkup);
+        }
+
+        private List<string> ListNameForList
+        {
+            get
+            {
+                return new List<string>
+                {
+                    "List", "Index"
+                };
+            }
+        }
+
+        private List<string> ListNameForUpdate
+        {
+            get
+            {
+                return new List<string>
+                {
+                    "Update", "Edit"
+                };
+            }
+        }
+
+        private List<string> ListNameForCreate
+        {
+            get
+            {
+                return new List<string>
+                {
+                    "Create", "Add"
+                };
+            }
+        }
+
+        private List<string> ListNameForDelete
+        {
+            get
+            {
+                return new List<string>
+                {
+                    "Delete"
+                };
+            }
+        }
 
         protected string GetFieldTypeTemplate(string name)
         {
@@ -76,6 +171,7 @@ namespace MG.Generic
             return markup;
         }
 
+
         protected string ProcessField(ItemFieldTypeTemplate itemField)
         {
             string[] array = itemField.TemplateMarkup.Split('|');
@@ -84,47 +180,66 @@ namespace MG.Generic
             var l = new List<string>();
             foreach (var item in this.ClassInfoData.Fields)
             {
-                string n = "";
-
-                if (isMultiType)
+                if (item.ShowOnList.Any() && !string.IsNullOrEmpty(this.FileType))
                 {
-                    bool isFound = false;   
-                    for (int i = 0; i < array.Length; i++)
+                    if (item.ShowOnList.Any(p => p.Replace("ShowOn","") == this.FileType))
                     {
-                        if (array[i] == item.Key)
-                        {
-                            isFound = true;
-                            n = array[i + 1];
-                        }
-                    }
-                    if (!isFound)
-                    {
-                        for (int i = 0; i < array.Length; i++)
-                        {
-                            if (array[i] == "default")
-                            {
-                                n = array[i + 1];
-                            }
-                        }
+                        ProcessFieldItem(itemField, array, isMultiType, l, item);
                     }
                 }
                 else
                 {
-                    n = itemField.TemplateMarkup;
+                    ProcessFieldItem(itemField, array, isMultiType, l, item);
                 }
-
-                if (!string.IsNullOrEmpty(n))
-                {
-                    n = n.Replace("XXXFieldNameXXX", item.Value);
-                    n = n.Replace("XXXFieldTypeXXX", item.Key);
-                    n = n.Replace("XXXFieldValueAltXXX", item.ValueAlt);
-                    n = n.Replace("XXXFieldValueAppenedXXX", item.ValueAppened);
-
-                    l.Add(n);
-                }
-
+               
             }
             return string.Join("\n", l.ToArray());
+        }
+
+        private void ProcessFieldItem(ItemFieldTypeTemplate itemField, 
+            string[] array, 
+            bool isMultiType, 
+            List<string> l, 
+            TripleValue<string, string, string, string> item)
+        {
+            string n = "";
+
+            if (isMultiType)
+            {
+                bool isFound = false;
+                for (int i = 0; i < array.Length; i++)
+                {
+                    if (array[i] == item.Key)
+                    {
+                        isFound = true;
+                        n = array[i + 1];
+                    }
+                }
+                if (!isFound)
+                {
+                    for (int i = 0; i < array.Length; i++)
+                    {
+                        if (array[i] == "default")
+                        {
+                            n = array[i + 1];
+                        }
+                    }
+                }
+            }
+            else
+            {
+                n = itemField.TemplateMarkup;
+            }
+
+            if (!string.IsNullOrEmpty(n))
+            {
+                n = n.Replace("XXXFieldNameXXX", item.Value);
+                n = n.Replace("XXXFieldTypeXXX", item.Key);
+                n = n.Replace("XXXFieldValueAltXXX", item.ValueAlt);
+                n = n.Replace("XXXFieldValueAppenedXXX", item.ValueAppened);
+
+                l.Add(n);
+            }
         }
     }
 }

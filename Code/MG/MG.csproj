@@ -41,6 +41,9 @@
     <Reference Include="Castle.Windsor, Version=5.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Windsor.5.0.0\lib\net45\Castle.Windsor.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -76,6 +79,7 @@
     <Compile Include="frmVisor.Designer.cs">
       <DependentUpon>frmVisor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Generic\AttributeProperty.cs" />
     <Compile Include="Generic\IGenerateControls.cs" />
     <Compile Include="Generic\ClassInfoDataBase.cs" />
     <Compile Include="Generic\ConfigurationBase.cs" />
@@ -127,13 +131,15 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="CentennialForm\MGTemplates\Create.cs.tpl" />
+    <None Include="CentennialForm\MGTemplates\Create.Designer.cs.tpl" />
+    <None Include="CentennialForm\MGTemplates\Create.resx.tpl" />
     <None Include="CentennialForm\MGTemplates\Details.cs.tpl" />
     <None Include="CentennialForm\MGTemplates\Details.Designer.cs.tpl" />
     <None Include="CentennialForm\MGTemplates\Details.resx.tpl" />
     <None Include="CentennialForm\MGTemplates\Edit.cs.tpl" />
     <None Include="CentennialForm\MGTemplates\Edit.Designer.cs.tpl" />
     <None Include="CentennialForm\MGTemplates\Edit.resx.tpl" />
-    <None Include="CentennialForm\MGTemplates\Editcs.tpl" />
     <None Include="CentennialForm\MGTemplates\FieldsDetailsDesigner1Tpl.tpl" />
     <None Include="CentennialForm\MGTemplates\FieldsDetailsDesigner2Tpl.tpl" />
     <None Include="CentennialForm\MGTemplates\FieldsDetailsDesigner3Tpl.tpl" />
@@ -143,6 +149,7 @@
     <None Include="CentennialForm\MGTemplates\FieldsIndexDesigner1Tpl.tpl" />
     <None Include="CentennialForm\MGTemplates\FieldsIndexDesigner2Tpl.tpl" />
     <None Include="CentennialForm\MGTemplates\FieldsIndexDesigner3Tpl.tpl" />
+    <None Include="CentennialForm\MGTemplates\FieldsIndexDesigner4Tpl.tpl" />
     <None Include="CentennialForm\MGTemplates\FieldsIndexResx1Tpl.tpl" />
     <None Include="CentennialForm\MGTemplates\Index.cs.tpl" />
     <None Include="CentennialForm\MGTemplates\Index.Designer.cs.tpl" />
