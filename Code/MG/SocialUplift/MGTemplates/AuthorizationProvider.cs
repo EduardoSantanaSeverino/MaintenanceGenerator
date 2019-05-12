@@ -15,6 +15,7 @@ namespace SocialUplift.Authorization
             context.CreatePermission(PermissionNames.Pages_CampaignTypes, L("CampaignTypes"));
             context.CreatePermission(PermissionNames.Pages_InstaAccounts, L("InstaAccounts"));
             context.CreatePermission(PermissionNames.Pages_Tenants, L("Tenants"), multiTenancySides: MultiTenancySides.Host);
+            ///AuthorizationProvider.cs.place1///
         }
 
         private static ILocalizableString L(string name)

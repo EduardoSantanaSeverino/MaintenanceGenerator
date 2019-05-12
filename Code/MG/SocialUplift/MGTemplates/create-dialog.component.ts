@@ -4,62 +4,61 @@ import { finalize } from 'rxjs/operators';
 import * as _ from 'lodash';
 import { AppComponentBase } from '@shared/app-component-base';
 import {
-  CampaignServiceProxy,
-  CampaignDto,
-  PermissionDto,
-  CampaignCreateDto
+  XXXEntitySingularXXXServiceProxy,
+  XXXEntitySingularXXXDto,
+  XXXEntitySingularXXXCreateDto
 } from '@shared/service-proxies/service-proxies';
 
 @Component({
-  templateUrl: 'create-campaign-dialog.component.html',
+  templateUrl: 'create-XXXEntityLowerSingularXXX-dialog.component.html',
   styles: [
-    `
-      mat-form-field {
-        width: 100%;
-      }
-      mat-checkbox {
-        padding-bottom: 5px;
-      }
-    `
+	`
+	  mat-form-field {
+		width: 100%;
+	  }
+	  mat-checkbox {
+		padding-bottom: 5px;
+	  }
+	`
   ]
 })
-export class CreateCampaignDialogComponent extends AppComponentBase
+export class CreateXXXEntitySingularXXXDialogComponent extends AppComponentBase
   implements OnInit {
   saving = false;
-  campaign: CampaignDto = new CampaignDto();
+  XXXEntityLowerSingularXXX: XXXEntitySingularXXXDto = new XXXEntitySingularXXXDto();
 
   constructor(
-    injector: Injector,
-    private _campaignService: CampaignServiceProxy,
-    private _dialogRef: MatDialogRef<CreateCampaignDialogComponent>
+	injector: Injector,
+	private _XXXEntityLowerSingularXXXService: XXXEntitySingularXXXServiceProxy,
+	private _dialogRef: MatDialogRef<CreateXXXEntitySingularXXXDialogComponent>
   ) {
-    super(injector);
+	super(injector);
   }
 
   ngOnInit(): void {
-	this.campaign.isActive = true;
+	this.XXXEntityLowerSingularXXX.isActive = true;
   }
 
   save(): void {
-    this.saving = true;
+	this.saving = true;
 
-    const campaign_ = new CampaignCreateDto();
-    campaign_.init(this.campaign);
+	const XXXEntityLowerSingularXXX_ = new XXXEntitySingularXXXCreateDto();
+	XXXEntityLowerSingularXXX_.init(this.XXXEntityLowerSingularXXX);
 
-    this._campaignService
-      .create(campaign_)
-      .pipe(
-        finalize(() => {
-          this.saving = false;
-        })
-      )
-      .subscribe(() => {
-        this.notify.info(this.l('SavedSuccessfully'));
-        this.close(true);
-      });
+	this._XXXEntityLowerSingularXXXService
+	  .create(XXXEntityLowerSingularXXX_)
+	  .pipe(
+		finalize(() => {
+		  this.saving = false;
+		})
+	  )
+	  .subscribe(() => {
+		this.notify.info(this.l('SavedSuccessfully'));
+		this.close(true);
+	  });
   }
 
   close(result: any): void {
-    this._dialogRef.close(result);
+	this._dialogRef.close(result);
   }
 }

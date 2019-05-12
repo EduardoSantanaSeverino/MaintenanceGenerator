@@ -85,12 +85,12 @@ namespace MG.Generic
 
         public bool ExistInFielList(string field)
         {
-            return Fields.Any(x => x.Value == field);
+            return Fields.Any(x => x.Name == field);
         }
 
         public bool ExistInRelatedFielList(string field, string relatedEnitity)
         {
-            return this.GetFieldListFromEntity(relatedEnitity).Any(x => x.Value == field);
+            return this.GetFieldListFromEntity(relatedEnitity).Any(x => x.Name == field);
         }
 
         protected virtual List<TripleValue<string, string, string, string>> GetFieldListFromEntity(string[] loadedClass)
@@ -136,7 +136,7 @@ namespace MG.Generic
                         continue;
 
                     var type = GetTypeString(lineX);
-                    var property = GetPropertyString(lineX);
+                    var propertyName = GetPropertyString(lineX);
 
                     if (!allowedtypes.Contains(type.Replace("?", "")))
                         continue;
@@ -145,7 +145,7 @@ namespace MG.Generic
                     var MaxLenghtJustInt = GetMaxLengIntForString(LineXAnterior);
 
 
-                    var field = new TripleValue<string, string, string, string>(type, property, MaxLenght, MaxLenghtJustInt);
+                    var field = new TripleValue<string, string, string, string>(type, propertyName, MaxLenght, MaxLenghtJustInt);
                     field.ShowOnList = listFileAttrib;
                     fieldList.Add(field);
                     listFileAttrib = new List<string>();

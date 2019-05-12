@@ -10,20 +10,20 @@ namespace MG
     {
         public TripleValue(T _key, X _value, Y _valueAlt, Z _valueAppened)
         {
-            this.Key = _key;
-            this.Value = _value;
-            this.ValueAlt = _valueAlt;
-            this.ValueAppened = _valueAppened;
+            this.Type = _key;
+            this.Name = _value;
+            this.MaxLenght = _valueAlt;
+            this.MaxLenghtJustInt = _valueAppened;
             this.ShowOnList = new List<string>();
         }
-        public T Key { get; set; }
-        public X Value { get; set; }
-        public Y ValueAlt { get; set; }
-        public Z ValueAppened { get; set; }
+        public T Type { get; set; }
+        public X Name { get; set; }
+        public Y MaxLenght { get; set; }
+        public Z MaxLenghtJustInt { get; set; }
         public List<string> ShowOnList { get; set; }
         public override string ToString()
         {
-            return "Key:" + this.Key.ToString() + ", Value: " + this.Value + ", ValueAlt: " + this.ValueAlt + ", ValueAppened: " + this.ValueAppened;
+            return "Key:" + this.Type.ToString() + ", Value: " + this.Name + ", ValueAlt: " + this.MaxLenght + ", ValueAppened: " + this.MaxLenghtJustInt;
         }
     }
 }

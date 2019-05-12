@@ -21,3 +21,17 @@ ApplicationDirectory = SocialUplift\aspnet-core\src\SocialUplift.Application\
 AuthorizationDirectory = SocialUplift\aspnet-core\src\SocialUplift.Core\Authorization\
 AngularAppDirectory = SocialUplift\angular\src\app\
 AngularSharedDirectory = SocialUplift\angular\src\shared\
+
+XXXEntityLowerSingularXXX
+XXXEntitySingularXXX
+XXXEntityLowerPluralXXX
+XXXEntityPluralXXX
+XXXProjectNameXXX
+XXXFieldNameLowerXXX
+XXXFieldNameLXXX
+
+n = n.Replace("XXXFieldNameXXX", item.Value);
+n = n.Replace("XXXFieldNameLowerXXX", item.Value.ToLower());
+n = n.Replace("XXXFieldTypeXXX", item.Key);
+n = n.Replace("XXXFieldMaxLenghtXXX", item.ValueAlt);
+n = n.Replace("XXXFieldMaxLenghtIntXXX", item.ValueAppened);

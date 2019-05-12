@@ -45,72 +45,74 @@ import { EditCampaignTypeDialogComponent } from '@app/campaignTypes/edit-Campaig
 import { CampaignsComponent } from '@app/campaigns/campaigns.component';
 import { CreateCampaignDialogComponent } from './campaigns/create-campaign/create-campaign-dialog.component';
 import { EditCampaignDialogComponent } from './campaigns/edit-campaign/edit-campaign-dialog.component';
-
+///app.module.ts.place1///
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    AboutComponent,
-    TopBarComponent,
-    TopBarLanguageSwitchComponent,
-    SideBarUserAreaComponent,
-    SideBarNavComponent,
-    SideBarFooterComponent,
-    RightSideBarComponent,
-    // tenants
-    TenantsComponent,
-    CreateTenantDialogComponent,
-    EditTenantDialogComponent,
-    // roles
-    RolesComponent,
-    CreateRoleDialogComponent,
-    EditRoleDialogComponent,
-    // users
-    UsersComponent,
-    CreateUserDialogComponent,
-    EditUserDialogComponent,
-    ChangePasswordComponent,
-    ResetPasswordDialogComponent,
-    // campaignTypes
-    CampaignTypesComponent,
-    CreateCampaignTypeDialogComponent,
-    EditCampaignTypeDialogComponent,
-    // roles
-    CampaignsComponent,
-    CreateCampaignDialogComponent,
-    EditCampaignDialogComponent
-  ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    JsonpModule,
-    ModalModule.forRoot(),
-    AbpModule,
-    AppRoutingModule,
-    ServiceProxyModule,
-    SharedModule,
-    NgxPaginationModule
-  ],
-  providers: [],
-  entryComponents: [
-    // tenants
-    CreateTenantDialogComponent,
-    EditTenantDialogComponent,
-    // roles
-    CreateRoleDialogComponent,
-    EditRoleDialogComponent,
-    // users
-    CreateUserDialogComponent,
-    EditUserDialogComponent,
-    ResetPasswordDialogComponent,
-    // campaignTypes
-    CreateCampaignTypeDialogComponent,
-    EditCampaignTypeDialogComponent,
-    // campaign
-    CreateCampaignDialogComponent,
-    EditCampaignDialogComponent
-  ]
+    declarations: [
+        AppComponent,
+        HomeComponent,
+        AboutComponent,
+        TopBarComponent,
+        TopBarLanguageSwitchComponent,
+        SideBarUserAreaComponent,
+        SideBarNavComponent,
+        SideBarFooterComponent,
+        RightSideBarComponent,
+        // tenants
+        TenantsComponent,
+        CreateTenantDialogComponent,
+        EditTenantDialogComponent,
+        // roles
+        RolesComponent,
+        CreateRoleDialogComponent,
+        EditRoleDialogComponent,
+        // users
+        UsersComponent,
+        CreateUserDialogComponent,
+        EditUserDialogComponent,
+        ChangePasswordComponent,
+        ResetPasswordDialogComponent,
+        // campaignTypes
+        CampaignTypesComponent,
+        CreateCampaignTypeDialogComponent,
+        EditCampaignTypeDialogComponent,
+        // roles
+        CampaignsComponent,
+        CreateCampaignDialogComponent,
+        EditCampaignDialogComponent,
+        ///app.module.ts.place2///
+    ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        JsonpModule,
+        ModalModule.forRoot(),
+        AbpModule,
+        AppRoutingModule,
+        ServiceProxyModule,
+        SharedModule,
+        NgxPaginationModule
+    ],
+    providers: [],
+    entryComponents: [
+        // tenants
+        CreateTenantDialogComponent,
+        EditTenantDialogComponent,
+        // roles
+        CreateRoleDialogComponent,
+        EditRoleDialogComponent,
+        // users
+        CreateUserDialogComponent,
+        EditUserDialogComponent,
+        ResetPasswordDialogComponent,
+        // campaignTypes
+        CreateCampaignTypeDialogComponent,
+        EditCampaignTypeDialogComponent,
+        // campaign
+        CreateCampaignDialogComponent,
+        EditCampaignDialogComponent,
+        ///app.module.ts.place3///
+    ]
 })
-export class AppModule {}
+export class AppModule { }

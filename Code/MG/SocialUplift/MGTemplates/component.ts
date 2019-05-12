@@ -3,9 +3,9 @@ import { MatDialog } from '@angular/material';
 import { finalize } from 'rxjs/operators';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { PagedListingComponentBase, PagedRequestDto } from 'shared/paged-listing-component-base';
-import { CampaignServiceProxy, CampaignDto, PagedResultDtoOfCampaignDto } from '@shared/service-proxies/service-proxies';
-import { CreateCampaignDialogComponent } from './create-campaign/create-campaign-dialog.component';
-import { EditCampaignDialogComponent } from './edit-campaign/edit-campaign-dialog.component';
+import { XXXEntitySingularXXXServiceProxy, XXXEntitySingularXXXDto, PagedResultDtoOfXXXEntitySingularXXXDto } from '@shared/service-proxies/service-proxies';
+import { CreateXXXEntitySingularXXXDialogComponent } from './create-XXXEntityLowerSingularXXX/create-XXXEntityLowerSingularXXX-dialog.component';
+import { EditXXXEntitySingularXXXDialogComponent } from './edit-XXXEntityLowerSingularXXX/edit-XXXEntityLowerSingularXXX-dialog.component';
 
 class PagedModelsResultRequestDto extends PagedRequestDto {
 	keyword: string;
@@ -13,7 +13,7 @@ class PagedModelsResultRequestDto extends PagedRequestDto {
 }
 
 @Component({
-	templateUrl: './campaigns.component.html',
+	templateUrl: './XXXEntityLowerPluralXXX.component.html',
 	animations: [appModuleAnimation()],
 	styles: [
 		`
@@ -23,14 +23,14 @@ class PagedModelsResultRequestDto extends PagedRequestDto {
 		`
 	]
 })
-export class CampaignsComponent extends PagedListingComponentBase<CampaignDto> {
-	campaigns: CampaignDto[] = [];
+export class XXXEntityPluralXXXComponent extends PagedListingComponentBase<XXXEntitySingularXXXDto> {
+	XXXEntityLowerPluralXXX: XXXEntitySingularXXXDto[] = [];
 	keyword = '';
 	isActive: boolean | null;
 
 	constructor(
 		injector: Injector,
-		private _campaignsService: CampaignServiceProxy,
+		private _XXXEntityLowerPluralXXXService: XXXEntitySingularXXXServiceProxy,
 		private _dialog: MatDialog
 	) {
 		super(injector);
@@ -45,26 +45,26 @@ export class CampaignsComponent extends PagedListingComponentBase<CampaignDto> {
 		request.keyword = this.keyword;
 		request.isActive = this.isActive;
 
-		this._campaignsService
+		this._XXXEntityLowerPluralXXXService
 			.getAll(request.keyword, request.isActive, request.skipCount, request.maxResultCount)
 			.pipe(
 				finalize(() => {
 					finishedCallback();
 				})
 			)
-			.subscribe((result: PagedResultDtoOfCampaignDto) => {
-				this.campaigns = result.items;
+			.subscribe((result: PagedResultDtoOfXXXEntitySingularXXXDto) => {
+				this.XXXEntityLowerPluralXXX = result.items;
 				this.showPaging(result, pageNumber);
 			});
 	}
 
-	protected delete(campaign: CampaignDto): void {
+	protected delete(XXXEntityLowerSingularXXX: XXXEntitySingularXXXDto): void {
 		abp.message.confirm(
-			this.l('CampaignDeleteWarningMessage', campaign.title),
+			this.l('XXXEntitySingularXXXDeleteWarningMessage', XXXEntityLowerSingularXXX.title),
 			(result: boolean) => {
 				if (result) {
-					this._campaignsService
-						.delete(campaign.id)
+					this._XXXEntityLowerPluralXXXService
+						.delete(XXXEntityLowerSingularXXX.id)
 						.subscribe(() => { 
 							abp.notify.success(this.l('SuccessfullyDeleted'));
 							this.refresh();
@@ -74,25 +74,25 @@ export class CampaignsComponent extends PagedListingComponentBase<CampaignDto> {
 		);
 	}
 
-	createCampaign(): void {
-		this.showCreateOrEditCampaignDialog();
+	createXXXEntitySingularXXX(): void {
+		this.showCreateOrEditXXXEntitySingularXXXDialog();
 	}
 
-	editCampaign(campaign: CampaignDto): void {
-		this.showCreateOrEditCampaignDialog(campaign.id);
+	editXXXEntitySingularXXX(XXXEntityLowerSingularXXX: XXXEntitySingularXXXDto): void {
+		this.showCreateOrEditXXXEntitySingularXXXDialog(XXXEntityLowerSingularXXX.id);
 	}
 
-	private showCreateOrEditCampaignDialog(id?: number): void {
-		let createOrEditCampaignDialog;
+	private showCreateOrEditXXXEntitySingularXXXDialog(id?: number): void {
+		let createOrEditXXXEntitySingularXXXDialog;
 		if (id === undefined || id <= 0) {
-			createOrEditCampaignDialog = this._dialog.open(CreateCampaignDialogComponent);
+			createOrEditXXXEntitySingularXXXDialog = this._dialog.open(CreateXXXEntitySingularXXXDialogComponent);
 		} else {
-			createOrEditCampaignDialog = this._dialog.open(EditCampaignDialogComponent, {
+			createOrEditXXXEntitySingularXXXDialog = this._dialog.open(EditXXXEntitySingularXXXDialogComponent, {
 				data: id
 			});
 		}
 
-		createOrEditCampaignDialog.afterClosed().subscribe(result => {
+		createOrEditXXXEntitySingularXXXDialog.afterClosed().subscribe(result => {
 			if (result) {
 				this.refresh();
 			}

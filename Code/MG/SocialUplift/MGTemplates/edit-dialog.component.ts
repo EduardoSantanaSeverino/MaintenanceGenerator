@@ -8,12 +8,12 @@ import { finalize } from 'rxjs/operators';
 import * as _ from 'lodash';
 import { AppComponentBase } from '@shared/app-component-base';
 import {
-  CampaignServiceProxy,
-  CampaignDto
+  XXXEntitySingularXXXServiceProxy,
+  XXXEntitySingularXXXDto
 } from '@shared/service-proxies/service-proxies';
 
 @Component({
-  templateUrl: 'edit-campaign-dialog.component.html',
+  templateUrl: 'edit-XXXEntityLowerSingularXXX-dialog.component.html',
   styles: [
     `
       mat-form-field {
@@ -25,33 +25,33 @@ import {
     `
   ]
 })
-export class EditCampaignDialogComponent extends AppComponentBase
+export class EditXXXEntitySingularXXXDialogComponent extends AppComponentBase
   implements OnInit {
   saving = false;
-  campaign: CampaignDto = new CampaignDto();
+  XXXEntityLowerSingularXXX: XXXEntitySingularXXXDto = new XXXEntitySingularXXXDto();
   
   constructor(
     injector: Injector,
-    private _campaignService: CampaignServiceProxy,
-    private _dialogRef: MatDialogRef<EditCampaignDialogComponent>,
+    private _XXXEntityLowerSingularXXXService: XXXEntitySingularXXXServiceProxy,
+    private _dialogRef: MatDialogRef<EditXXXEntitySingularXXXDialogComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) private _id: number
   ) {
     super(injector);
   }
 
   ngOnInit(): void {
-      this._campaignService
+      this._XXXEntityLowerSingularXXXService
       .get(this._id)
       .subscribe(result => {
-          this.campaign = result;
+          this.XXXEntityLowerSingularXXX = result;
       });
   }
 
   save(): void {
     this.saving = true;
 
-    this._campaignService
-      .update(this.campaign)
+    this._XXXEntityLowerSingularXXXService
+      .update(this.XXXEntityLowerSingularXXX)
       .pipe(
         finalize(() => {
           this.saving = false;

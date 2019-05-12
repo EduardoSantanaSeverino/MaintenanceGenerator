@@ -2,7 +2,7 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="card main-content">
             <div class="header">
-                <h2>{{ "Campaigns" | localize }}</h2>
+                <h2>{{ "XXXEntityPluralXXX" | localize }}</h2>
                 <ul class="header-dropdown m-r--5">
                     <li>
                         <button mat-icon-button [matMenuTriggerFor]="headerMenu" class="header-dropdown-mat-icon-button">
@@ -46,14 +46,13 @@
                 <table class="table table-hover table-striped" [busy]="isTableLoading">
                     <thead>
                         <tr>
-                            <th>{{ "Title" | localize }}</th>
-                            <th>{{ "Description" | localize }}</th>
+                            <!--component.html.fields1-->
                             <th>{{ "Actions" | localize }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="
-                let campaign of (campaigns
+                let XXXEntityLowerSingularXXX of (XXXEntityLowerPluralXXX
                   | paginate
                     : {
                         id: 'server',
@@ -62,18 +61,17 @@
                         totalItems: totalItems
                       })
               ">
-                            <td>{{ campaign.title }}</td>
-                            <td>{{ campaign.description }}</td>
+                            <!--component.html.fields2-->
                             <td>
                                 <button class="action-button" mat-icon-button [matMenuTriggerFor]="actionsMenu">
                                     <mat-icon>menu</mat-icon>
                                 </button>
                                 <mat-menu #actionsMenu="matMenu">
-                                    <button mat-menu-item (click)="editCampaign(campaign)">
+                                    <button mat-menu-item (click)="editXXXEntitySingularXXX(XXXEntityLowerSingularXXX)">
                                         <mat-icon>edit</mat-icon>
                                         <span>{{ "Edit" | localize }}</span>
                                     </button>
-                                    <button mat-menu-item (click)="delete(campaign)">
+                                    <button mat-menu-item (click)="delete(XXXEntityLowerSingularXXX)">
                                         <mat-icon>delete</mat-icon>
                                         <span>{{ "Delete" | localize }}</span>
                                     </button>
@@ -86,7 +84,7 @@
                     <abp-pagination-controls (pageChange)="getDataPage($event)" id="server">
                     </abp-pagination-controls>
                 </div>
-                <button mat-mini-fab color="primary" class="pull-right" (click)="createCampaign()">
+                <button mat-mini-fab color="primary" class="pull-right" (click)="createXXXEntitySingularXXX()">
                     <mat-icon>add</mat-icon>
                 </button>
             </div>

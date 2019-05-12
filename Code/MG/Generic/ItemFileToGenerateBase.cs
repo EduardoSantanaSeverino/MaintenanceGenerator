@@ -217,7 +217,7 @@ namespace MG.Generic
                 bool isFound = false;
                 for (int i = 0; i < array.Length; i++)
                 {
-                    if (array[i] == item.Key)
+                    if (array[i] == item.Type)
                     {
                         isFound = true;
                         n = array[i + 1];
@@ -241,15 +241,13 @@ namespace MG.Generic
 
             if (!string.IsNullOrEmpty(n))
             {
-                n = n.Replace("XXXFieldNameXXX", item.Value);
-                n = n.Replace("XXXFieldTypeXXX", item.Key);
-                n = n.Replace("XXXFieldValueAltXXX", item.ValueAlt);
-                n = n.Replace("XXXFieldValueAppenedXXX", item.ValueAppened);
-
+                n = n.Replace("XXXFieldNameXXX", item.Name);
+                n = n.Replace("XXXFieldNameLowerXXX", item.Name.ToLower());
+                n = n.Replace("XXXFieldTypeXXX", item.Type);
+                n = n.Replace("XXXFieldMaxLenghtXXX", item.MaxLenght);
+                n = n.Replace("XXXFieldMaxLenghtIntXXX", item.MaxLenghtJustInt);
                 l.Add(n);
             }
         }
-
-       
     }
 }

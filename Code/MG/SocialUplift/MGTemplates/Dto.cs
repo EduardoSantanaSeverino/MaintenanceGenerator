@@ -4,20 +4,16 @@ using System.ComponentModel.DataAnnotations;
 using Abp.Application.Services.Dto;
 using Abp.Authorization.Users;
 using Abp.AutoMapper;
-using SocialUplift.Authorization.Users;
-using SocialUplift.Models;
+using XXXProjectNameXXX.Authorization.Users;
+using XXXProjectNameXXX.Models;
 
-namespace SocialUplift.CampaignStates.Dto
+namespace XXXProjectNameXXX.XXXEntityPluralXXX.Dto
 {
-    [AutoMapFrom(typeof(CampaignState))]
-    public class CampaignStateDto : EntityDto<int>
+    [AutoMapFrom(typeof(XXXEntitySingularXXX))]
+    public class XXXEntitySingularXXXDto : EntityDto<int>
     {
 
-        public bool IsActive { get; set; }
-
-        public string Name { get; set; }
-
-        public string Description { get; set; }
+        ///Dto.cs.fields1///
 
     }
 }

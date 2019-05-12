@@ -16,6 +16,7 @@ import * as ApiServiceProxies from './service-proxies';
         ApiServiceProxies.CampaignStateServiceProxy,
         ApiServiceProxies.CampaignTypeServiceProxy,
         ApiServiceProxies.InstaAccountServiceProxy,
+        ///service-proxy.module.ts.place1///
         { provide: HTTP_INTERCEPTORS, useClass: AbpHttpInterceptor, multi: true }
     ]
 })

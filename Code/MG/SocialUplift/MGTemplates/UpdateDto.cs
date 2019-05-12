@@ -5,19 +5,15 @@ using Abp.Auditing;
 using Abp.Authorization.Users;
 using Abp.AutoMapper;
 using Abp.Runtime.Validation;
-using SocialUplift.Models;
+using XXXProjectNameXXX.Models;
 
-namespace SocialUplift.CampaignStates.Dto
+namespace XXXProjectNameXXX.XXXEntityPluralXXX.Dto
 {
-    [AutoMapTo(typeof(CampaignState))]
-    public class CampaignStateUpdateDto : EntityDto<int>
+    [AutoMapTo(typeof(XXXEntitySingularXXX))]
+    public class XXXEntitySingularXXXUpdateDto : EntityDto<int>
     {
 
-        public bool IsActive { get; set; }
-
-        public string Name { get; set; }
-
-        public string Description { get; set; }
+        ///UpdateDto.cs.fields1///
 
     }
 }

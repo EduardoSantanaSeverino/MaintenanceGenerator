@@ -7,6 +7,7 @@ namespace MG.Generic
         public ItemFieldTypeTemplate()
         {
             this.ForFields = true;
+            this.TemplateDirectory = "MGTemplates/";
         }
         private string TemplateDirectory { get; set; }
         private string _templateName { get; set; }
@@ -14,6 +15,7 @@ namespace MG.Generic
         public ItemFieldTypeTemplate(string TemplateDirectory)
         {
             this.TemplateDirectory = TemplateDirectory;
+            this.ForFields = true;
         }
 
         public int Id { get; set; }

@@ -1,9 +1,9 @@
 using Abp.Application.Services.Dto;
-using SocialUplift.CampaignStates.Dto;
+using XXXProjectNameXXX.XXXEntityPluralXXX.Dto;
 
-namespace SocialUplift.CampaignStates
+namespace XXXProjectNameXXX.XXXEntityPluralXXX
 {
-    public interface ICampaignStateAppService : ISocialUpliftCrudAppServiceBase<CampaignStateDto, int, PagedModelsResultRequestDto, CampaignStateCreateDto, CampaignStateUpdateDto>
+    public interface IXXXEntitySingularXXXAppService : IXXXProjectNameXXXCrudAppServiceBase<XXXEntitySingularXXXDto, int, PagedModelsResultRequestDto, XXXEntitySingularXXXCreateDto, XXXEntitySingularXXXUpdateDto>
     {
       
     }

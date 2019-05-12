@@ -1,18 +1,18 @@
 ﻿using Abp.Application.Services.Dto;
 using Abp.Authorization;
 using Abp.Domain.Repositories;
-using SocialUplift.CampaignStates.Dto;
-using SocialUplift.Models;
+using XXXProjectNameXXX.XXXEntityPluralXXX.Dto;
+using XXXProjectNameXXX.Models;
 
-namespace SocialUplift.CampaignStates
+namespace XXXProjectNameXXX.XXXEntityPluralXXX
 {
 
     [AbpAuthorize]
-    public class CampaignStateAppService : SocialUpliftCrudAppServiceBase<CampaignState, CampaignStateDto, int, PagedModelsResultRequestDto, CampaignStateCreateDto, CampaignStateUpdateDto>, ICampaignStateAppService
+    public class XXXEntitySingularXXXAppService : XXXProjectNameXXXCrudAppServiceBase<XXXEntitySingularXXX, XXXEntitySingularXXXDto, int, PagedModelsResultRequestDto, XXXEntitySingularXXXCreateDto, XXXEntitySingularXXXUpdateDto>, IXXXEntitySingularXXXAppService
     {
-        public CampaignStateAppService
+        public XXXEntitySingularXXXAppService
         (
-            IRepository<CampaignState> repository
+            IRepository<XXXEntitySingularXXX> repository
         )
         : base(repository)
         {

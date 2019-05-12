@@ -25,7 +25,7 @@ namespace MG.MyCollege
             {
                 string strinWithFields = GenerateFielListForIndexJs(ClassInfoData.Fields);
                 this.TemplateMarkup = this.TemplateMarkup.Replace(@"//XXXFieldsHtmlXXX".ToString(), strinWithFields);
-                this.TemplateMarkup = this.TemplateMarkup.Replace(XXXFieldNameCapitalXXX, ClassInfoData.Fields.First().Value.ToString());
+                this.TemplateMarkup = this.TemplateMarkup.Replace(XXXFieldNameCapitalXXX, ClassInfoData.Fields.First().Name.ToString());
 
             }
 
@@ -37,7 +37,7 @@ namespace MG.MyCollege
                 string ServiceCalls = generateListOfServiceCall(ClassInfoData.Fields);
                 this.TemplateMarkup = this.TemplateMarkup.Replace(@"//XXXInsertCallRelatedEntitiesXXX".ToString(), GenerateFielListForCreateJs(ClassInfoData.Fields));
                 this.TemplateMarkup = ReplaceAllKeysWithRealValues(this.TemplateMarkup);
-                this.TemplateMarkup = this.TemplateMarkup.Replace(XXXFieldNameCapitalXXX, ClassInfoData.Fields.First().Value.ToString());
+                this.TemplateMarkup = this.TemplateMarkup.Replace(XXXFieldNameCapitalXXX, ClassInfoData.Fields.First().Name.ToString());
                 this.TemplateMarkup = this.TemplateMarkup.Replace(XXXServicesUsedDeclarationXXX, ServiceDeclaration);
                 this.TemplateMarkup = this.TemplateMarkup.Replace(XXXServicesUsedSettingXXX, ServiceSetting);
                 this.TemplateMarkup = this.TemplateMarkup.Replace(XXXServiceCallsXXX, ServiceCalls);
@@ -182,20 +182,20 @@ namespace MG.MyCollege
                 return;
 
             string FirstStringField = "";
-            if (fielListUsed.Any(x => x.Value == "Name"))
+            if (fielListUsed.Any(x => x.Name == "Name"))
                 FirstStringField = "Name";
 
             if (FirstStringField == "")
             {
-                var stringf = fielListUsed.FirstOrDefault(x => x.Key.ToLower() == "string");
+                var stringf = fielListUsed.FirstOrDefault(x => x.Type.ToLower() == "string");
                 if (stringf != null)
-                    FirstStringField = stringf.Value;
+                    FirstStringField = stringf.Name;
             }
             if (FirstStringField == "")
             {
-                var stringf = fielListUsed.FirstOrDefault(x => x.Value.ToLower() != "hoscodigo");
+                var stringf = fielListUsed.FirstOrDefault(x => x.Name.ToLower() != "hoscodigo");
                 if (stringf != null)
-                    FirstStringField = stringf.Value;
+                    FirstStringField = stringf.Name;
             }
 
             // TODO
@@ -221,9 +221,9 @@ namespace MG.MyCollege
 
             var FieldAlternativeSequence = "";
 
-            if (fielListUsed.Any(x => x.Value.Contains("Sequence")))
+            if (fielListUsed.Any(x => x.Name.Contains("Sequence")))
                 FieldAlternativeSequence = "Sequence";
-            else if (fielListUsed.Any(x => x.Value.Contains("Number")))
+            else if (fielListUsed.Any(x => x.Name.Contains("Number")))
                 FieldAlternativeSequence = "Number";
 
             if (FieldAlternativeSequence.Length > 0)
@@ -295,7 +295,7 @@ namespace MG.MyCollege
             var RelatedEntities = "\n";
             foreach (var item in fielList)
             {
-                var comboParameter = GetComboParameter(item.Value);
+                var comboParameter = GetComboParameter(item.Name);
                 if (comboParameter != null)
                 {
                     var templateSeletedted = "		    private readonly IRepository<Models.XXXEntityPluralXXX, int> _XXXEntityLowerSingularXXXRepository;";
@@ -313,7 +313,7 @@ namespace MG.MyCollege
             var RelatedEntities = "";
             foreach (var item in fielList)
             {
-                var comboParameter = GetComboParameter(item.Value);
+                var comboParameter = GetComboParameter(item.Name);
                 if (comboParameter != null)
                 {
                     var templateSeletedted = ",\n            IRepository<Models.XXXEntityPluralXXX, int> XXXEntityLowerSingularXXXRepository";
@@ -333,7 +333,7 @@ namespace MG.MyCollege
             {
 
 
-                var comboParameter = GetComboParameter(item.Value);
+                var comboParameter = GetComboParameter(item.Name);
                 if (comboParameter != null)
                 {
                     var templateSeletedted = "            _XXXEntityLowerSingularXXXRepository = XXXEntityLowerSingularXXXRepository;\n";
@@ -356,17 +356,17 @@ namespace MG.MyCollege
             {
                 if (this.Id == (int)FileStackId.DtoTemplate)
                 {
-                    this.TemplateMarkup += "              public " + item.Key + " " + item.Value + " {get;set;} \n";
+                    this.TemplateMarkup += "              public " + item.Type + " " + item.Name + " {get;set;} \n";
                 }
                 if (this.Id == (int)FileStackId.CreateDtoTemplate)
                 {
-                    this.TemplateMarkup += (!string.IsNullOrEmpty(item.ValueAlt) ? "\n              [StringLength(" + item.ValueAlt + ")] " : "")
-                    + "\n              public " + item.Key + " " + item.Value + " {get;set;} \n";
+                    this.TemplateMarkup += (!string.IsNullOrEmpty(item.MaxLenght) ? "\n              [StringLength(" + item.MaxLenght + ")] " : "")
+                    + "\n              public " + item.Type + " " + item.Name + " {get;set;} \n";
                 }
                 if (this.Id == (int)FileStackId.UpdateDtoTemplate)
                 {
-                    this.TemplateMarkup += (!string.IsNullOrEmpty(item.ValueAlt) ? "\n              [StringLength(" + item.ValueAlt + ")]  " : "")
-                    + "\n              public " + item.Key + " " + item.Value + " {get;set;} \n";
+                    this.TemplateMarkup += (!string.IsNullOrEmpty(item.MaxLenght) ? "\n              [StringLength(" + item.MaxLenght + ")]  " : "")
+                    + "\n              public " + item.Type + " " + item.Name + " {get;set;} \n";
                 }
             }
 
@@ -398,7 +398,7 @@ namespace MG.MyCollege
             {
 
 
-                var comboParameter = GetComboParameter(item.Value);
+                var comboParameter = GetComboParameter(item.Name);
                 if (comboParameter != null)
                 {
                     var templateSeletedted = "'abp.services.app.XXXEntityLowerSingularXXX',";
@@ -415,7 +415,7 @@ namespace MG.MyCollege
             var RelatedEntities = "";
             foreach (var item in fielList)
             {
-                var comboParameter = GetComboParameter(item.Value);
+                var comboParameter = GetComboParameter(item.Name);
                 if (comboParameter != null)
                 {
                     var templateSeletedted = ", XXXEntityLowerSingularXXXService";
@@ -431,7 +431,7 @@ namespace MG.MyCollege
             var RelatedEntities = "";
             foreach (var item in fielList)
             {
-                var comboParameter = GetComboParameter(item.Value);
+                var comboParameter = GetComboParameter(item.Name);
                 if (comboParameter != null)
                 {
                     var templateSeletedted = "                vm.getXXXEntityPluralXXX();\n";
@@ -449,11 +449,11 @@ namespace MG.MyCollege
             {
                 string newField = "";
                 newField += "                    {\n";
-                newField += "                    name: App.localize('XXXEntitySingularXXX" + item.Value + "'),\n";
+                newField += "                    name: App.localize('XXXEntitySingularXXX" + item.Name + "'),\n";
                 //AddLocalization(txtCapitalSingular.Text + item.Value);
                 //AddLocalization(item.Value);
                 //TODO
-                newField += "                    field: '" + item.Value.Substring(0, 1).ToLower() + item.Value.Substring(1) + "',\n";
+                newField += "                    field: '" + item.Name.Substring(0, 1).ToLower() + item.Name.Substring(1) + "',\n";
                 newField += "                    minWidth: 125\n";
                 newField += "                    },\n";
                 fieldListForIndexJs.Add(newField);
@@ -468,7 +468,7 @@ namespace MG.MyCollege
             List<string> fieldListForIndexJs = new List<string>();
             foreach (var item in fielList)
             {
-                var comboParameter = GetComboParameter(item.Value);
+                var comboParameter = GetComboParameter(item.Name);
                 if (comboParameter != null)
                 {
                     var templateSeletedted = this.TemplateMarkup; //UsingTemplates.JSCreator.FieldRelatedJS; // View POSSIBLE ERROR    var FieldRelatedTemplate = GetFieldTypeTemplate("FieldComboTemplate");
@@ -508,14 +508,14 @@ namespace MG.MyCollege
                 //Commented for now.
                 //AddLocalization(txtCapitalSingular.Text + item.Value);
                 string isRequired = "required";
-                string nameCamel = item.Value.Substring(0, 1).ToLower() + item.Value.Substring(1);
+                string nameCamel = item.Name.Substring(0, 1).ToLower() + item.Name.Substring(1);
                 string newField = "";
 
                 //Si el campo indicado esta como un combo ( en la lista de combos), se crea el combo y en caso contrario otro tipo de campo.
-                var comboParameter = GetComboParameter(item.Value);
+                var comboParameter = GetComboParameter(item.Name);
                 if (comboParameter != null)
                 {
-                    string fieldForAngular = item.Value.Substring(0, 1).ToLower() + item.Value.Substring(1);
+                    string fieldForAngular = item.Name.Substring(0, 1).ToLower() + item.Name.Substring(1);
                     newField = FieldRelatedTemplate.Replace(XXXFieldKeyXXX, fieldForAngular);
                     newField = newField.Replace(XXXFieldNameCamelXXX, comboParameter.FieldNameValue.Substring(0, 1).ToLower() + comboParameter.FieldNameValue.Substring(1));
                     newField = newField.Replace(XXXEntityLowerSingularXXX, comboParameter.EntityCamelSingular);
@@ -526,30 +526,30 @@ namespace MG.MyCollege
                 }
                 else
                 {
-                    if (item.Key == "String" || item.Key == "string")
+                    if (item.Type == "String" || item.Type == "string")
                     {
                         newField = FieldStringTemplate.Replace(XXXFieldNameCamelXXX, nameCamel);
-                        newField = newField.Replace("XXXMaxLengthXXX", string.IsNullOrEmpty(item.ValueAlt) ? "" : "maxlength=\"" + item.ValueAppened + "\" \n");
-                        newField = newField.Replace("XXXMaxLengthmdXXX", string.IsNullOrEmpty(item.ValueAlt) ? "" : "md-maxlength=\"" + item.ValueAppened + "\" \n");
+                        newField = newField.Replace("XXXMaxLengthXXX", string.IsNullOrEmpty(item.MaxLenght) ? "" : "maxlength=\"" + item.MaxLenghtJustInt + "\" \n");
+                        newField = newField.Replace("XXXMaxLengthmdXXX", string.IsNullOrEmpty(item.MaxLenght) ? "" : "md-maxlength=\"" + item.MaxLenghtJustInt + "\" \n");
                     }
 
-                    if (item.Key == "int" || item.Key == "long" || item.Key == "decimal" || item.Key == "Decimal" || item.Key == "double"
-                        || item.Key == "Double" || item.Key == "Integer" || item.Key == "Int64" || item.Key == "Int32" || item.Key == "Int16")
+                    if (item.Type == "int" || item.Type == "long" || item.Type == "decimal" || item.Type == "Decimal" || item.Type == "double"
+                        || item.Type == "Double" || item.Type == "Integer" || item.Type == "Int64" || item.Type == "Int32" || item.Type == "Int16")
                     {
                         newField = FieldNumberTemplate.Replace(XXXFieldNameCamelXXX, nameCamel);
                     }
 
-                    if (item.Key == "bool" || item.Key == "Bool" || item.Key == "Boolean" || item.Key == "boolean")
+                    if (item.Type == "bool" || item.Type == "Bool" || item.Type == "Boolean" || item.Type == "boolean")
                     {
                         newField = FieldBooleanTemplate.Replace(XXXFieldNameCamelXXX, nameCamel);
                     }
 
-                    if (item.Key == "datetime" || item.Key == "DateTime" || item.Key == "Date" || item.Key == "date")
+                    if (item.Type == "datetime" || item.Type == "DateTime" || item.Type == "Date" || item.Type == "date")
                     {
                         newField = FieldDateTimeTemplate.Replace(XXXFieldNameCamelXXX, nameCamel);
                     }
 
-                    newField = newField.Replace(XXXFieldNameCapitalXXX, item.Value);
+                    newField = newField.Replace(XXXFieldNameCapitalXXX, item.Name);
                     newField = newField.Replace(XXXrequiredXXX, isRequired);
                 }
                 fieldListForIndexCsHtml.Add(newField);
