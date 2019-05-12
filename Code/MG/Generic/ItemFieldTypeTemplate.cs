@@ -4,6 +4,10 @@ namespace MG.Generic
 {
     public class ItemFieldTypeTemplate 
     {
+        public ItemFieldTypeTemplate()
+        {
+            this.ForFields = true;
+        }
         private string TemplateDirectory { get; set; }
         private string _templateName { get; set; }
 
@@ -30,5 +34,7 @@ namespace MG.Generic
             catch (Exception err)
             { }
         }
+
+        public bool ForFields { get; set; }
     }
 }

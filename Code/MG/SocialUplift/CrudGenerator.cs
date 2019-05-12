@@ -53,7 +53,7 @@ namespace MG.SocialUplift
                     Id: (int)FileStackId.app_module_ts,
                     Path: Configuration.GetConfig("AngularAppDirectory") + "app.module.ts",
                     TemplateName: "app.module.ts",
-                    TemplateDirectory: TemplateDirectory,
+                    TemplateDirectory: Configuration.GetConfig("AngularAppDirectory"),
                     ClassInfoData: this.ClassInfoData
                 ),
                 new ItemFileToGenerate
@@ -117,7 +117,7 @@ namespace MG.SocialUplift
                     Id: (int)FileStackId.sidebar_nav_component_ts,
                     Path: Configuration.GetConfig("AngularAppDirectory") + $"layout/sidebar-nav.component.ts",
                     TemplateName: "sidebar-nav.component.ts",
-                    TemplateDirectory: TemplateDirectory,
+                    TemplateDirectory: Configuration.GetConfig("AngularAppDirectory") + $"layout/",
                     ClassInfoData: this.ClassInfoData
                 ),
                 new ItemFileToGenerate
@@ -125,7 +125,7 @@ namespace MG.SocialUplift
                     Id: (int)FileStackId.service_proxy_module_ts,
                     Path: Configuration.GetConfig("AngularSharedDirectory") + $"service-proxies/service-proxy.module.ts",
                     TemplateName: "service-proxy.module.ts",
-                    TemplateDirectory: TemplateDirectory,
+                    TemplateDirectory: Configuration.GetConfig("AngularSharedDirectory") + $"service-proxies/",
                     ClassInfoData: this.ClassInfoData
                 ),
                 new ItemFileToGenerate
@@ -173,15 +173,15 @@ namespace MG.SocialUplift
                     Id: (int)FileStackId.PermissionNames_cs,
                     Path: Configuration.GetConfig("AuthorizationDirectory") + $"PermissionNames.cs",
                     TemplateName: "PermissionNames.cs",
-                    TemplateDirectory: TemplateDirectory,
+                    TemplateDirectory: Configuration.GetConfig("AuthorizationDirectory"),
                     ClassInfoData: this.ClassInfoData
                 ),
                 new ItemFileToGenerate
                 (
                     Id: (int)FileStackId.AuthorizationProvider_cs,
                     Path: Configuration.GetConfig("AuthorizationDirectory") + $"{this.ProjectName}AuthorizationProvider.cs",
-                    TemplateName: "AuthorizationProvider.cs",
-                    TemplateDirectory: TemplateDirectory,
+                    TemplateName: $"{this.ProjectName}AuthorizationProvider.cs",
+                    TemplateDirectory: Configuration.GetConfig("AuthorizationDirectory"),
                     ClassInfoData: this.ClassInfoData
                 ),
             };

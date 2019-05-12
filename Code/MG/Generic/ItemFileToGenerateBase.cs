@@ -167,11 +167,18 @@ namespace MG.Generic
         {
             foreach (var item in this.ItemFieldTypeTemplates)
             {
-                markup = markup.Replace(item.Name, ProcessField(item) + "\n" + item.Name);
+                if (item.ForFields)
+                {
+                    markup = markup.Replace(item.Name, ProcessField(item) + "\n" + item.Name);
+                }
+                else
+                {
+                    markup = markup.Replace(item.Name, item.TemplateMarkup + "\n" + item.Name);
+                }
+                
             }
             return markup;
         }
-
 
         protected string ProcessField(ItemFieldTypeTemplate itemField)
         {
