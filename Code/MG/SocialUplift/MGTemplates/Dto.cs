@@ -15,5 +15,11 @@ namespace XXXProjectNameXXX.XXXEntityPluralXXX.Dto
 
         ///Dto.cs.fields1///
 
+        public bool IsActive { get; set; }
+
+        public DateTime CreationTime { get; set; }
+
+        public long? CreatorUserId { get; set; }
+
     }
 }

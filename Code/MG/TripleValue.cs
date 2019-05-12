@@ -38,7 +38,8 @@ namespace MG
                 "LastModificationTime",
                 "LastModifierUserId",
                 "CreationTime",
-                "CreatorUserId"
+                "CreatorUserId",
+                "IsActive"
             }, "ThisFieldIsHidden");
 
 
@@ -48,11 +49,6 @@ namespace MG
                 "Description",
                 "Title",
             }, FileTypes.List.ToString());
-
-            AddItem(new List<string>()
-            {
-                "IsActive",
-            }, FileTypes.Update.ToString());
 
         }
 

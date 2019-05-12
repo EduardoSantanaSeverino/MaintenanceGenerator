@@ -13,6 +13,8 @@ namespace XXXProjectNameXXX.XXXEntityPluralXXX.Dto
     public class XXXEntitySingularXXXUpdateDto : EntityDto<int>
     {
 
+        public bool IsActive { get; set; }
+
         ///UpdateDto.cs.fields1///
 
     }

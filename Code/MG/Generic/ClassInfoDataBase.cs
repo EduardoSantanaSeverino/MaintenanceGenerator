@@ -146,7 +146,6 @@ namespace MG.Generic
 
 
                     var field = new TripleValue<string, string, string, string>(type, propertyName, MaxLenght, MaxLenghtJustInt, listFileAttrib);
-
                     fieldList.Add(field);
                     listFileAttrib = new List<string>();
                 }
