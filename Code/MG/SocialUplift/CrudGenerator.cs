@@ -180,7 +180,7 @@ namespace MG.SocialUplift
                 (
                     Id: (int)FileStackId.AuthorizationProvider_cs,
                     Path: Configuration.GetConfig("AuthorizationDirectory") + $"{this.ProjectName}AuthorizationProvider.cs",
-                    TemplateName: "PermissionNames.cs",
+                    TemplateName: "AuthorizationProvider.cs",
                     TemplateDirectory: TemplateDirectory,
                     ClassInfoData: this.ClassInfoData
                 ),
