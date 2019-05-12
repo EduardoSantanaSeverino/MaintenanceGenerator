@@ -60,6 +60,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SocialUplift\ClassInfoData.cs" />
+    <Compile Include="SocialUplift\Configuration.cs" />
+    <Compile Include="SocialUplift\CrudGenerator.cs" />
+    <Compile Include="SocialUplift\FileStackId.cs" />
+    <Compile Include="SocialUplift\GenerateControls.cs" />
+    <Compile Include="SocialUplift\ItemFileToGenerate.cs" />
+    <Compile Include="SocialUplift\ItemToReplace.cs" />
     <Compile Include="CentennialForm\ClassInfoData.cs" />
     <Compile Include="CentennialForm\Configuration.cs" />
     <Compile Include="CentennialForm\CrudGenerator.cs" />
@@ -195,6 +202,8 @@
   <ItemGroup>
     <Content Include="if_Gold_Iron_Man_Mask_134237.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="SocialUplift\MGTemplates\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

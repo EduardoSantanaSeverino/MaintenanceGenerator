@@ -20,6 +20,7 @@ namespace MG.Generic
         {
             foreach (var item in this.ItemFileToGenerates)
             {
+                CreateDirectoryIfNotExist(item.Path);
                 createSpecificFileOnDisk(item.Path, item.TemplateMarkup);
             }
             System.Threading.Thread.Sleep(1000);
@@ -50,6 +51,18 @@ namespace MG.Generic
         public virtual void btnGenerate_Click(IConfiguration Configuration, List<IItemToReplace> ItemToReplaces)
         {
             Initialize(Configuration, ItemToReplaces);
+        }
+
+        private void CreateDirectoryIfNotExist(string filePath)
+        {
+            var l = filePath.Split('/');
+            var last = l.Last();
+            var s = filePath.Replace(last, "");
+            if (!System.IO.Directory.Exists(s))
+            {
+                System.IO.Directory.CreateDirectory(s);
+            }
+
         }
 
     }

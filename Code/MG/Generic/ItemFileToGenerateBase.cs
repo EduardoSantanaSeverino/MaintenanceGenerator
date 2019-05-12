@@ -67,6 +67,7 @@ namespace MG.Generic
             }
 
             this.TemplateMarkup = ReplaceAllKeysWithRealValues(this.TemplateMarkup);
+            
         }
 
         private List<string> ListNameForList
@@ -241,5 +242,7 @@ namespace MG.Generic
                 l.Add(n);
             }
         }
+
+       
     }
 }
