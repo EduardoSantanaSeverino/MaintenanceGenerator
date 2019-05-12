@@ -109,7 +109,8 @@ namespace MG.SocialUplift
                     Path: Configuration.GetConfig("AngularAppDirectory") + entityLowerPlural + $"/{entityLowerPlural}.component.html",
                     TemplateName: "component.html",
                     TemplateDirectory: TemplateDirectory,
-                    ClassInfoData: this.ClassInfoData
+                    ClassInfoData: this.ClassInfoData,
+                    FileType: FileTypes.List
                 ),
                 new ItemFileToGenerate
                 (
@@ -125,7 +126,8 @@ namespace MG.SocialUplift
                     Path: Configuration.GetConfig("AngularAppDirectory") + entityLowerPlural + $"/create-{entityLowerSingular}-dialog.component.html",
                     TemplateName: "create-dialog-component.html",
                     TemplateDirectory: TemplateDirectory,
-                    ClassInfoData: this.ClassInfoData
+                    ClassInfoData: this.ClassInfoData,
+                    FileType: FileTypes.Create
                 ),
                 new ItemFileToGenerate
                 (
@@ -141,7 +143,8 @@ namespace MG.SocialUplift
                     Path: Configuration.GetConfig("AngularAppDirectory") + entityLowerPlural + $"/edit-{entityLowerSingular}-dialog.component.html",
                     TemplateName: "edit-dialog-component.html",
                     TemplateDirectory: TemplateDirectory,
-                    ClassInfoData: this.ClassInfoData
+                    ClassInfoData: this.ClassInfoData,
+                    FileType: FileTypes.Update
                 ),
                 new ItemFileToGenerate
                 (
@@ -209,7 +212,8 @@ namespace MG.SocialUplift
                     Path: Configuration.GetConfig("ApplicationDirectory") + $"{entityPlural}/Dto/{entitySingular}CreateDto.cs",
                     TemplateName: "CreateDto.cs",
                     TemplateDirectory: TemplateDirectory,
-                    ClassInfoData: this.ClassInfoData
+                    ClassInfoData: this.ClassInfoData,
+                    FileType: FileTypes.Create
                 ),
                 new ItemFileToGenerate
                 (
@@ -217,7 +221,8 @@ namespace MG.SocialUplift
                     Path: Configuration.GetConfig("ApplicationDirectory") + $"{entityPlural}/Dto/{entitySingular}Dto.cs",
                     TemplateName: "Dto.cs",
                     TemplateDirectory: TemplateDirectory,
-                    ClassInfoData: this.ClassInfoData
+                    ClassInfoData: this.ClassInfoData,
+                    FileType: FileTypes.Update
                 ),
                 new ItemFileToGenerate
                 (
@@ -225,7 +230,8 @@ namespace MG.SocialUplift
                     Path: Configuration.GetConfig("ApplicationDirectory") + $"{entityPlural}/Dto/{entitySingular}UpdateDto.cs",
                     TemplateName: "UpdateDto.cs",
                     TemplateDirectory: TemplateDirectory,
-                    ClassInfoData: this.ClassInfoData
+                    ClassInfoData: this.ClassInfoData,
+                    FileType: FileTypes.Update
                 ),
                 new ItemFileToGenerate
                 (

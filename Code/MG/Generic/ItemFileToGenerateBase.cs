@@ -27,10 +27,11 @@ namespace MG.Generic
             string TemplateName,
             string TemplateDirectory,
             IClassInfoData ClassInfoData,
-            List<ItemFieldTypeTemplate> ItemFieldTypeTemplates
+            List<ItemFieldTypeTemplate> ItemFieldTypeTemplates,
+            string FileType = ""
         )
         {
-            this.FileType = "";
+            this.FileType = FileType;
             this.Id = Id;
             this.Name = Name;
             this.ControlName = "rtb" + this.Name;
@@ -41,21 +42,9 @@ namespace MG.Generic
             this.ClassInfoData = ClassInfoData;
             this.TemplateMarkup = ReadTemplate();
 
-            if (ListNameForList.Contains(this.Name))
+            if (string.IsNullOrEmpty(this.FileType))
             {
-                this.FileType = "List";
-            }
-            if (ListNameForUpdate.Contains(this.Name))
-            {
-                this.FileType = "Update";
-            }
-            if (ListNameForCreate.Contains(this.Name))
-            {
-                this.FileType = "Create";
-            }
-            if (ListNameForDelete.Contains(this.Name))
-            {
-                this.FileType = "Delete";
+                this.FileType = FileTypes.Others.ToString();
             }
 
             try
@@ -68,50 +57,6 @@ namespace MG.Generic
 
             this.TemplateMarkup = ReplaceAllKeysWithRealValues(this.TemplateMarkup);
             
-        }
-
-        private List<string> ListNameForList
-        {
-            get
-            {
-                return new List<string>
-                {
-                    "List", "Index"
-                };
-            }
-        }
-
-        private List<string> ListNameForUpdate
-        {
-            get
-            {
-                return new List<string>
-                {
-                    "Update", "Edit"
-                };
-            }
-        }
-
-        private List<string> ListNameForCreate
-        {
-            get
-            {
-                return new List<string>
-                {
-                    "Create", "Add"
-                };
-            }
-        }
-
-        private List<string> ListNameForDelete
-        {
-            get
-            {
-                return new List<string>
-                {
-                    "Delete"
-                };
-            }
         }
 
         protected string GetFieldTypeTemplate(string name)

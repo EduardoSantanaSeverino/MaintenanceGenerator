@@ -16,7 +16,8 @@ namespace MG.SocialUplift
             string TemplateName,
             string TemplateDirectory,
             IClassInfoData ClassInfoData,
-            List<ItemFieldTypeTemplate> ItemFieldTypeTemplates = null
+            List<ItemFieldTypeTemplate> ItemFieldTypeTemplates = null,
+            FileTypes FileType = FileTypes.Others
         )
         : base
         (
@@ -26,12 +27,10 @@ namespace MG.SocialUplift
             TemplateName,
             TemplateDirectory,
             ClassInfoData,
-            ItemFieldTypeTemplates
+            ItemFieldTypeTemplates,
+            FileType.ToString()
         )
         {
-
         }
-
-
     }
 }

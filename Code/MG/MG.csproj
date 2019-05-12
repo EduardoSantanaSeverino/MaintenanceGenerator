@@ -60,6 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Generic\FileTypes.cs" />
     <Compile Include="SocialUplift\ClassInfoData.cs" />
     <Compile Include="SocialUplift\Configuration.cs" />
     <Compile Include="SocialUplift\CrudGenerator.cs" />

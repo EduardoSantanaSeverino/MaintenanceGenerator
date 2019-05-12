@@ -145,8 +145,8 @@ namespace MG.Generic
                     var MaxLenghtJustInt = GetMaxLengIntForString(LineXAnterior);
 
 
-                    var field = new TripleValue<string, string, string, string>(type, propertyName, MaxLenght, MaxLenghtJustInt);
-                    field.ShowOnList = listFileAttrib;
+                    var field = new TripleValue<string, string, string, string>(type, propertyName, MaxLenght, MaxLenghtJustInt, listFileAttrib);
+
                     fieldList.Add(field);
                     listFileAttrib = new List<string>();
                 }

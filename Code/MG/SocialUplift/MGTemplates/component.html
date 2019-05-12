@@ -47,6 +47,9 @@
                     <thead>
                         <tr>
                             <!--component.html.fields1-->
+                            <th>
+                                <div style="text-align:center">{{ "IsActive" | localize }}</div>
+                            </th>
                             <th>{{ "Actions" | localize }}</th>
                         </tr>
                     </thead>
@@ -62,6 +65,14 @@
                       })
               ">
                             <!--component.html.fields2-->
+                            <td align="center">
+                                <i class="material-icons" *ngIf="campaignType.isActive" style="color:green;">
+                                    check_box
+                                </i>
+                                <i class="material-icons" *ngIf="!campaignType.isActive" style="color:red;">
+                                    indeterminate_check_box
+                                </i>
+                            </td>
                             <td>
                                 <button class="action-button" mat-icon-button [matMenuTriggerFor]="actionsMenu">
                                     <mat-icon>menu</mat-icon>

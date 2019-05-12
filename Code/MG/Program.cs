@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using MG.Generic;
-using MG.CentennialForm;
+using MG.SocialUplift;
 
 namespace MG
 {
