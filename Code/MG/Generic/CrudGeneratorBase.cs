@@ -20,6 +20,10 @@ namespace MG.Generic
         {
             foreach (var item in this.ItemFileToGenerates)
             {
+                if (string.IsNullOrEmpty(item.Path))
+                {
+                    var asdf = 0;
+                }
                 CreateDirectoryIfNotExist(item.Path);
                 createSpecificFileOnDisk(item.Path, item.TemplateMarkup);
             }
@@ -55,7 +59,8 @@ namespace MG.Generic
 
         private void CreateDirectoryIfNotExist(string filePath)
         {
-            var l = filePath.Split('/');
+            var str = new string[] { @"\" };
+            var l = filePath.Split(str,StringSplitOptions.None);
             var last = l.Last();
             var s = filePath.Replace(last, "");
             if (!System.IO.Directory.Exists(s))

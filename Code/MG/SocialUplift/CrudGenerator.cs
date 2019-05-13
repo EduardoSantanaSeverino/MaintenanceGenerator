@@ -85,7 +85,7 @@ namespace MG.SocialUplift
                 new ItemFileToGenerate
                 (
                     Id: (int)FileStackId.create_dialog_component_html,
-                    Path: Configuration.GetConfig("AngularAppDirectory") + entityLowerPlural + $"/create-{entityLowerSingular}-dialog.component.html",
+                    Path: Configuration.GetConfig("AngularAppDirectory") + entityLowerPlural + $"/create-{entityLowerSingular}/create-{entityLowerSingular}-dialog.component.html",
                     TemplateName: "create-dialog.component.html",
                     TemplateDirectory: TemplateDirectory,
                     ClassInfoData: this.ClassInfoData,
@@ -94,7 +94,7 @@ namespace MG.SocialUplift
                 new ItemFileToGenerate
                 (
                     Id: (int)FileStackId.create_dialog_component_ts,
-                    Path: Configuration.GetConfig("AngularAppDirectory") + entityLowerPlural + $"/create-{entityLowerSingular}-dialog.component.ts",
+                    Path: Configuration.GetConfig("AngularAppDirectory") + entityLowerPlural + $"/create-{entityLowerSingular}/create-{entityLowerSingular}-dialog.component.ts",
                     TemplateName: "create-dialog.component.ts",
                     TemplateDirectory: TemplateDirectory,
                     ClassInfoData: this.ClassInfoData
@@ -102,7 +102,7 @@ namespace MG.SocialUplift
                 new ItemFileToGenerate
                 (
                     Id: (int)FileStackId.edit_dialog_component_html,
-                    Path: Configuration.GetConfig("AngularAppDirectory") + entityLowerPlural + $"/edit-{entityLowerSingular}-dialog.component.html",
+                    Path: Configuration.GetConfig("AngularAppDirectory") + entityLowerPlural + $"/edit-{entityLowerSingular}/edit-{entityLowerSingular}-dialog.component.html",
                     TemplateName: "edit-dialog.component.html",
                     TemplateDirectory: TemplateDirectory,
                     ClassInfoData: this.ClassInfoData,
@@ -111,7 +111,7 @@ namespace MG.SocialUplift
                 new ItemFileToGenerate
                 (
                     Id: (int)FileStackId.edit_dialog_component_ts,
-                    Path: Configuration.GetConfig("AngularAppDirectory") + entityLowerPlural + $"/edit-{entityLowerSingular}-dialog.component.ts",
+                    Path: Configuration.GetConfig("AngularAppDirectory") + entityLowerPlural + $"/edit-{entityLowerSingular}/edit-{entityLowerSingular}-dialog.component.ts",
                     TemplateName: "edit-dialog.component.ts",
                     TemplateDirectory: TemplateDirectory,
                     ClassInfoData: this.ClassInfoData

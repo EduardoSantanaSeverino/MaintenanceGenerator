@@ -12,7 +12,7 @@ namespace XXXProjectNameXXX.XXXEntityPluralXXX
     {
         public XXXEntitySingularXXXAppService
         (
-            IRepository<XXXEntitySingularXXX> repository
+            IRepository<XXXEntitySingularXXX, XXXSpecificTypeXXX> repository
         )
         : base(repository)
         {
