@@ -250,6 +250,31 @@ namespace MG.Generic
             return maxlenghtX;
         }
 
-        public virtual string GetSpecificType() => "int";
+        public virtual string GetSpecificType()
+        {
+            if (!string.IsNullOrEmpty(_specificType))
+                return _specificType;
+
+            if (this.LoadedClass != null && this.LoadedClass.Any())
+            {
+                var classHeader = this.LoadedClass.Where(x => x.Contains("Tenant<")).ToList().FirstOrDefault();
+                if (classHeader != null)
+                {
+                    var index = classHeader.IndexOf("<");
+                    var specificInitial = classHeader.Substring(index + 1, 1);
+                    if (specificInitial != "i")
+                        _specificType = "long";
+                    else
+                        _specificType = "int";
+
+                }
+                else
+                    _specificType = "int";
+
+            }
+
+            return _specificType;
+
+        }
     }
 }
