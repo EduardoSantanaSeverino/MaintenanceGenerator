@@ -8,7 +8,7 @@ namespace XXXProjectNameXXX.XXXEntityPluralXXX
 {
 
     [AbpAuthorize]
-    public class XXXEntitySingularXXXAppService : XXXProjectNameXXXCrudAppServiceBase<XXXEntitySingularXXX, XXXEntitySingularXXXDto, int, PagedModelsResultRequestDto, XXXEntitySingularXXXCreateDto, XXXEntitySingularXXXUpdateDto>, IXXXEntitySingularXXXAppService
+    public class XXXEntitySingularXXXAppService : XXXProjectNameXXXCrudAppServiceBase<XXXEntitySingularXXX, XXXEntitySingularXXXDto, XXXSpecificTypeXXX, PagedModelsResultRequestDto, XXXEntitySingularXXXCreateDto, XXXEntitySingularXXXUpdateDto>, IXXXEntitySingularXXXAppService
     {
         public XXXEntitySingularXXXAppService
         (

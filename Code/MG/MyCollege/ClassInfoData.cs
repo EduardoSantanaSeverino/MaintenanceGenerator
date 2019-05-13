@@ -18,9 +18,7 @@ namespace MG.MyCollege
         ) : base(classesPath, className, itemToReplaces, comboParameters)
         {
         }
-
-        private string _specificType { get; set; }
-
+        
         public override string GetSpecificType()
         {
             if (!string.IsNullOrEmpty(_specificType))

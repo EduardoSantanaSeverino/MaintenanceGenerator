@@ -32,21 +32,21 @@ namespace MG.SocialUplift
                 }
             });
 
+            var obj = ItemToReplaces.FirstOrDefault(p=>p.Key == "XXXSpecificTypeXXX");
+            var a = this.ClassInfoData.GetSpecificType();
             this.Configuration = Configuration;
 
             LoadItemFileToCreate();
             
         }
 
-
         protected override void LoadItemFileToCreate()
         {
-            var asdf = this.ClassInfoData.XXXEntitySingularXXX;
-            string entitySingular = Configuration.GetConfig("XXXEntitySingularXXX");
-            string entityPlural = Configuration.GetConfig("XXXEntityPluralXXX");
-            string entityLowerPlural = Configuration.GetConfig("XXXEntityLowerPluralXXX");
-            string entityLowerSingular = Configuration.GetConfig("XXXEntityLowerSingularXXX");
-
+            string entitySingular = this.ClassInfoData.XXXEntitySingularXXX;
+            string entityPlural = this.ClassInfoData.XXXEntityPluralXXX;
+            string entityLowerPlural = this.ClassInfoData.XXXEntityLowerPluralXXX;
+            string entityLowerSingular = this.ClassInfoData.XXXEntityLowerSingularXXX;
+            
             ItemFileToGenerates = new List<IItemFileToGenerate>()
             {
                 new ItemFileToGenerate
@@ -55,29 +55,7 @@ namespace MG.SocialUplift
                     Path: Configuration.GetConfig("AngularAppDirectory") + "app.module.ts",
                     TemplateName: "app.module.ts",
                     TemplateDirectory: Configuration.GetConfig("AngularAppDirectory"),
-                    ClassInfoData: this.ClassInfoData,
-                    ItemFieldTypeTemplates: new List<ItemFieldTypeTemplate>()
-                    {
-                        new ItemFieldTypeTemplate
-                        {
-                            Name = "///app.module.ts.place1///",
-                            TemplateName = "app.module.ts.place1.ts",
-                            ForFields = false
-                        },
-                        new ItemFieldTypeTemplate
-                        {
-                            Name = "///app.module.ts.place2///",
-                            TemplateName = "app.module.ts.place2.ts",
-                            ForFields = false
-                        },
-                        new ItemFieldTypeTemplate
-                        {
-                            Name = "///app.module.ts.place3///",
-                            TemplateName = "app.module.ts.place3.ts",
-                            ForFields = false
-                        }
-
-                    }
+                    ClassInfoData: this.ClassInfoData
                 ),
                 new ItemFileToGenerate
                 (
@@ -85,23 +63,7 @@ namespace MG.SocialUplift
                     Path: Configuration.GetConfig("AngularAppDirectory") + "app-routing.module.ts",
                     TemplateName: "app-routing.module.ts",
                     TemplateDirectory: TemplateDirectory,
-                    ClassInfoData: this.ClassInfoData,
-                    ItemFieldTypeTemplates: new List<ItemFieldTypeTemplate>()
-                    {
-                        new ItemFieldTypeTemplate
-                        {
-                            Name = "///app-routing.module.ts.place1///",
-                            TemplateName = "app-routing.module.ts.place1.ts",
-                            ForFields = false
-                        },
-                        new ItemFieldTypeTemplate
-                        {
-                            Name = "///app-routing.module.ts.place2///",
-                            TemplateName = "app-routing.module.ts.place2.ts",
-                            ForFields = false
-                        }
-
-                    }
+                    ClassInfoData: this.ClassInfoData
                 ),
                 new ItemFileToGenerate
                 (
@@ -124,7 +86,7 @@ namespace MG.SocialUplift
                 (
                     Id: (int)FileStackId.create_dialog_component_html,
                     Path: Configuration.GetConfig("AngularAppDirectory") + entityLowerPlural + $"/create-{entityLowerSingular}-dialog.component.html",
-                    TemplateName: "create-dialog-component.html",
+                    TemplateName: "create-dialog.component.html",
                     TemplateDirectory: TemplateDirectory,
                     ClassInfoData: this.ClassInfoData,
                     FileType: FileTypes.Create
@@ -133,7 +95,7 @@ namespace MG.SocialUplift
                 (
                     Id: (int)FileStackId.create_dialog_component_ts,
                     Path: Configuration.GetConfig("AngularAppDirectory") + entityLowerPlural + $"/create-{entityLowerSingular}-dialog.component.ts",
-                    TemplateName: "create-dialog-component.ts",
+                    TemplateName: "create-dialog.component.ts",
                     TemplateDirectory: TemplateDirectory,
                     ClassInfoData: this.ClassInfoData
                 ),
@@ -141,7 +103,7 @@ namespace MG.SocialUplift
                 (
                     Id: (int)FileStackId.edit_dialog_component_html,
                     Path: Configuration.GetConfig("AngularAppDirectory") + entityLowerPlural + $"/edit-{entityLowerSingular}-dialog.component.html",
-                    TemplateName: "edit-dialog-component.html",
+                    TemplateName: "edit-dialog.component.html",
                     TemplateDirectory: TemplateDirectory,
                     ClassInfoData: this.ClassInfoData,
                     FileType: FileTypes.Update
@@ -150,7 +112,7 @@ namespace MG.SocialUplift
                 (
                     Id: (int)FileStackId.edit_dialog_component_ts,
                     Path: Configuration.GetConfig("AngularAppDirectory") + entityLowerPlural + $"/edit-{entityLowerSingular}-dialog.component.ts",
-                    TemplateName: "edit-dialog-component.ts",
+                    TemplateName: "edit-dialog.component.ts",
                     TemplateDirectory: TemplateDirectory,
                     ClassInfoData: this.ClassInfoData
                 ),
@@ -160,17 +122,7 @@ namespace MG.SocialUplift
                     Path: Configuration.GetConfig("AngularAppDirectory") + $"layout/sidebar-nav.component.ts",
                     TemplateName: "sidebar-nav.component.ts",
                     TemplateDirectory: Configuration.GetConfig("AngularAppDirectory") + $"layout/",
-                    ClassInfoData: this.ClassInfoData,
-                    ItemFieldTypeTemplates: new List<ItemFieldTypeTemplate>()
-                    {
-                        new ItemFieldTypeTemplate
-                        {
-                            Name = "///sidebar-nav.component.ts.place1///",
-                            TemplateName = "sidebar-nav.component.ts.place1.ts",
-                            ForFields = false
-                        }
-
-                    }
+                    ClassInfoData: this.ClassInfoData
                 ),
                 new ItemFileToGenerate
                 (
@@ -178,17 +130,7 @@ namespace MG.SocialUplift
                     Path: Configuration.GetConfig("AngularSharedDirectory") + $"service-proxies/service-proxy.module.ts",
                     TemplateName: "service-proxy.module.ts",
                     TemplateDirectory: Configuration.GetConfig("AngularSharedDirectory") + $"service-proxies/",
-                    ClassInfoData: this.ClassInfoData,
-                    ItemFieldTypeTemplates: new List<ItemFieldTypeTemplate>()
-                    {
-                        new ItemFieldTypeTemplate
-                        {
-                            Name = "///service-proxy.module.ts.place1///",
-                            TemplateName = "service-proxy.module.ts.place1.ts",
-                            ForFields = false
-                        }
-
-                    }
+                    ClassInfoData: this.ClassInfoData
                 ),
                 new ItemFileToGenerate
                 (
@@ -212,8 +154,7 @@ namespace MG.SocialUplift
                     Path: Configuration.GetConfig("ApplicationDirectory") + $"{entityPlural}/Dto/{entitySingular}CreateDto.cs",
                     TemplateName: "CreateDto.cs",
                     TemplateDirectory: TemplateDirectory,
-                    ClassInfoData: this.ClassInfoData,
-                    FileType: FileTypes.Create
+                    ClassInfoData: this.ClassInfoData
                 ),
                 new ItemFileToGenerate
                 (
@@ -221,8 +162,7 @@ namespace MG.SocialUplift
                     Path: Configuration.GetConfig("ApplicationDirectory") + $"{entityPlural}/Dto/{entitySingular}Dto.cs",
                     TemplateName: "Dto.cs",
                     TemplateDirectory: TemplateDirectory,
-                    ClassInfoData: this.ClassInfoData,
-                    FileType: FileTypes.Update
+                    ClassInfoData: this.ClassInfoData
                 ),
                 new ItemFileToGenerate
                 (
@@ -230,8 +170,7 @@ namespace MG.SocialUplift
                     Path: Configuration.GetConfig("ApplicationDirectory") + $"{entityPlural}/Dto/{entitySingular}UpdateDto.cs",
                     TemplateName: "UpdateDto.cs",
                     TemplateDirectory: TemplateDirectory,
-                    ClassInfoData: this.ClassInfoData,
-                    FileType: FileTypes.Update
+                    ClassInfoData: this.ClassInfoData
                 ),
                 new ItemFileToGenerate
                 (
@@ -239,17 +178,7 @@ namespace MG.SocialUplift
                     Path: Configuration.GetConfig("AuthorizationDirectory") + $"PermissionNames.cs",
                     TemplateName: "PermissionNames.cs",
                     TemplateDirectory: Configuration.GetConfig("AuthorizationDirectory"),
-                    ClassInfoData: this.ClassInfoData,
-                    ItemFieldTypeTemplates: new List<ItemFieldTypeTemplate>()
-                    {
-                        new ItemFieldTypeTemplate
-                        {
-                            Name = "///PermissionNames.cs.place1///",
-                            TemplateName = "PermissionNames.cs.place1.cs",
-                            ForFields = false
-                        }
-
-                    }
+                    ClassInfoData: this.ClassInfoData
                 ),
                 new ItemFileToGenerate
                 (
@@ -266,7 +195,6 @@ namespace MG.SocialUplift
                             TemplateName = "AuthorizationProvider.cs.place1.cs",
                             ForFields = false
                         }
-
                     }
                 ),
             };

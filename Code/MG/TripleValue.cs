@@ -30,6 +30,7 @@ namespace MG
 
         private void AddDefaultFields()
         {
+
             AddItem(new List<string>()
             {
                 "IsDeleted",
@@ -50,6 +51,20 @@ namespace MG
                 "Title",
             }, FileTypes.List.ToString());
 
+            AddItem(new List<string>()
+            {
+                "Name",
+                "Description",
+                "Title",
+            }, FileTypes.Update.ToString());
+
+            AddItem(new List<string>()
+            {
+                "Name",
+                "Description",
+                "Title",
+            }, FileTypes.Create.ToString());
+
         }
 
         private void AddItem(List<string> l, string title)
@@ -58,6 +73,10 @@ namespace MG
             if (l.Contains(str))
             {
                 this.ShowOnList.Add(title);
+            }
+            if (str.ToLower().Contains("id"))
+            {
+                this.ShowOnList.Add(FileTypes.ClassDefinition.ToString());
             }
         }
     }

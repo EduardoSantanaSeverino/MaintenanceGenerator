@@ -13,6 +13,7 @@ namespace MG.Generic
         Create,
         Delete,
         Others,
-        Special
+        Special,
+        ClassDefinition
     }
 }

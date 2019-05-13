@@ -8,9 +8,9 @@ namespace MG.Generic
 {
     public abstract class GenerateControlsBase : IGenerateControls
     {
-        private IFrmMainApp _form { get; set; }
+        protected IFrmMainApp _form { get; set; }
 
-        private IConfiguration _configuration { get; set; }
+        protected IConfiguration _configuration { get; set; }
 
         public GenerateControlsBase(IConfiguration configuration)
         {
@@ -100,6 +100,10 @@ namespace MG.Generic
             return b;
         }
 
+        protected virtual void FillCustomControls()
+        {
+        }
+
         private void txtEntityNameSingular_TextChanged(object sender, EventArgs e)
         {
             try
@@ -108,6 +112,7 @@ namespace MG.Generic
                 var XXXEntityLowerPluralXXX = (System.Windows.Forms.TextBox)_form.FlowInput.Controls.Find("XXXEntityLowerPluralXXX", true)[0];
                 var XXXEntityPluralXXX = (System.Windows.Forms.TextBox)_form.FlowInput.Controls.Find("XXXEntityPluralXXX", true)[0];
                 var XXXEntitySingularXXX = (System.Windows.Forms.TextBox)_form.FlowInput.Controls.Find("XXXEntitySingularXXX", true)[0];
+                FillCustomControls();
 
                 string camell = "";
                 var lower = XXXEntityLowerSingularXXX.Text.ToLower();
@@ -160,7 +165,7 @@ namespace MG.Generic
                 Width = 380,
                 Height = 68,
                 Margin = new System.Windows.Forms.Padding(4),
-                Text = item.TemplateMarkup
+                Text = (string.IsNullOrEmpty(item.TemplateMarkup) ? item.Name : item.TemplateMarkup )
             };
             l.MouseClick += new System.Windows.Forms.MouseEventHandler(RichTextBoxGeneral_MouseClick);
             return l;

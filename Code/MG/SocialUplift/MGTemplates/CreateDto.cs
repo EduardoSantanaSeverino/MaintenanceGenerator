@@ -10,7 +10,7 @@ using XXXProjectNameXXX.Models;
 namespace XXXProjectNameXXX.XXXEntityPluralXXX.Dto
 {
     [AutoMapTo(typeof(XXXEntitySingularXXX))]
-    public class XXXEntitySingularXXXCreateDto : EntityDto<int>
+    public class XXXEntitySingularXXXCreateDto : EntityDto<XXXSpecificTypeXXX>
     {
 
         ///CreateDto.cs.fields1///

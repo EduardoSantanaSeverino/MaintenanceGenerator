@@ -47,10 +47,10 @@ namespace MG.SocialUplift
                 },
                 new ItemToReplace
                 {
-                    Id = 15,
-                    Key = "XXXMenuIconXXX",
-                    LabelText = "Fa Icon",
-                    Value = GetConfig("MenuIcon")
+                    Id = 13,
+                    Key = "XXXSpecificTypeXXX",
+                    LabelText = "Specific Type",
+                    Value = ""
                 }
             };
         }

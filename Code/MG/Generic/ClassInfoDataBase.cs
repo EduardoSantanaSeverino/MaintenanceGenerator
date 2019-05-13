@@ -45,6 +45,8 @@ namespace MG.Generic
             return new List<TripleValue<string, string, string, string>>();
         }
 
+        protected string _specificType { get; set; }
+
         public string XXXEntityPluralXXX { get => GetItemToReplace("XXXEntityPluralXXX"); } // txtCapitalPlural.Text
         public string XXXEntityLowerPluralXXX { get => GetItemToReplace("XXXEntityLowerPluralXXX"); } // txtCamelPlural.Text
         public string XXXEntitySingularXXX { get => GetItemToReplace("XXXEntitySingularXXX"); } //  txtCapitalSingular.Text);
@@ -98,6 +100,13 @@ namespace MG.Generic
             var fieldList = new List<TripleValue<string, string, string, string>>();
             try
             {
+
+                var obj = this.ItemToReplaces.FirstOrDefault(p=>p.Key == "XXXSpecificTypeXXX");
+                if (obj != null)
+                {
+                    obj.Value = this.GetSpecificType();
+                }
+
                 var allowedtypes = new List<string>()
                 {
                     "int",
@@ -144,6 +153,15 @@ namespace MG.Generic
                     var MaxLenght = GetMaxLengString(LineXAnterior);
                     var MaxLenghtJustInt = GetMaxLengIntForString(LineXAnterior);
 
+                    if (string.IsNullOrEmpty(MaxLenght))
+                    {
+                        MaxLenght = "256";
+                    }
+
+                    if (string.IsNullOrEmpty(MaxLenghtJustInt))
+                    {
+                        MaxLenghtJustInt = "256";
+                    }
 
                     var field = new TripleValue<string, string, string, string>(type, propertyName, MaxLenght, MaxLenghtJustInt, listFileAttrib);
                     fieldList.Add(field);

@@ -75,12 +75,58 @@ namespace MG.Generic
             {
                 if (!string.IsNullOrEmpty(this.TemplateDirectory) && !string.IsNullOrEmpty(this.TemplateName))
                 {
-                    return System.IO.File.ReadAllText(this.TemplateDirectory + this.TemplateName);
+                    var str = System.IO.File.ReadAllText(this.TemplateDirectory + this.TemplateName);
+
+                    if (!string.IsNullOrEmpty(str))
+                    {
+                        FillFieldsAndPlaces(str, this.TemplateName);
+                    }
+                    return str;
                 }
             }
             catch (Exception err)
             { }
             return "";
+        }
+
+        private void FillFieldsAndPlaces(string str, string templateName)
+        {
+            var fileExtention = templateName.Split('.').Last();
+
+            var separator1 = "///";
+            var separator2 = "///";
+
+            if (fileExtention.ToLower() == "html")
+            {
+                separator1 = "<!--";
+                separator2 = "-->";
+            }
+
+            var typeOfSpaceHolders = new List<string>() { "fields", "place" };
+            foreach (var spaceHolder in typeOfSpaceHolders)
+            {
+                
+                for (int i = 1; i < 10; i++)
+                {
+                    var existSubFile = $"{separator1}{templateName}.{spaceHolder}{i}{separator2}";
+                    if (this.ItemFieldTypeTemplates == null)
+                    {
+                        this.ItemFieldTypeTemplates = new List<ItemFieldTypeTemplate>();
+                    }
+                    if (str.Contains(existSubFile) && !this.ItemFieldTypeTemplates.Any(p => p.Name == existSubFile))
+                    {
+                        this.ItemFieldTypeTemplates.Add(new ItemFieldTypeTemplate
+                        {
+                            ForFields = ("fields" == spaceHolder),
+                            Name = existSubFile,
+                            TemplateName = existSubFile
+                                .Replace(separator1, "")
+                                .Replace(separator2, "") + "." + 
+                                fileExtention
+                        });
+                    }
+                }
+            }
         }
 
         protected string GetItemToReplaces(string key)
@@ -127,15 +173,16 @@ namespace MG.Generic
 
         protected string ProcessField(ItemFieldTypeTemplate itemField)
         {
-            string[] array = itemField.TemplateMarkup.Split('|');
-            bool isMultiType = (array.Length > 1);
+            string[] stringSeparators = new string[] { "{|}" };
+            string[] array = itemField.TemplateMarkup.Split( stringSeparators, StringSplitOptions.None );
+            bool isMultiType = ((array.Length > 1) && itemField.TemplateMarkup.Contains("default"));
 
             var l = new List<string>();
             foreach (var item in this.ClassInfoData.Fields)
             {
                 if (item.ShowOnList.Any() && !string.IsNullOrEmpty(this.FileType))
                 {
-                    if (item.ShowOnList.Any(p => p.Replace("ShowOn","") == this.FileType))
+                    if (item.ShowOnList.Any(p => p.Replace("ShowOn","") == this.FileType) || this.FileType == FileTypes.Others.ToString())
                     {
                         ProcessFieldItem(itemField, array, isMultiType, l, item);
                     }
