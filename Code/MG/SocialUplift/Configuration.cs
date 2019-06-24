@@ -60,6 +60,7 @@ namespace MG.SocialUplift
 
             string projectName = "SocialUplift";
 
+            try { projectName = ConfigurationManager.AppSettings["ProjectName"]; } catch (Exception ex) {}
             ItemConfigs = new List<ItemConfig>()
             {
                 new ItemConfig { Name = "ProjectName", Value = projectName },

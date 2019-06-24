@@ -158,6 +158,10 @@ namespace MG.Generic
         {
             foreach (var item in this.ItemFieldTypeTemplates)
             {
+                if (this.Name == "AuthorizationProvider_cs")
+                {
+                    var asdf = 0;
+                }
                 if (item.ForFields)
                 {
                     markup = markup.Replace(item.Name, ProcessField(item) + "\n" + item.Name);
