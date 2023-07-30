@@ -58,5 +58,97 @@
     <Content Include="SocialUplift\MGTemplates\UpdateDto.cs.fields1.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Remove="SocialUplift\MGTemplates\app-routing.module.ts" />
+    <Content Include="SocialUplift\MGTemplates\app-routing.module.ts">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="SocialUplift\MGTemplates\app-routing.module.ts.place1.ts" />
+    <Content Include="SocialUplift\MGTemplates\app-routing.module.ts.place1.ts">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="SocialUplift\MGTemplates\app-routing.module.ts.place2.ts" />
+    <Content Include="SocialUplift\MGTemplates\app-routing.module.ts.place2.ts">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="SocialUplift\MGTemplates\app.module.ts" />
+    <Content Include="SocialUplift\MGTemplates\app.module.ts">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="SocialUplift\MGTemplates\app.module.ts.place1.ts" />
+    <Content Include="SocialUplift\MGTemplates\app.module.ts.place1.ts">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="SocialUplift\MGTemplates\app.module.ts.place2.ts" />
+    <Content Include="SocialUplift\MGTemplates\app.module.ts.place2.ts">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="SocialUplift\MGTemplates\app.module.ts.place3.ts" />
+    <Content Include="SocialUplift\MGTemplates\app.module.ts.place3.ts">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="SocialUplift\MGTemplates\component.ts" />
+    <Content Include="SocialUplift\MGTemplates\component.ts">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="SocialUplift\MGTemplates\create-dialog.component.ts" />
+    <Content Include="SocialUplift\MGTemplates\create-dialog.component.ts">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="SocialUplift\MGTemplates\edit-dialog.component.ts" />
+    <Content Include="SocialUplift\MGTemplates\edit-dialog.component.ts">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="SocialUplift\MGTemplates\FilesToBeCreatedList.txt" />
+    <Content Include="SocialUplift\MGTemplates\FilesToBeCreatedList.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="SocialUplift\MGTemplates\service-proxy.module.ts" />
+    <Content Include="SocialUplift\MGTemplates\service-proxy.module.ts">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="SocialUplift\MGTemplates\service-proxy.module.ts.place1.ts" />
+    <Content Include="SocialUplift\MGTemplates\service-proxy.module.ts.place1.ts">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="SocialUplift\MGTemplates\sidebar-nav.component.ts" />
+    <Content Include="SocialUplift\MGTemplates\sidebar-nav.component.ts">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="SocialUplift\MGTemplates\sidebar-nav.component.ts.place1.ts" />
+    <Content Include="SocialUplift\MGTemplates\sidebar-nav.component.ts.place1.ts">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="SocialUplift\MGTemplates\component.html" />
+    <Content Include="SocialUplift\MGTemplates\component.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="SocialUplift\MGTemplates\component.html.fields1.html" />
+    <Content Include="SocialUplift\MGTemplates\component.html.fields1.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="SocialUplift\MGTemplates\component.html.fields2.html" />
+    <Content Include="SocialUplift\MGTemplates\component.html.fields2.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="SocialUplift\MGTemplates\create-dialog.component.html" />
+    <Content Include="SocialUplift\MGTemplates\create-dialog.component.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="SocialUplift\MGTemplates\create-dialog.component.html.fields1.html" />
+    <Content Include="SocialUplift\MGTemplates\create-dialog.component.html.fields1.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="SocialUplift\MGTemplates\edit-dialog.component.html" />
+    <Content Include="SocialUplift\MGTemplates\edit-dialog.component.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="SocialUplift\MGTemplates\edit-dialog.component.html.fields1.html" />
+    <Content Include="SocialUplift\MGTemplates\edit-dialog.component.html.fields1.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Compile Remove="SocialUplift\MGTemplates\PermissionNames.cs" />
+    <Content Include="SocialUplift\MGTemplates\PermissionNames.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </Project>
