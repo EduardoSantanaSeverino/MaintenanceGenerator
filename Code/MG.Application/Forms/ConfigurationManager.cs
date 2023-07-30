@@ -13,8 +13,3 @@ public class ConfigurationManager : IConfigurationManager
 
     public Dictionary<string, string> AppSettings { get; set; }
 }
-
-public interface IConfigurationManager
-{
-    Dictionary<string, string> AppSettings { get; set; }
-}

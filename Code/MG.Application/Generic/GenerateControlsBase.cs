@@ -98,10 +98,6 @@ namespace MG.Application.Generic
         //     return b;
         // }
 
-        protected virtual void FillCustomControls()
-        {
-        }
-
         private void txtEntityNameSingular_TextChanged(object sender, EventArgs e)
         {
             try
@@ -110,7 +106,6 @@ namespace MG.Application.Generic
                 var XXXEntityLowerPluralXXX = (TextBox)_form.FlowInput.Controls.Find(p => p.Name == "XXXEntityLowerPluralXXX");
                 var XXXEntityPluralXXX = (TextBox)_form.FlowInput.Controls.Find(p => p.Name == "XXXEntityPluralXXX");
                 var XXXEntitySingularXXX = (TextBox)_form.FlowInput.Controls.Find(p => p.Name == "XXXEntitySingularXXX");
-                FillCustomControls();
 
                 string camell = "";
                 var lower = XXXEntityLowerSingularXXX.Text.ToLower();

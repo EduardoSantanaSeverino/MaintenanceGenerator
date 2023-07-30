@@ -7,5 +7,6 @@ namespace MG.Application.Generic
         ICrudGenerator CrudGenerator { get; set; }
         FlowLayoutPanel FlowInput { get; set; }
         FlowLayoutPanel FlowOutput { get; set; }
+        IGenerateControls GenerateControls { get; set; }
     }
 }

@@ -5,16 +5,58 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="Generic\" />
-    <None Remove="Forms\" />
-  </ItemGroup>
+  
   <ItemGroup>
     <Folder Include="Generic\" />
     <Folder Include="SocialUplift\MGTemplates\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="SocialUplift\MGTemplates\AppService.cs" />
+    <Content Include="SocialUplift\MGTemplates\AppService.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Compile Remove="SocialUplift\MGTemplates\AuthorizationProvider.cs" />
+    <Content Include="SocialUplift\MGTemplates\AuthorizationProvider.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Compile Remove="SocialUplift\MGTemplates\AuthorizationProvider.cs.place1.cs" />
+    <Content Include="SocialUplift\MGTemplates\AuthorizationProvider.cs.place1.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Compile Remove="SocialUplift\MGTemplates\CreateDto.cs" />
+    <Content Include="SocialUplift\MGTemplates\CreateDto.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Compile Remove="SocialUplift\MGTemplates\CreateDto.cs.fields1.cs" />
+    <Content Include="SocialUplift\MGTemplates\CreateDto.cs.fields1.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Compile Remove="SocialUplift\MGTemplates\Dto.cs" />
+    <Content Include="SocialUplift\MGTemplates\Dto.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Compile Remove="SocialUplift\MGTemplates\Dto.cs.fields1.cs" />
+    <Content Include="SocialUplift\MGTemplates\Dto.cs.fields1.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Compile Remove="SocialUplift\MGTemplates\IAppService.cs" />
+    <Content Include="SocialUplift\MGTemplates\IAppService.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Compile Remove="SocialUplift\MGTemplates\PermissionNames.cs.place1.cs" />
+    <Content Include="SocialUplift\MGTemplates\PermissionNames.cs.place1.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Compile Remove="SocialUplift\MGTemplates\UpdateDto.cs" />
+    <Content Include="SocialUplift\MGTemplates\UpdateDto.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Compile Remove="SocialUplift\MGTemplates\UpdateDto.cs.fields1.cs" />
+    <Content Include="SocialUplift\MGTemplates\UpdateDto.cs.fields1.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </Project>
