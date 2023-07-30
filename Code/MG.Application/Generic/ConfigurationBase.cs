@@ -5,16 +5,12 @@ namespace MG.Application.Generic
 {
     public abstract class ConfigurationBase : IConfiguration
     {
-        public ConfigurationManager _configuration { get; set; }
+        public IConfigurationManager _configuration { get; set; }
         public List<ItemConfig> ItemConfigs { get; set; }
         public string Version { get => this.GetConfig("Version"); }
         public string TemplateDirectory { get => this.GetConfig("TemplateDirectory"); }
         public string ProjectName { get => this.GetConfig("ProjectName"); }
-
-        public ConfigurationBase()
-        {
-            _configuration = new ConfigurationManager();
-        }
+        
         public void CreateDirectory()
         {
             foreach (var item in this.ItemConfigs)

@@ -1,20 +1,17 @@
-namespace MG.Application.Forms;
+using MG.Application.Forms;
 
-public class ConfigurationManager : IConfigurationManager
+namespace MG.Application.SocialUplift;
+
+public class ConfigurationManagerSocialUplift : IConfigurationManager
 {
-    public ConfigurationManager()
+    public ConfigurationManagerSocialUplift()
     {
         this.AppSettings = new Dictionary<string, string>();
         this.AppSettings.Add("SideBarFileName","header.js");
         this.AppSettings.Add("TemplateDirectory", "MGTemplates\\");
         this.AppSettings.Add("Version", "MaintenanceGenerator Ver. 3.0");
-        this.AppSettings.Add("ProjectName", "VoiceIt");
+        this.AppSettings.Add("ProjectName", "SocialUplift");
     }
-
+    
     public Dictionary<string, string> AppSettings { get; set; }
-}
-
-public interface IConfigurationManager
-{
-    Dictionary<string, string> AppSettings { get; set; }
 }
