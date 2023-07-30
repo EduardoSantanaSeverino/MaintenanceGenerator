@@ -1,0 +1,61 @@
+FileListToBeGenerated
+"SocialUplift\angular\src\app\app.module.ts"
+"SocialUplift\angular\src\app\app-routing.module.ts"
+"SocialUplift\angular\src\app\campaigns\campaigns.component.html"
+"SocialUplift\angular\src\app\campaigns\campaigns.component.ts"
+"SocialUplift\angular\src\app\campaigns\create-campaign\create-campaign-dialog.component.html"
+"SocialUplift\angular\src\app\campaigns\create-campaign\create-campaign-dialog.component.ts"
+"SocialUplift\angular\src\app\campaigns\edit-campaign\edit-campaign-dialog.component.html"
+"SocialUplift\angular\src\app\campaigns\edit-campaign\edit-campaign-dialog.component.ts"
+"SocialUplift\angular\src\app\layout\sidebar-nav.component.ts"
+"SocialUplift\angular\src\shared\service-proxies\service-proxy.module.ts"
+"SocialUplift\aspnet-core\src\SocialUplift.Application\CampaignStates\CampaignStateAppService.cs"
+"SocialUplift\aspnet-core\src\SocialUplift.Application\CampaignStates\ICampaignStateAppService.cs"
+"SocialUplift\aspnet-core\src\SocialUplift.Application\CampaignStates\Dto\CampaignStateCreateDto.cs"
+"SocialUplift\aspnet-core\src\SocialUplift.Application\CampaignStates\Dto\CampaignStateDto.cs"
+"SocialUplift\aspnet-core\src\SocialUplift.Application\CampaignStates\Dto\CampaignStateUpdateDto.cs"
+"SocialUplift\aspnet-core\src\SocialUplift.Core\Authorization\PermissionNames.cs"
+"SocialUplift\aspnet-core\src\SocialUplift.Core\Authorization\SocialUpliftAuthorizationProvider.cs"
+
+ApplicationDirectory = SocialUplift\aspnet-core\src\SocialUplift.Application\
+AuthorizationDirectory = SocialUplift\aspnet-core\src\SocialUplift.Core\Authorization\
+AngularAppDirectory = SocialUplift\angular\src\app\
+AngularSharedDirectory = SocialUplift\angular\src\shared\
+
+XXXEntityLowerSingularXXX
+XXXEntitySingularXXX
+XXXEntityLowerPluralXXX
+XXXEntityPluralXXX
+XXXProjectNameXXX
+XXXFieldNameLowerXXX
+XXXFieldNameLXXX
+
+n = n.Replace("XXXFieldNameXXX", item.Value);
+n = n.Replace("XXXFieldNameLowerXXX", item.Value.ToLower());
+n = n.Replace("XXXFieldTypeXXX", item.Key);
+n = n.Replace("XXXFieldMaxLenghtXXX", item.ValueAlt);
+n = n.Replace("XXXFieldMaxLenghtIntXXX", item.ValueAppened);
+
+public bool IsActive
+
+public string Name
+
+public string Description
+
+public int TenantId
+
+public virtual bool IsDeleted
+
+public virtual long? DeleterUserId
+
+public virtual DateTime? DeletionTime     
+
+public virtual DateTime? LastModificationTime
+
+public virtual long? LastModifierUserId
+
+public virtual DateTime CreationTime
+
+public virtual long? CreatorUserId
+
+Id
