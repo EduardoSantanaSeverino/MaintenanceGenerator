@@ -1,4 +1,5 @@
 ﻿
+using MG.Application.Forms;
 using MG.Application.Generic;
 
 namespace MG.Application.SocialUplift
