@@ -1,5 +1,4 @@
-﻿
-using MG.Application.Forms;
+﻿using MG.Application.Forms;
 using MG.Application.Generic;
 
 namespace MG.Application.SocialUplift
@@ -51,34 +50,36 @@ namespace MG.Application.SocialUplift
             };
         }
         
-        public Configuration()
+        public Configuration() : base(new ConfigurationManager())
         {
 
-            _configuration = new ConfigurationManager();
             string projectName = "SocialUplift";
 
             try { projectName = _configuration.AppSettings["ProjectName"]; } catch (Exception ex) {}
-            ItemConfigs = new List<ItemConfig>()
+
+            List<ItemConfig> _itemConfigs = null;
+            
+            // _itemConfigs = new List<ItemConfig>()
+            // {
+            //     new ItemConfig { Name = "ProjectName", Value = projectName},
+            //     new ItemConfig { Name = "Version", Value = "MaintenanceGenerator Ver. 3.0" },
+            //     new ItemConfig { Name = "TemplateDirectory", Value = @"#{ProjectName}\MGTemplates\", IsPath = true },
+            //     new ItemConfig { Name = "MenuIcon", Value = "fa-home" }
+            // };
+            //
+            // this.AddConfig(_itemConfigs);
+            
+            _itemConfigs = new List<ItemConfig>()
             {
-                new ItemConfig { Name = "ProjectName", Value = projectName},
-                new ItemConfig { Name = "Version", Value = "MaintenanceGenerator Ver. 3.0" },
-                new ItemConfig { Name = "TemplateDirectory", Value = @$"{projectName}\MGTemplates\".Replace('\\', Path.DirectorySeparatorChar) },
-                new ItemConfig { Name = "MenuIcon", Value = "fa-home" }
+                new ItemConfig { Name = "ApplicationDirectory", Value =  @"#{ProjectName}\aspnet-core\src\#{ProjectName}.Application\", IsPath = true},
+                new ItemConfig { Name = "AuthorizationDirectory", Value = @"#{ProjectName}\aspnet-core\src\#{ProjectName}.Core\Authorization\", IsPath = true },
+                new ItemConfig { Name = "AngularAppDirectory", Value = @"#{ProjectName}\angular\src\app\", IsPath = true },
+                new ItemConfig { Name = "AngularSharedDirectory", Value = @"#{ProjectName}\angular\src\shared\", IsPath = true },
+                new ItemConfig { Name = "ClassesPath", Value = @"#{ProjectName}\aspnet-core\src\#{ProjectName}.Core\Models\", IsPath = true },
             };
 
-            ItemConfigs.AddRange(new List<ItemConfig>()
-            {
-                new ItemConfig { Name = "ApplicationDirectory", Value =  $@"{projectName}\aspnet-core\src\{projectName}.Application\".Replace('\\', Path.DirectorySeparatorChar) },
-                new ItemConfig { Name = "AuthorizationDirectory", Value = $@"{projectName}\aspnet-core\src\{projectName}.Core\Authorization\".Replace('\\', Path.DirectorySeparatorChar) },
-                new ItemConfig { Name = "AngularAppDirectory", Value = $@"{projectName}\angular\src\app\".Replace('\\', Path.DirectorySeparatorChar) },
-                new ItemConfig { Name = "AngularSharedDirectory", Value = $@"{projectName}\angular\src\shared\".Replace('\\', Path.DirectorySeparatorChar) },
-                new ItemConfig { Name = "ClassesPath", Value = $@"{projectName}\aspnet-core\src\{projectName}.Core\Models\".Replace('\\', Path.DirectorySeparatorChar) },
-            });
+            this.AddConfig(_itemConfigs);
             
-            
-            ReadFromConfigFile();
-            CreateDirectory();
-
-        }
+        } 
     }
 }

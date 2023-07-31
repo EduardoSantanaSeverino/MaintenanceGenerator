@@ -16,19 +16,20 @@ namespace MG.Application.SocialUplift
         protected override void Initialize(IConfiguration Configuration, List<IItemToReplace> ItemToReplaces)
         {
             string entitySingular = ItemToReplaces.FirstOrDefault(p => p.Key == "XXXEntitySingularXXX")?.Value;
-            string entityPlural = ItemToReplaces.FirstOrDefault(p => p.Key == "XXXEntityPluralXXX")?.Value;
+            //string entityPlural = ItemToReplaces.FirstOrDefault(p => p.Key == "XXXEntityPluralXXX")?.Value;
 
             this.ClassInfoData = new ClassInfoData(Configuration.GetConfig("ClassesPath"), entitySingular + ".cs", ItemToReplaces);
             Configuration.AddConfig(new List<ItemConfig> {
                 new ItemConfig
                 {
                     Name = "ClassPath",
-                    Value = Configuration.GetConfig("ClassesPath") + this.ClassInfoData.XXXEntitySingularXXX + ".cs"
+                    Value = Configuration.GetConfig("ClassesPath") + this.ClassInfoData.XXXEntitySingularXXX + ".cs",
+                    IsPath = true
                 }
             });
 
-            var obj = ItemToReplaces.FirstOrDefault(p=>p.Key == "XXXSpecificTypeXXX");
-            var a = this.ClassInfoData.GetSpecificType();
+            // var obj = ItemToReplaces.FirstOrDefault(p=>p.Key == "XXXSpecificTypeXXX");
+            // var a = this.ClassInfoData.GetSpecificType();
             this.Configuration = Configuration;
 
             LoadItemFileToCreate();

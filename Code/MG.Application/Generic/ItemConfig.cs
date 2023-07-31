@@ -7,5 +7,6 @@
         public string Value { get; set; }
         public bool CreateDirectory { get; set; }
         public bool IsChecked { get; set; }
+        public bool IsPath { get; set; }
     }
 }

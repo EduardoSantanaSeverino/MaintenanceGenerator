@@ -15,39 +15,42 @@ public class ConfigurationManager : IConfigurationManager
 
         var file = config.Get<AppSettingConfig>();
 
-        foreach (var setting in file?.AppSettings)
+        if (file != null && file.AppSettings.Any())
         {
-            if (setting.IsPath)
+            foreach (var setting in file?.AppSettings)
             {
-                setting.Value = setting.Value.Replace('\\', Path.DirectorySeparatorChar);
+                if (setting.IsPath)
+                {
+                    setting.Value = setting.Value.Replace('\\', Path.DirectorySeparatorChar);
+                }
+                this.AppSettings.Add(setting.Name, setting.Value);
             }
-            this.AppSettings.Add(setting.Name, setting.Value);
         }
-
     }
 
     public Dictionary<string, string> AppSettings { get; set; }
-}
-
-public class AppSettingConfig
-{
-    public List<AppSettingItem> AppSettings { get; set; }
-}
-
-public class AppSettingItem
-{
-    public AppSettingItem()
+    
+    private class AppSettingConfig
     {
+        public List<AppSettingItem> AppSettings { get; set; }
+    }
+
+    private class AppSettingItem
+    {
+        public AppSettingItem()
+        {
         
-    }
-    public AppSettingItem(string Name, string Value)
-    {
-        this.Name = Name;
-        this.Value = Value;
-        this.IsPath = false;
-    }
+        }
+        public AppSettingItem(string Name, string Value)
+        {
+            this.Name = Name;
+            this.Value = Value;
+            this.IsPath = false;
+        }
 
-    public string Name { get; set; }
-    public string Value { get; set; }
-    public bool IsPath { get; set; }
-} 
+        public string Name { get; set; }
+        public string Value { get; set; }
+        public bool IsPath { get; set; }
+    } 
+    
+}

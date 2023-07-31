@@ -6,10 +6,16 @@ namespace MG.Application.Generic
     public abstract class ConfigurationBase : IConfiguration
     {
         public IConfigurationManager _configuration { get; set; }
-        public List<ItemConfig> ItemConfigs { get; set; }
+        public List<ItemConfig> ItemConfigs { get; private set; } = new List<ItemConfig>();
         public string Version { get => this.GetConfig("Version"); }
         public string TemplateDirectory { get => this.GetConfig("TemplateDirectory").Replace('\\', Path.DirectorySeparatorChar); }
         public string ProjectName { get => this.GetConfig("ProjectName"); }
+
+        public ConfigurationBase(IConfigurationManager configuration)
+        {
+            this._configuration = configuration;
+            ReadFromConfigFile();
+        }
         
         public void CreateDirectory()
         {
@@ -25,45 +31,68 @@ namespace MG.Application.Generic
             }
         }
 
-        public void AddConfig(ItemConfig ItemConfig, bool reload = true)
+        public void AddConfig(ItemConfig itemConfig, bool reload = true)
         {
             ItemConfig temp = null;
 
-            if (ItemConfig.Id > 0)
+            if (itemConfig.Id > 0)
             {
-                temp = this.ItemConfigs.FirstOrDefault(p => p.Name == ItemConfig.Name || p.Id == ItemConfig.Id);
+                temp = this.ItemConfigs.FirstOrDefault(p => p.Name == itemConfig.Name || p.Id == itemConfig.Id);
             }
             else
             {
-                temp = this.ItemConfigs.FirstOrDefault(p => p.Name == ItemConfig.Name);
+                temp = this.ItemConfigs.FirstOrDefault(p => p.Name == itemConfig.Name);
             }
 
             if (temp != null)
             {
-                temp.Value = ItemConfig.Value;
+                temp.Value = itemConfig.Value;
                 temp.IsChecked = false;
             }
             else
             {
-                ItemConfigs.Add(ItemConfig);
+                if (!string.IsNullOrEmpty(itemConfig.Value))
+                {
+                    if (itemConfig.IsPath)
+                    {
+                        itemConfig.Value = itemConfig.Value.Replace('\\', Path.DirectorySeparatorChar);
+                    }
+
+                    if (itemConfig.Value.Contains("#{") && itemConfig.Value.Contains("}"))
+                    {
+                        int startIndex = itemConfig.Value.IndexOf("#{") + 2; // Adding 2 to exclude "#{"
+                        int endIndex = itemConfig.Value.IndexOf("}");
+                    
+                        if (startIndex < endIndex)
+                        {
+                            string replaceConfigName = itemConfig.Value.Substring(startIndex, endIndex - startIndex);
+                            string replaceWith = this.GetConfig(replaceConfigName);
+                            if (!string.IsNullOrEmpty(replaceWith))
+                            {
+                                itemConfig.Value = itemConfig.Value.Replace("#{" + replaceConfigName + "}", replaceWith);
+                            }
+                        }
+                    }
+                }
+              
+                ItemConfigs.Add(itemConfig);
+
             }
 
             if (reload)
             {
-                ReadFromConfigFile();
                 CreateDirectory();
             }
         }
 
-        public void AddConfig(List<ItemConfig> ItemConfigs)
+        public void AddConfig(List<ItemConfig> itemConfigs)
         {
 
-            foreach (var item in ItemConfigs)
+            foreach (var item in itemConfigs)
             {
                 AddConfig(item, false);
             }
 
-            ReadFromConfigFile();
             CreateDirectory();
         }
 
@@ -87,22 +116,21 @@ namespace MG.Application.Generic
 
         public void ReadFromConfigFile()
         {
-            foreach (var item in this.ItemConfigs)
+            foreach (var item in _configuration.AppSettings)
             {
-                try
+                var loadedConfig = this.ItemConfigs.FirstOrDefault(p => p.Name == item.Key);
+                if (loadedConfig != null)
                 {
-                    if (!item.IsChecked)
+                    if (!loadedConfig.IsChecked)
                     {
-                        item.IsChecked = true;
-                        var p = _configuration.AppSettings[item.Name];
-                        if (!string.IsNullOrEmpty(p))
-                        {
-                            item.Value = p;
-                        }
+                        loadedConfig.IsChecked = true;
+                        loadedConfig.Value = item.Value;
                     }
                 }
-                catch (Exception e) { }
-
+                else
+                {
+                    this.AddConfig(new ItemConfig() { Name = item.Key, Value = item.Value }, false);
+                }
             }
         }
 
