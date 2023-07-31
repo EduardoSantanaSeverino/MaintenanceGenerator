@@ -8,7 +8,7 @@ namespace MG.Application.Generic
         public IConfigurationManager _configuration { get; set; }
         public List<ItemConfig> ItemConfigs { get; set; }
         public string Version { get => this.GetConfig("Version"); }
-        public string TemplateDirectory { get => this.GetConfig("TemplateDirectory"); }
+        public string TemplateDirectory { get => this.GetConfig("TemplateDirectory").Replace('\\', Path.DirectorySeparatorChar); }
         public string ProjectName { get => this.GetConfig("ProjectName"); }
         
         public void CreateDirectory()

@@ -3,6 +3,7 @@
 using MG.Application.Forms;
 using MG.Application.Generic;
 using MG.Application.SocialUplift;
+using MG.Console;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -18,9 +19,18 @@ using IHost host = Host.CreateDefaultBuilder()
     })
     .Build();
 
+
 var crudGenerator = host.Services.GetService<ICrudGenerator>(); 
 var generateControls = host.Services.GetService<IGenerateControls>();
 var frm = new FrmMainApp(crudGenerator, generateControls);
-
+var inputs = new List<IControl>();
+inputs.Add(new Control("XXXEntityLowerSingularXXX", "place"));
+inputs.Add(new Control("XXXSpecificTypeXXX", "int"));
+frm.SetInputsFromParameters(inputs);
+var presentation = new Presentation();
+presentation.AddInputsToTable(frm.FlowInput);
+presentation.AddOutputsToTable(frm.FlowOutput);
+presentation.RenderTables();
+// Console.ReadKey();
 // await host.RunAsync();
 // Console.WriteLine("Hello, World!");
