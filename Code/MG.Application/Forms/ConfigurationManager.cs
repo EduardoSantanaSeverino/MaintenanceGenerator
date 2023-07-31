@@ -1,3 +1,5 @@
+using Microsoft.Extensions.Configuration;
+
 namespace MG.Application.Forms;
 
 public class ConfigurationManager : IConfigurationManager
@@ -5,11 +7,47 @@ public class ConfigurationManager : IConfigurationManager
     public ConfigurationManager()
     {
         this.AppSettings = new Dictionary<string, string>();
-        this.AppSettings.Add("SideBarFileName","header.js");
-        this.AppSettings.Add("TemplateDirectory", "MGTemplates\\");
-        this.AppSettings.Add("Version", "MaintenanceGenerator Ver. 3.0");
-        this.AppSettings.Add("ProjectName", "VoiceIt");
+        var builder = new ConfigurationBuilder();
+        builder.SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+
+        IConfiguration config = builder.Build();
+
+        var file = config.Get<AppSettingConfig>();
+
+        foreach (var setting in file?.AppSettings)
+        {
+            if (setting.IsPath)
+            {
+                setting.Value = setting.Value.Replace('\\', Path.DirectorySeparatorChar);
+            }
+            this.AppSettings.Add(setting.Name, setting.Value);
+        }
+
     }
 
     public Dictionary<string, string> AppSettings { get; set; }
 }
+
+public class AppSettingConfig
+{
+    public List<AppSettingItem> AppSettings { get; set; }
+}
+
+public class AppSettingItem
+{
+    public AppSettingItem()
+    {
+        
+    }
+    public AppSettingItem(string Name, string Value)
+    {
+        this.Name = Name;
+        this.Value = Value;
+        this.IsPath = false;
+    }
+
+    public string Name { get; set; }
+    public string Value { get; set; }
+    public bool IsPath { get; set; }
+} 

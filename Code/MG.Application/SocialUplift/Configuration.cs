@@ -53,13 +53,13 @@ namespace MG.Application.SocialUplift
         public Configuration()
         {
 
-            _configuration = new ConfigurationManagerSocialUplift();
+            _configuration = new ConfigurationManager();
             string projectName = "SocialUplift";
 
             try { projectName = _configuration.AppSettings["ProjectName"]; } catch (Exception ex) {}
             ItemConfigs = new List<ItemConfig>()
             {
-                new ItemConfig { Name = "ProjectName", Value = projectName },
+                new ItemConfig { Name = "ProjectName", Value = projectName},
                 new ItemConfig { Name = "Version", Value = "MaintenanceGenerator Ver. 3.0" },
                 new ItemConfig { Name = "TemplateDirectory", Value = @$"{projectName}\MGTemplates\".Replace('\\', Path.DirectorySeparatorChar) },
                 new ItemConfig { Name = "MenuIcon", Value = "fa-home" }
