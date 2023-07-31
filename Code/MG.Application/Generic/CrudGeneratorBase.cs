@@ -2,13 +2,26 @@
 {
     public abstract class CrudGeneratorBase : ICrudGenerator
     {
+        private List<IItemFileToGenerate> _itemFileToGenerates;
         public IClassInfoData ClassInfoData { get; protected set; }
         public IConfiguration Configuration { get; protected set; }
         public string Version { get; protected set; }
         public string TemplateDirectory { get; protected set; }
         public string ProjectName { get; protected set; }
 
-        public List<IItemFileToGenerate> ItemFileToGenerates { get; protected set; }
+        public List<IItemFileToGenerate> ItemFileToGenerates
+        {
+            get => _itemFileToGenerates;
+            protected set
+            {
+                foreach (var itemFile in value)
+                {
+                    itemFile.Path = itemFile?.Path?.Replace('\\', Path.DirectorySeparatorChar);
+                    itemFile.TemplateDirectory = itemFile?.TemplateDirectory?.Replace('\\', Path.DirectorySeparatorChar);
+                }
+                _itemFileToGenerates = value;
+            }
+        }
 
         public void btnSaveOnDisk_Click()
         {
