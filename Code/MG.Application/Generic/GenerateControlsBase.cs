@@ -40,10 +40,10 @@ namespace MG.Application.Generic
             {
                 if (!string.IsNullOrEmpty(item.ControlName))
                 {
-                    var control = _form.FlowOutput.Controls.Where(p => p.Name == item.ControlName);
-                    if (control.Any())
+                    var c = _form.FlowOutput.Controls.Find(p => p.Name == item.ControlName);
+                    if (c != null)
                     {
-                        control.FirstOrDefault().Text = item.TemplateMarkup;
+                        c.Text = item.TemplateMarkup;
                     }
                     else
                     {
@@ -98,14 +98,23 @@ namespace MG.Application.Generic
         //     return b;
         // }
 
-        private void txtEntityNameSingular_TextChanged(object sender, EventArgs e)
+        public virtual void SetInputsFromParameters(List<IControl> inputControls)
         {
             try
             {
-                var XXXEntityLowerSingularXXX = (TextBox)_form.FlowInput.Controls.Find(p => p.Name == "XXXEntityLowerSingularXXX");
-                var XXXEntityLowerPluralXXX = (TextBox)_form.FlowInput.Controls.Find(p => p.Name == "XXXEntityLowerPluralXXX");
-                var XXXEntityPluralXXX = (TextBox)_form.FlowInput.Controls.Find(p => p.Name == "XXXEntityPluralXXX");
-                var XXXEntitySingularXXX = (TextBox)_form.FlowInput.Controls.Find(p => p.Name == "XXXEntitySingularXXX");
+                foreach (var input in inputControls)
+                {
+                    var item = _form.FlowInput.Find(input.Name);
+                    if (item != null)
+                    {
+                         item.Text = input.Text;  
+                    }
+                }
+                
+                var XXXEntityLowerSingularXXX = _form.FlowInput.Find( "XXXEntityLowerSingularXXX");
+                var XXXEntityLowerPluralXXX = _form.FlowInput.Find( "XXXEntityLowerPluralXXX");
+                var XXXEntityPluralXXX = _form.FlowInput.Find( "XXXEntityPluralXXX");
+                var XXXEntitySingularXXX = _form.FlowInput.Find( "XXXEntitySingularXXX");
 
                 string camell = "";
                 var lower = XXXEntityLowerSingularXXX.Text.ToLower();
@@ -135,10 +144,10 @@ namespace MG.Application.Generic
 
                 foreach (var item in ItemToReplaces)
                 {
-                    var c = this._form.FlowInput.Controls.Find( p => p.Name == item.Key);
+                    var c = this._form.FlowInput.Find(item.Key);
                     if (c != null)
                     {
-                        item.Value = ((TextBox)c).Text; ;
+                        item.Value = c.Text;
                     }
                 }
 

@@ -60,20 +60,21 @@ namespace MG.Application.SocialUplift
             ItemConfigs = new List<ItemConfig>()
             {
                 new ItemConfig { Name = "ProjectName", Value = projectName },
-                new ItemConfig { Name = "Version", Value = "MaintenanceGenerator Ver. 2.3" },
-                new ItemConfig { Name = "TemplateDirectory", Value = @"MGTemplates\" },
+                new ItemConfig { Name = "Version", Value = "MaintenanceGenerator Ver. 3.0" },
+                new ItemConfig { Name = "TemplateDirectory", Value = @$"{projectName}\MGTemplates\".Replace('\\', Path.DirectorySeparatorChar) },
                 new ItemConfig { Name = "MenuIcon", Value = "fa-home" }
             };
 
             ItemConfigs.AddRange(new List<ItemConfig>()
             {
-                new ItemConfig { Name = "ApplicationDirectory", Value =  $@"{projectName}\aspnet-core\src\{projectName}.Application\" },
-                new ItemConfig { Name = "AuthorizationDirectory", Value = $@"{projectName}\aspnet-core\src\{projectName}.Core\Authorization\" },
-                new ItemConfig { Name = "AngularAppDirectory", Value = $@"{projectName}\angular\src\app\" },
-                new ItemConfig { Name = "AngularSharedDirectory", Value = $@"{projectName}\angular\src\shared\" },
-                new ItemConfig { Name = "ClassesPath", Value = $@"{projectName}\aspnet-core\src\{projectName}.Core\Models\" },
+                new ItemConfig { Name = "ApplicationDirectory", Value =  $@"{projectName}\aspnet-core\src\{projectName}.Application\".Replace('\\', Path.DirectorySeparatorChar) },
+                new ItemConfig { Name = "AuthorizationDirectory", Value = $@"{projectName}\aspnet-core\src\{projectName}.Core\Authorization\".Replace('\\', Path.DirectorySeparatorChar) },
+                new ItemConfig { Name = "AngularAppDirectory", Value = $@"{projectName}\angular\src\app\".Replace('\\', Path.DirectorySeparatorChar) },
+                new ItemConfig { Name = "AngularSharedDirectory", Value = $@"{projectName}\angular\src\shared\".Replace('\\', Path.DirectorySeparatorChar) },
+                new ItemConfig { Name = "ClassesPath", Value = $@"{projectName}\aspnet-core\src\{projectName}.Core\Models\".Replace('\\', Path.DirectorySeparatorChar) },
             });
-
+            
+            
             ReadFromConfigFile();
             CreateDirectory();
 
