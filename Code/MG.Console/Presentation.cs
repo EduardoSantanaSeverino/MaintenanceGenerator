@@ -37,7 +37,7 @@ public class Presentation
             table.AddColumn(control.Name.Replace("rtb",""));
             table.AddRow(control.Text.EscapeMarkup());
             table.Columns[0].PadLeft(3).PadRight(5);
-            table.Columns[0].NoWrap();
+            //table.Columns[0].NoWrap();
             table.Columns[0].PadTop(-3);
             table.Columns[0].PadBottom(-3);
             this.Tables.Add(table);
@@ -50,7 +50,7 @@ public class Presentation
         {
             table.Border(TableBorder.Heavy);
             table.Expand();
-           
+            table.Width(150);
             AnsiConsole.Write(table);
         }
     }

@@ -1,4 +1,6 @@
-﻿namespace MG.Application.Generic
+﻿using MG.Application.SocialUplift;
+
+namespace MG.Application.Generic
 {
     public abstract class ItemFileToGenerateBase : IItemFileToGenerate
     {
@@ -25,6 +27,7 @@
             string FileType = ""
         )
         {
+            
             this.FileType = FileType;
             this.Id = Id;
             this.Name = Name;
@@ -34,8 +37,15 @@
             this.TemplateDirectory = TemplateDirectory;
             this.ItemFieldTypeTemplates = ItemFieldTypeTemplates;
             this.ClassInfoData = ClassInfoData;
+            this.Path = this?.Path?.Replace('\\', System.IO.Path.DirectorySeparatorChar);
+            this.TemplateDirectory = this?.TemplateDirectory?.Replace('\\', System.IO.Path.DirectorySeparatorChar);
+           
+            if (this.Id == (int)FileStackId.sidebar_nav_component_ts)
+            {
+                var tem = "";
+            }
             this.TemplateMarkup = ReadTemplate();
-
+         
             if (string.IsNullOrEmpty(this.FileType))
             {
                 this.FileType = FileTypes.Others.ToString();
@@ -152,10 +162,10 @@
         {
             foreach (var item in this.ItemFieldTypeTemplates)
             {
-                if (this.Name == "AuthorizationProvider_cs")
-                {
-                    var asdf = 0;
-                }
+                // if (this.Name == "AuthorizationProvider_cs")
+                // {
+                //     var asdf = 0;
+                // }
                 if (item.ForFields)
                 {
                     markup = markup.Replace(item.Name, ProcessField(item) + "\n" + item.Name);
@@ -202,6 +212,7 @@
         {
             string n = "";
 
+            
             if (isMultiType)
             {
                 bool isFound = false;

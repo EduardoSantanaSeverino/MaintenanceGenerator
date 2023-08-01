@@ -7,7 +7,6 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <Folder Include="Generic\" />
     <Folder Include="SocialUplift\MGTemplates\" />
   </ItemGroup>
   <ItemGroup>

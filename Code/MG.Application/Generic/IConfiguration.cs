@@ -4,8 +4,6 @@
     {
         List<ItemConfig> ItemConfigs { get; }
 
-        string Version { get; }
-
         string TemplateDirectory { get; }
 
         string ProjectName { get; }

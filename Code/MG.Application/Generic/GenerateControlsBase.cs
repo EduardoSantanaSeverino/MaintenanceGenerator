@@ -7,19 +7,16 @@ namespace MG.Application.Generic
         protected IFrmMainApp _form { get; set; }
 
         protected IConfiguration _configuration { get; set; }
-
+        
         public GenerateControlsBase(IConfiguration configuration)
         {
             this._configuration = configuration;
-            this.ItemToReplaces = this._configuration.GetItemToReplaces();
         }
-
-        public List<IItemToReplace> ItemToReplaces { get; private set; }
 
         public void AddInputControls(IFrmMainApp form)
         {
             this._form = form;
-            foreach (var item in this.ItemToReplaces)
+            foreach (var item in this._configuration.GetItemToReplaces())
             {
                 var group = new FlowLayoutPanel();
                 // group.Height = 27;
@@ -142,7 +139,7 @@ namespace MG.Application.Generic
                 XXXEntityPluralXXX.Text = capital;
                 XXXEntitySingularXXX.Text = capitalSingular;
 
-                foreach (var item in ItemToReplaces)
+                foreach (var item in this._configuration.GetItemToReplaces())
                 {
                     var c = this._form.FlowInput.Find(item.Key);
                     if (c != null)
@@ -151,7 +148,7 @@ namespace MG.Application.Generic
                     }
                 }
 
-                _form.CrudGenerator.SetItemToReplace(this.ItemToReplaces);
+                _form.CrudGenerator.Initialize();
                 AddOutputControls();
 
             }

@@ -1,6 +1,4 @@
-﻿using MG.Application.Generic;
-
-namespace MG.Application
+﻿namespace MG.Application.Generic
 {
     public class TripleValue<T, X, Y, Z>
     {

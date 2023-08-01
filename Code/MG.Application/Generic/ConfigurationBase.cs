@@ -1,5 +1,4 @@
-﻿
-using MG.Application.Forms;
+﻿using MG.Application.Forms;
 
 namespace MG.Application.Generic
 {
@@ -7,14 +6,14 @@ namespace MG.Application.Generic
     {
         public IConfigurationManager _configuration { get; set; }
         public List<ItemConfig> ItemConfigs { get; private set; } = new List<ItemConfig>();
-        public string Version { get => this.GetConfig("Version"); }
         public string TemplateDirectory { get => this.GetConfig("TemplateDirectory").Replace('\\', Path.DirectorySeparatorChar); }
         public string ProjectName { get => this.GetConfig("ProjectName"); }
 
         public ConfigurationBase(IConfigurationManager configuration)
         {
             this._configuration = configuration;
-            ReadFromConfigFile();
+            this.LoadDefaultConfigs();
+            this.ReadFromConfigFile();
         }
         
         public void CreateDirectory()
@@ -134,6 +133,13 @@ namespace MG.Application.Generic
             }
         }
 
+        private void LoadDefaultConfigs()
+        {
+            this.AddConfig(new ItemConfig() { Name = "Version", Value = "VERSION_PLACE_HOLDER" }, false);
+            this.AddConfig(new ItemConfig() { Name = "TemplateDirectory", Value = "MGTemplates\\", IsPath = true }, false);
+            this.AddConfig(new ItemConfig() { Name = "ProjectName", Value = "NO_PROJECT_NAME_DEFINED" }, false);
+            this.AddConfig(new ItemConfig() { Name = "ProjectDirectory", Value = "/src/", IsPath = true }, false);
+        }
         public abstract List<IItemToReplace> GetItemToReplaces();
     }
 }
