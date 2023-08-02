@@ -72,15 +72,18 @@ namespace MG.Application.Generic
                             }
                         }
                     }
-                    
+
                     var itemToReplace = this.DefaultGetItemToReplaces.FirstOrDefault(p => p.Key == itemConfig.Name);
                     if (itemToReplace != null)
                     {
                         itemToReplace.Value = itemConfig.Value;
+                        if (itemConfig.Name == "XXXEntityLowerSingularXXX")
+                        {
+                            this.SetEntityNames(itemToReplace.Value);
+                        }
                     }
-
                 }
-              
+
                 ItemConfigs.Add(itemConfig);
 
             }
@@ -192,6 +195,39 @@ namespace MG.Application.Generic
         public virtual List<IItemToReplace> GetItemToReplaces()
         {
             return this.DefaultGetItemToReplaces;
+        }
+
+        public virtual void SetEntityNames(string XXXEntityLowerSingularXXX)
+        {
+            var XXXEntityLowerPluralXXX = this.DefaultGetItemToReplaces.FirstOrDefault(p => p.Key == "XXXEntityLowerPluralXXX");
+            var XXXEntityPluralXXX = this.DefaultGetItemToReplaces.FirstOrDefault(p => p.Key == "XXXEntityPluralXXX");
+            var XXXEntitySingularXXX = this.DefaultGetItemToReplaces.FirstOrDefault(p => p.Key == "XXXEntitySingularXXX");
+
+            string camell = "";
+            var lower = XXXEntityLowerSingularXXX.ToLower();
+            if (lower.Substring(lower.Length - 1, 1) == "s")
+                camell = lower + "es";
+            else if (lower.Substring(lower.Length - 1, 1) == "y" &&
+                     (
+                         (lower.Substring(lower.Length - 2, 1) != "a") &&
+                         (lower.Substring(lower.Length - 2, 1) != "e") &&
+                         (lower.Substring(lower.Length - 2, 1) != "i") &&
+                         (lower.Substring(lower.Length - 2, 1) != "o") &&
+                         (lower.Substring(lower.Length - 2, 1) != "u")
+                     )
+                    )
+            {
+                camell = lower.Substring(0, lower.Length - 1) + "ies";
+            }
+            else
+                camell = lower + "s";
+
+            var capital = camell.Substring(0, 1).ToUpper() + camell.Substring(1);
+            var capitalSingular = lower.Substring(0, 1).ToUpper() + lower.Substring(1);
+
+            XXXEntityLowerPluralXXX.Value = camell;
+            XXXEntityPluralXXX.Value= capital;
+            XXXEntitySingularXXX.Value = capitalSingular;
         }
     }
 }
