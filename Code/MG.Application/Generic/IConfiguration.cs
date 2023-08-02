@@ -23,5 +23,7 @@
         List<IItemToReplace> GetItemToReplaces();
 
         List<IItemToReplace> DefaultGetItemToReplaces { get; }
+
+        void LateLoadingDefaultConfigs();
     }
 }

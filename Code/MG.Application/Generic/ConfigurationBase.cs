@@ -57,7 +57,7 @@ namespace MG.Application.Generic
                         itemConfig.Value = itemConfig.Value.Replace('\\', Path.DirectorySeparatorChar);
                     }
 
-                    if (itemConfig.Value.Contains("#{") && itemConfig.Value.Contains("}"))
+                    while (itemConfig.Value.Contains("#{") && itemConfig.Value.Contains("}"))
                     {
                         int startIndex = itemConfig.Value.IndexOf("#{") + 2; // Adding 2 to exclude "#{"
                         int endIndex = itemConfig.Value.IndexOf("}");
@@ -148,7 +148,12 @@ namespace MG.Application.Generic
             this.AddConfig(new ItemConfig() { Name = "Version", Value = "VERSION_PLACE_HOLDER", IsChecked = true}, false);
             this.AddConfig(new ItemConfig() { Name = "TemplateDirectory", Value = "MGTemplates\\", IsPath = true }, false);
             this.AddConfig(new ItemConfig() { Name = "ProjectName", Value = "NO_PROJECT_NAME_DEFINED" }, false);
-            this.AddConfig(new ItemConfig() { Name = "ProjectDirectory", Value = "/src/", IsPath = true }, false);
+            this.AddConfig(new ItemConfig() { Name = "ProjectDirectory", Value = "/src-default", IsPath = true }, false);
+        }
+
+        public virtual void LateLoadingDefaultConfigs()
+        {
+            
         }
 
         public virtual List<IItemToReplace> DefaultGetItemToReplaces { get; } = new List<IItemToReplace>

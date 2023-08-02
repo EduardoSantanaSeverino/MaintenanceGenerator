@@ -21,7 +21,9 @@ using IHost host = Host.CreateDefaultBuilder()
 var configuration = host.Services.GetService<IConfiguration>(); 
 configuration.AddConfig(new ItemConfig("XXXEntityLowerSingularXXX", "place"));
 configuration.AddConfig(new ItemConfig("XXXSpecificTypeXXX", "int"));
-configuration.AddConfig(new ItemConfig("ProjectDirectory", "/THIS_IS/"));
+configuration.AddConfig(new ItemConfig("ProjectDirectory", "/other_path"){IsChecked = true});
+configuration.LateLoadingDefaultConfigs();
+
 var crudGenerator = host.Services.GetService<ICrudGenerator>(); 
 var generateControls = host.Services.GetService<IGenerateControls>();
 var frm = new FrmMainApp(crudGenerator, generateControls);
@@ -29,6 +31,3 @@ var presentation = new Presentation();
 presentation.AddInputsToTable(frm.FlowInput);
 presentation.AddOutputsToTable(frm.FlowOutput);
 presentation.RenderTables();
-// Console.ReadKey();
-// await host.RunAsync();
-// Console.WriteLine("Hello, World!");

@@ -6,7 +6,7 @@
 
         string XXXEntityLowerPluralXXX { get; } // txtCamelPlural.Text
 
-        string XXXEntitySingularXXX { get; } //  txtCapitalSingular.Text);
+        string XXXEntitySingularXXX { get; } // txtCapitalSingular.Text
 
         string XXXEntityLowerSingularXXX { get; } // txtCamelSingular.Text
 
@@ -26,7 +26,7 @@
 
         List<IItemToReplace> ItemToReplaces { get; }
 
-        List<TripleValue<string, string, string, string>> GetFieldListFromEntity(String EntityNameSingular);
+        List<TripleValue<string, string, string, string>> GetFieldListFromEntity(string EntityNameSingular);
 
         string GetItemToReplace(string key);
 
