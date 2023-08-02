@@ -14,19 +14,17 @@ using IHost host = Host.CreateDefaultBuilder()
         services.AddSingleton<IConfiguration, Configuration>();  
         services.AddSingleton<ICrudGenerator, CrudGenerator>();  
         services.AddSingleton<IGenerateControls, GenerateControls>();  
-        services.AddSingleton<IItemFileToGenerate, ItemFileToGenerate>();  
-        services.AddSingleton<IItemToReplace, ItemToReplace>();
+        services.AddSingleton<IItemFileToGenerate, ItemFileToGenerate>();
     })
     .Build();
 
-
+var configuration = host.Services.GetService<IConfiguration>(); 
+configuration.AddConfig(new ItemConfig("XXXEntityLowerSingularXXX", "place"));
+configuration.AddConfig(new ItemConfig("XXXSpecificTypeXXX", "int"));
+configuration.AddConfig(new ItemConfig("ProjectDirectory", "/THIS_IS/"));
 var crudGenerator = host.Services.GetService<ICrudGenerator>(); 
 var generateControls = host.Services.GetService<IGenerateControls>();
 var frm = new FrmMainApp(crudGenerator, generateControls);
-var inputs = new List<IControl>();
-inputs.Add(new Control("XXXEntityLowerSingularXXX", "place"));
-inputs.Add(new Control("XXXSpecificTypeXXX", "int"));
-frm.SetInputsFromParameters(inputs);
 var presentation = new Presentation();
 presentation.AddInputsToTable(frm.FlowInput);
 presentation.AddOutputsToTable(frm.FlowOutput);

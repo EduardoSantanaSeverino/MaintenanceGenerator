@@ -1,6 +1,6 @@
 ﻿namespace MG.Application.Generic
 {
-    public abstract class ItemToReplaceBase : IItemToReplace
+    public class ItemToReplaceBase : IItemToReplace
     {
         public int Id { get; set; }
         public string Key { get; set; }

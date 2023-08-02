@@ -72,6 +72,13 @@ namespace MG.Application.Generic
                             }
                         }
                     }
+                    
+                    var itemToReplace = this.DefaultGetItemToReplaces.FirstOrDefault(p => p.Key == itemConfig.Name);
+                    if (itemToReplace != null)
+                    {
+                        itemToReplace.Value = itemConfig.Value;
+                    }
+
                 }
               
                 ItemConfigs.Add(itemConfig);
@@ -135,11 +142,56 @@ namespace MG.Application.Generic
 
         private void LoadDefaultConfigs()
         {
-            this.AddConfig(new ItemConfig() { Name = "Version", Value = "VERSION_PLACE_HOLDER" }, false);
+            this.AddConfig(new ItemConfig() { Name = "Version", Value = "VERSION_PLACE_HOLDER", IsChecked = true}, false);
             this.AddConfig(new ItemConfig() { Name = "TemplateDirectory", Value = "MGTemplates\\", IsPath = true }, false);
             this.AddConfig(new ItemConfig() { Name = "ProjectName", Value = "NO_PROJECT_NAME_DEFINED" }, false);
             this.AddConfig(new ItemConfig() { Name = "ProjectDirectory", Value = "/src/", IsPath = true }, false);
         }
-        public abstract List<IItemToReplace> GetItemToReplaces();
+
+        public virtual List<IItemToReplace> DefaultGetItemToReplaces { get; } = new List<IItemToReplace>
+        {
+            new ItemToReplaceBase
+            {
+                Id = 13,
+                Key = "XXXEntityLowerSingularXXX",
+                LabelText = "Enity name singular lower case"
+            },
+            new ItemToReplaceBase
+            {
+                Id = 12,
+                Key = "XXXEntitySingularXXX",
+                LabelText = "Enity name plural capital case"
+            },
+            new ItemToReplaceBase
+            {
+                Id = 11,
+                Key = "XXXEntityLowerPluralXXX",
+                LabelText = "Enity name pural lower case"
+            },
+            new ItemToReplaceBase
+            {
+                Id = 10,
+                Key = "XXXEntityPluralXXX",
+                LabelText = "Enity name singular capital case"
+            },
+            new ItemToReplaceBase
+            {
+                Id = 14,
+                Key = "XXXProjectNameXXX",
+                LabelText = "Project Name",
+            },
+            new ItemToReplaceBase
+            {
+                Id = 13,
+                Key = "XXXSpecificTypeXXX",
+                LabelText = "Specific Type",
+                Value = ""
+            }
+        };
+    
+        public virtual List<IItemToReplace> GetItemToReplaces()
+        {
+            return this.DefaultGetItemToReplaces;
+        }
     }
 }

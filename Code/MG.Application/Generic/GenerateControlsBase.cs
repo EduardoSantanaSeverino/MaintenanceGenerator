@@ -95,19 +95,11 @@ namespace MG.Application.Generic
         //     return b;
         // }
 
-        public virtual void SetInputsFromParameters(List<IControl> inputControls)
+        public virtual void SetInputsFromParameters()
         {
             try
             {
-                foreach (var input in inputControls)
-                {
-                    var item = _form.FlowInput.Find(input.Name);
-                    if (item != null)
-                    {
-                         item.Text = input.Text;  
-                    }
-                }
-                
+               
                 var XXXEntityLowerSingularXXX = _form.FlowInput.Find( "XXXEntityLowerSingularXXX");
                 var XXXEntityLowerPluralXXX = _form.FlowInput.Find( "XXXEntityLowerPluralXXX");
                 var XXXEntityPluralXXX = _form.FlowInput.Find( "XXXEntityPluralXXX");
@@ -139,14 +131,14 @@ namespace MG.Application.Generic
                 XXXEntityPluralXXX.Text = capital;
                 XXXEntitySingularXXX.Text = capitalSingular;
 
-                foreach (var item in this._configuration.GetItemToReplaces())
-                {
-                    var c = this._form.FlowInput.Find(item.Key);
-                    if (c != null)
-                    {
-                        item.Value = c.Text;
-                    }
-                }
+                // foreach (var item in this._configuration.GetItemToReplaces())
+                // {
+                //     var c = this._form.FlowInput.Find(item.Key);
+                //     if (c != null)
+                //     {
+                //         item.Value = c.Text;
+                //     }
+                // }
 
                 _form.CrudGenerator.Initialize();
                 AddOutputControls();
