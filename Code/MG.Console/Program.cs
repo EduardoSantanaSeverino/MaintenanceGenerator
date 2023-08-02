@@ -1,5 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-
+﻿
 using MG.Application.Forms;
 using MG.Application.Generic;
 using MG.Application.SocialUplift;
@@ -20,8 +19,7 @@ using IHost host = Host.CreateDefaultBuilder()
 
 var configuration = host.Services.GetService<IConfiguration>(); 
 configuration.AddConfig(new ItemConfig("XXXEntityLowerSingularXXX", "place"));
-configuration.AddConfig(new ItemConfig("XXXSpecificTypeXXX", "int"));
-configuration.AddConfig(new ItemConfig("ProjectDirectory", "/other_path"){IsChecked = true});
+configuration.AddConfig(new ItemConfig("ProjectDirectory", "/Users/eduardosantana/source/Restore/SocialLiftApp/GitRepo/Code/WebApp/SocialUplift"));
 configuration.LateLoadingDefaultConfigs();
 
 var crudGenerator = host.Services.GetService<ICrudGenerator>(); 
