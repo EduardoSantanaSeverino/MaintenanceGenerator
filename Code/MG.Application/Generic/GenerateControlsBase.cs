@@ -97,54 +97,8 @@ namespace MG.Application.Generic
 
         public virtual void SetInputsFromParameters()
         {
-            try
-            {
-               
-                // var XXXEntityLowerSingularXXX = _form.FlowInput.Find( "XXXEntityLowerSingularXXX");
-                // var XXXEntityLowerPluralXXX = _form.FlowInput.Find( "XXXEntityLowerPluralXXX");
-                // var XXXEntityPluralXXX = _form.FlowInput.Find( "XXXEntityPluralXXX");
-                // var XXXEntitySingularXXX = _form.FlowInput.Find( "XXXEntitySingularXXX");
-                //
-                // string camell = "";
-                // var lower = XXXEntityLowerSingularXXX.Text.ToLower();
-                // if (lower.Substring(lower.Length - 1, 1) == "s")
-                //     camell = lower + "es";
-                // else if (lower.Substring(lower.Length - 1, 1) == "y" &&
-                //     (
-                //         (lower.Substring(lower.Length - 2, 1) != "a") &&
-                //         (lower.Substring(lower.Length - 2, 1) != "e") &&
-                //         (lower.Substring(lower.Length - 2, 1) != "i") &&
-                //         (lower.Substring(lower.Length - 2, 1) != "o") &&
-                //         (lower.Substring(lower.Length - 2, 1) != "u")
-                //     )
-                //     )
-                // {
-                //     camell = lower.Substring(0, lower.Length - 1) + "ies";
-                // }
-                // else
-                //     camell = lower + "s";
-                //
-                // var capital = camell.Substring(0, 1).ToUpper() + camell.Substring(1);
-                // var capitalSingular = lower.Substring(0, 1).ToUpper() + lower.Substring(1);
-                //
-                // XXXEntityLowerPluralXXX.Text = camell;
-                // XXXEntityPluralXXX.Text = capital;
-                // XXXEntitySingularXXX.Text = capitalSingular;
-                // foreach (var item in this._configuration.GetItemToReplaces())
-                // {
-                //     var c = this._form.FlowInput.Find(item.Key);
-                //     if (c != null)
-                //     {
-                //         item.Value = c.Text;
-                //     }
-                // }
-
-                _form.CrudGenerator.Initialize();
-                AddOutputControls();
-
-            }
-            catch (Exception err)
-            { }
+            _form.CrudGenerator.Initialize();
+            AddOutputControls();
         }
 
         private RichTextBox GetRichTextBox(IItemFileToGenerate item)
