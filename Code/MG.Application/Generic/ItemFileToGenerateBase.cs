@@ -1,6 +1,4 @@
-﻿using MG.Application.SocialUplift;
-
-namespace MG.Application.Generic
+﻿namespace MG.Application.Generic
 {
     public abstract class ItemFileToGenerateBase : IItemFileToGenerate
     {
@@ -40,10 +38,10 @@ namespace MG.Application.Generic
             this.Path = this?.Path?.Replace('\\', System.IO.Path.DirectorySeparatorChar);
             this.TemplateDirectory = this?.TemplateDirectory?.Replace('\\', System.IO.Path.DirectorySeparatorChar);
            
-            if (this.Id == (int)FileStackId.sidebar_nav_component_ts)
-            {
-                var tem = "";
-            }
+            // if (this.Id == (int)FileStackId.sidebar_nav_component_ts)
+            // {
+            //     var tem = "";
+            // }
             this.TemplateMarkup = ReadTemplate();
          
             if (string.IsNullOrEmpty(this.FileType))
