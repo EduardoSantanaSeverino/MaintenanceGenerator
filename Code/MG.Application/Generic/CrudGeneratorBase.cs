@@ -1,6 +1,4 @@
-﻿using MG.Application.SocialUplift;
-
-namespace MG.Application.Generic
+﻿namespace MG.Application.Generic
 {
     public abstract class CrudGeneratorBase : ICrudGenerator
     {
@@ -34,7 +32,7 @@ namespace MG.Application.Generic
             string entitySingular = itemToReplaces.FirstOrDefault(p => p.Key == "XXXEntitySingularXXX")?.Value;
             //string entityPlural = ItemToReplaces.FirstOrDefault(p => p.Key == "XXXEntityPluralXXX")?.Value;
 
-            this.ClassInfoData = new ClassInfoData(Configuration.GetConfig("ClassesPath"), entitySingular + ".cs", itemToReplaces);
+            this.ClassInfoData = new ClassInfoDataBase(Configuration.GetConfig("ClassesPath"), entitySingular + ".cs", itemToReplaces);
             Configuration.AddConfig(new List<ItemConfig> {
                 new ItemConfig
                 {

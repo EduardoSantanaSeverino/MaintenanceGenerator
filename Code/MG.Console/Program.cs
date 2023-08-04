@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using MG.Application.Forms;
 using MG.Application.Generic;
-using MG.Application.SocialUplift;
+using MG.Application.AspnetBoilerPlate._8._1._0;
 using MG.Console;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -31,7 +31,6 @@ internal sealed class CrudGeneratorCommand : Command<CrudGeneratorCommand.Settin
         var host = Host.CreateDefaultBuilder()
             .ConfigureServices(services =>
             {
-                services.AddSingleton<IClassInfoData, ClassInfoData>();  
                 services.AddSingleton<IConfiguration, Configuration>();  
                 services.AddSingleton<ICrudGenerator, CrudGenerator>();  
                 services.AddSingleton<IGenerateControls, GenerateControls>();  

@@ -2,7 +2,7 @@
 
 namespace MG.Application.Generic
 {
-    public abstract class ClassInfoDataBase : IClassInfoData
+    public class ClassInfoDataBase : IClassInfoData
     {
         public ClassInfoDataBase
         (
