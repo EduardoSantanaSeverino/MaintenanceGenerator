@@ -38,7 +38,7 @@
             this.Path = this?.Path?.Replace('\\', System.IO.Path.DirectorySeparatorChar);
             this.TemplateDirectory = this?.TemplateDirectory?.Replace('\\', System.IO.Path.DirectorySeparatorChar);
            
-            if (this.Name == "component_html")
+            if (this.Name == "AuthorizationProvider_cs")
             {
                 var tem = "";
             }
@@ -135,6 +135,14 @@
                 }
             }
 
+            foreach (var item in this.ItemFieldTypeTemplates)
+            {
+                if (!fileContent.Contains(item.Name))
+                {
+                    fileContent = this.AddTemplateHolder(fileContent,item.Name);
+                }
+            }
+            
             return fileContent;
         }
 

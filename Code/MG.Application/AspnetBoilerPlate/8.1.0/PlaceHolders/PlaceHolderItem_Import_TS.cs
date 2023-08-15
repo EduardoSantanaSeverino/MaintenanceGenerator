@@ -1,10 +1,10 @@
 namespace MG.Application.AspnetBoilerPlate._8._1._0.PlaceHolders;
 
-public class PlaceHolderItem_app_module_ts_place1 : PlaceHolderItem_Base
+public class PlaceHolderItem_Import_TS : PlaceHolderItem_Base
 {
-        
-    public PlaceHolderItem_app_module_ts_place1():base("///app.module.ts.place1///") {}
-
+    
+    public PlaceHolderItem_Import_TS(string name):base(name) {}
+    
     public override string Process(string fileContent)
     {
 

@@ -10,10 +10,13 @@ public class ItemFilePlaceHolderList : IItemFilePlaceHolderList
     {
         List<IPlaceHolderItem> _placeHolderItems = new List<IPlaceHolderItem>();
 
-        _placeHolderItems.Add(new PlaceHolderItem_app_module_ts_place1());
-        _placeHolderItems.Add(new PlaceHolderItem_app_module_ts_place2());
-        // _placeHolderItems.Add(new PlaceHolderItem_app_module_ts_place3());
+        _placeHolderItems.Add(new PlaceHolderItem_Import_TS("///app.module.ts.place1///"));
+        _placeHolderItems.Add(new PlaceHolderItem_SquaredBrakets("///app.module.ts.place2///","declarations:["));
+
+        _placeHolderItems.Add(new PlaceHolderItem_Import_TS("///app-routing.module.ts.place1///"));
+        _placeHolderItems.Add(new PlaceHolderItem_SquaredBrakets("///app-routing.module.ts.place2///","children:["));
         
+        _placeHolderItems.Add(new PlaceHolderItem_CurlyBrakets("///AuthorizationProvider.cs.place1///", "public override void SetPermissions(IPermissionDefinitionContext context)"));
         foreach (var item in _placeHolderItems)
         {
             items.Add(item.Name,item);

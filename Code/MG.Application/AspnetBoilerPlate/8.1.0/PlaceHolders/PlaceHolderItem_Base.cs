@@ -18,6 +18,15 @@ public abstract class PlaceHolderItem_Base : IPlaceHolderItem
         }
         return line.ToLower().Trim().Replace(" ", "").StartsWith(startWith);
     }
+    
+    public virtual bool IsStartingLineWithSpace(string startWith,string line)
+    {
+        if (string.IsNullOrWhiteSpace(line))
+        {
+            return false;
+        }
+        return line.ToLower().Trim().Replace(" ", "").StartsWith(startWith);
+    }
 
     public virtual bool IsImportLine(string line)
     {

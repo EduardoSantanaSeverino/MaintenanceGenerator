@@ -1,10 +1,15 @@
 namespace MG.Application.AspnetBoilerPlate._8._1._0.PlaceHolders;
 
-public class PlaceHolderItem_app_module_ts_place2 : PlaceHolderItem_Base
+public class PlaceHolderItem_SquaredBrakets : PlaceHolderItem_Base
 {
-        
-    public PlaceHolderItem_app_module_ts_place2():base("///app.module.ts.place2///") {}
 
+    public PlaceHolderItem_SquaredBrakets(string name, string startWith) : base(name)
+    {
+        this.StartWith = startWith;
+    }
+
+    private string StartWith { get; set; }
+    
     public override string Process(string fileContent)
     {
 
@@ -17,7 +22,8 @@ public class PlaceHolderItem_app_module_ts_place2 : PlaceHolderItem_Base
         {
             // Process each line here
             var line = lines[index];
-            if (this.IsStartingLine("declarations:[",line))
+            // if (this.IsStartingLine("declarations:[",line))
+            if (this.IsStartingLine(this.StartWith,line))
             {
                 lastIndex = index;
             }
