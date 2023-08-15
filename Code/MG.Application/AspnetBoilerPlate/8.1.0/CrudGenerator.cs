@@ -1,10 +1,11 @@
-﻿using MG.Application.Generic;
+﻿using MG.Application.AspnetBoilerPlate._8._1._0.PlaceHolders;
+using MG.Application.Generic;
 
 namespace MG.Application.AspnetBoilerPlate._8._1._0
 {
     public class CrudGenerator : CrudGeneratorBase, ICrudGenerator
     {
-        public CrudGenerator(IConfiguration configuration) : base(configuration)
+        public CrudGenerator(IConfiguration configuration) : base(configuration, new ItemFilePlaceHolderList())
         {
         }
 

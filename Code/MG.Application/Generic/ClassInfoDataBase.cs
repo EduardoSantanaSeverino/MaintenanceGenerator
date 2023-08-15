@@ -9,13 +9,15 @@ namespace MG.Application.Generic
             string classesPath,
             string className,
             List<IItemToReplace> itemToReplaces,
-            List<ComboParameter> comboParameters = null
+            List<ComboParameter> comboParameters,
+            IItemFilePlaceHolderList itemFilePlaceHolderList
         )
         {
             this.ItemToReplaces = itemToReplaces;
             this.ComboParameters = comboParameters;
             this.ClassPath = classesPath + className;
             this.ClassesPath = classesPath;
+            this.ItemFilePlaceHolderList = itemFilePlaceHolderList;
             if (className.Length > 3)
             {
                 LoadedClass = System.IO.File.ReadAllLines(this.ClassPath);
@@ -91,6 +93,8 @@ namespace MG.Application.Generic
         {
             return this.GetFieldListFromEntity(relatedEnitity).Any(x => x.Name == field);
         }
+
+        public IItemFilePlaceHolderList ItemFilePlaceHolderList { get; }
 
         protected virtual List<TripleValue<string, string, string, string>> GetFieldListFromEntity(string[] loadedClass)
         {

@@ -5,6 +5,8 @@
         IClassInfoData ClassInfoData { get; }
 
         IConfiguration Configuration { get; }
+        
+        IItemFilePlaceHolderList ItemFilePlaceHolderList { get; }
 
         string Version { get; }
 

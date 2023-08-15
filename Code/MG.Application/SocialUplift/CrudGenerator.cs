@@ -4,7 +4,7 @@ namespace MG.Application.SocialUplift
 {
     public class CrudGenerator : CrudGeneratorBase, ICrudGenerator
     {
-        public CrudGenerator(IConfiguration configuration) : base(configuration)
+        public CrudGenerator(IConfiguration configuration) : base(configuration, new ItemFilePlaceHolderListBase())
         {
         }
 

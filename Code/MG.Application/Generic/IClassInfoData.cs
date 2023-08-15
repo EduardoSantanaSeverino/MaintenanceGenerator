@@ -37,5 +37,6 @@
         bool ExistInFielList(string field);
 
         bool ExistInRelatedFielList(string field, string relatedEnitity);
+        IItemFilePlaceHolderList ItemFilePlaceHolderList { get; }
     }
 }

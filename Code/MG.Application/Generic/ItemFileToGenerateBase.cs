@@ -13,8 +13,6 @@
         public List<ItemFieldTypeTemplate> ItemFieldTypeTemplates { get; set; }
         public string FileType { get; set; }
 
-        private ItemFilePlaceHolderList _itemFilePlaceHolderList { get; set; } = new ItemFilePlaceHolderList();
-
         public ItemFileToGenerateBase
         (
             int Id,
@@ -40,10 +38,10 @@
             this.Path = this?.Path?.Replace('\\', System.IO.Path.DirectorySeparatorChar);
             this.TemplateDirectory = this?.TemplateDirectory?.Replace('\\', System.IO.Path.DirectorySeparatorChar);
            
-            // if (this.Id == (int)FileStackId.sidebar_nav_component_ts)
-            // {
-            //     var tem = "";
-            // }
+            if (this.Name == "component_html")
+            {
+                var tem = "";
+            }
             this.TemplateMarkup = ReadTemplate();
          
             if (string.IsNullOrEmpty(this.FileType))
@@ -142,7 +140,7 @@
 
         private string AddTemplateHolder(string fileContent, string placeHolderItemName)
         {
-            var placeHolderItem = this._itemFilePlaceHolderList.GetItem(placeHolderItemName);
+            var placeHolderItem = this.ClassInfoData.ItemFilePlaceHolderList.GetItem(placeHolderItemName);
             if (placeHolderItem != null)
             {
                 fileContent = placeHolderItem.Process(fileContent);

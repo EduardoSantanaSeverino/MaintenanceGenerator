@@ -4,12 +4,14 @@
     {
         public IClassInfoData ClassInfoData { get; protected set; }
         public IConfiguration Configuration { get; protected set; }
+        public IItemFilePlaceHolderList ItemFilePlaceHolderList { get; }
         public string Version { get; protected set; }
         public string TemplateDirectory { get; protected set; }
         public string ProjectName { get; protected set; }
         public List<IItemFileToGenerate> ItemFileToGenerates { get; set; }
-        public CrudGeneratorBase(IConfiguration configuration)
+        public CrudGeneratorBase(IConfiguration configuration, IItemFilePlaceHolderList itemFilePlaceHolderList)
         {
+            this.ItemFilePlaceHolderList = itemFilePlaceHolderList;
             this.Configuration = configuration;
             this.Version = configuration.GetConfig("Version");
             this.TemplateDirectory = configuration.GetConfig("TemplateDirectory");
@@ -32,7 +34,7 @@
             string entitySingular = itemToReplaces.FirstOrDefault(p => p.Key == "XXXEntitySingularXXX")?.Value;
             //string entityPlural = ItemToReplaces.FirstOrDefault(p => p.Key == "XXXEntityPluralXXX")?.Value;
 
-            this.ClassInfoData = new ClassInfoDataBase(Configuration.GetConfig("ClassesPath"), entitySingular + ".cs", itemToReplaces);
+            this.ClassInfoData = new ClassInfoDataBase(Configuration.GetConfig("ClassesPath"), entitySingular + ".cs", itemToReplaces, null, this.ItemFilePlaceHolderList);
             Configuration.AddConfig(new List<ItemConfig> {
                 new ItemConfig
                 {
