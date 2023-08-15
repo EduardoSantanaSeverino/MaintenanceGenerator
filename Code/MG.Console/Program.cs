@@ -39,13 +39,25 @@ internal sealed class CrudGeneratorCommand : Command<CrudGeneratorCommand.Settin
             .Build();
 
         // TODO: Remove code when pushing to container.
-        settings.EntityName = "place";
-        settings.ProjectDirectory =
-            "/Users/eduardosantana/source/Restore/SocialLiftApp/GitRepo/Code/WebApp/SocialUplift";
+        // settings.EntityName = "place";
+        // settings.ProjectDirectory =
+        //     "/Users/eduardosantana/source/Restore/SocialLiftApp/GitRepo/Code/WebApp/SocialUplift";
         
+        // settings.EntityName = "place";
+        // settings.ProjectDirectory =
+        //     "/Users/eduardosantana/source/AspnetBoilerPlate/8.1.0";
+
         var configuration = host.Services.GetService<IConfiguration>();
-        configuration.AddConfig(new ItemConfig("XXXEntityLowerSingularXXX", settings.EntityName));
-        configuration.AddConfig(new ItemConfig("ProjectDirectory", settings.ProjectDirectory));
+        if (!string.IsNullOrWhiteSpace(settings.EntityName))
+        {
+             configuration.AddConfig(new ItemConfig("XXXEntityLowerSingularXXX", settings.EntityName));
+        }
+
+        if (!string.IsNullOrWhiteSpace(settings.ProjectDirectory))
+        {
+            configuration.AddConfig(new ItemConfig("ProjectDirectory", settings.ProjectDirectory));
+        }
+        
         configuration.LateLoadingDefaultConfigs();
 
         var crudGenerator = host.Services.GetService<ICrudGenerator>(); 

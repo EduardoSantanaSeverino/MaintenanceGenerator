@@ -13,6 +13,8 @@
         public List<ItemFieldTypeTemplate> ItemFieldTypeTemplates { get; set; }
         public string FileType { get; set; }
 
+        private ItemFilePlaceHolderList _itemFilePlaceHolderList { get; set; } = new ItemFilePlaceHolderList();
+
         public ItemFileToGenerateBase
         (
             int Id,
@@ -81,7 +83,7 @@
 
                     if (!string.IsNullOrEmpty(str))
                     {
-                        FillFieldsAndPlaces(str, this.TemplateName);
+                        str = FillFieldsAndPlaces(str, this.TemplateName);
                     }
                     return str;
                 }
@@ -91,7 +93,7 @@
             return "";
         }
 
-        private void FillFieldsAndPlaces(string str, string templateName)
+        private string FillFieldsAndPlaces(string fileContent, string templateName)
         {
             var fileExtention = templateName.Split('.').Last();
 
@@ -111,11 +113,16 @@
                 for (int i = 1; i < 10; i++)
                 {
                     var existSubFile = $"{separator1}{templateName}.{spaceHolder}{i}{separator2}";
+
+                    if (!fileContent.Contains(existSubFile))
+                    {
+                        fileContent = this.AddTemplateHolder(fileContent,existSubFile);
+                    }
                     if (this.ItemFieldTypeTemplates == null)
                     {
                         this.ItemFieldTypeTemplates = new List<ItemFieldTypeTemplate>();
                     }
-                    if (str.Contains(existSubFile) && !this.ItemFieldTypeTemplates.Any(p => p.Name == existSubFile))
+                    if (fileContent.Contains(existSubFile) && !this.ItemFieldTypeTemplates.Any(p => p.Name == existSubFile))
                     {
                         this.ItemFieldTypeTemplates.Add(new ItemFieldTypeTemplate
                         {
@@ -129,6 +136,18 @@
                     }
                 }
             }
+
+            return fileContent;
+        }
+
+        private string AddTemplateHolder(string fileContent, string placeHolderItemName)
+        {
+            var placeHolderItem = this._itemFilePlaceHolderList.GetItem(placeHolderItemName);
+            if (placeHolderItem != null)
+            {
+                fileContent = placeHolderItem.Process(fileContent);
+            }
+            return fileContent;
         }
 
         protected string GetItemToReplaces(string key)
