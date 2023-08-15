@@ -17,6 +17,28 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AspnetBoilerPlate\8.1.0\Templates\app-routing.module.ts" />
+    <Content Include="AspnetBoilerPlate\8.1.0\Templates\app-routing.module.ts.place1.ts" />
+    <Content Include="AspnetBoilerPlate\8.1.0\Templates\app-routing.module.ts.place2.ts" />
+    <Content Include="AspnetBoilerPlate\8.1.0\Templates\app.module.ts" />
+    <Content Include="AspnetBoilerPlate\8.1.0\Templates\app.module.ts.place1.ts" />
+    <Content Include="AspnetBoilerPlate\8.1.0\Templates\app.module.ts.place2.ts" />
+    <Content Include="AspnetBoilerPlate\8.1.0\Templates\app.module.ts.place3.ts" />
+    <Content Include="AspnetBoilerPlate\8.1.0\Templates\component.html" />
+    <Content Include="AspnetBoilerPlate\8.1.0\Templates\component.html.fields1.html" />
+    <Content Include="AspnetBoilerPlate\8.1.0\Templates\component.html.fields2.html" />
+    <Content Include="AspnetBoilerPlate\8.1.0\Templates\component.ts" />
+    <Content Include="AspnetBoilerPlate\8.1.0\Templates\create-dialog.component.html" />
+    <Content Include="AspnetBoilerPlate\8.1.0\Templates\create-dialog.component.html.fields1.html" />
+    <Content Include="AspnetBoilerPlate\8.1.0\Templates\create-dialog.component.ts" />
+    <Content Include="AspnetBoilerPlate\8.1.0\Templates\edit-dialog.component.html" />
+    <Content Include="AspnetBoilerPlate\8.1.0\Templates\edit-dialog.component.html.fields1.html" />
+    <Content Include="AspnetBoilerPlate\8.1.0\Templates\edit-dialog.component.ts" />
+    <Content Include="AspnetBoilerPlate\8.1.0\Templates\FilesToBeCreatedList.txt" />
+    <Content Include="AspnetBoilerPlate\8.1.0\Templates\service-proxy.module.ts" />
+    <Content Include="AspnetBoilerPlate\8.1.0\Templates\service-proxy.module.ts.place1.ts" />
+    <Content Include="AspnetBoilerPlate\8.1.0\Templates\sidebar-nav.component.ts" />
+    <Content Include="AspnetBoilerPlate\8.1.0\Templates\sidebar-nav.component.ts.place1.ts" />
     <Compile Remove="SocialUplift\MGTemplates\AppService.cs" />
     <Content Include="SocialUplift\MGTemplates\AppService.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
