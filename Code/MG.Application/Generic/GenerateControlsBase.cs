@@ -106,6 +106,7 @@ namespace MG.Application.Generic
             var l = new RichTextBox
             {
                 Name = item.ControlName,
+                Path = item.Path,
                 // Width = 380,
                 // Height = 68,
                 // Margin = new Padding(4),

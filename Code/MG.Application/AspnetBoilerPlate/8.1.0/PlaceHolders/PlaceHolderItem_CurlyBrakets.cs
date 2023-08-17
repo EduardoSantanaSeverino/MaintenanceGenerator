@@ -13,6 +13,10 @@ public class PlaceHolderItem_CurlyBrakets: PlaceHolderItem_Base
     public override string Process(string fileContent)
     {
 
+        if (this.Name == "///sidebar-menu.component.ts.place1.ts///")
+        {
+            var tem = "";
+        }
         // Split the content into lines
         string[] lines = fileContent.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
 
@@ -20,9 +24,8 @@ public class PlaceHolderItem_CurlyBrakets: PlaceHolderItem_Base
         string stringFindingClosing = "";
         for (int index = 0; index < lines.Length; index++)
         {
-            // Process each line here
+     
             var line = lines[index];
-            // if (this.IsStartingLine("declarations:[",line))
             if (this.IsStartingLine(this.StartWith,line))
             {
                 lastIndex = index;

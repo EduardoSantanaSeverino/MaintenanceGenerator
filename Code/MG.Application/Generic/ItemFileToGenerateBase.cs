@@ -38,7 +38,7 @@
             this.Path = this?.Path?.Replace('\\', System.IO.Path.DirectorySeparatorChar);
             this.TemplateDirectory = this?.TemplateDirectory?.Replace('\\', System.IO.Path.DirectorySeparatorChar);
            
-            if (this.Name == "AuthorizationProvider_cs")
+            if (this.Name == "sidebar_menu_component_ts")
             {
                 var tem = "";
             }
@@ -81,6 +81,11 @@
 
                     if (!string.IsNullOrEmpty(str))
                     {
+                        if (this.ClassInfoData.ItemFilePlaceHolderList.GetItem($"{this.Id}") != null)
+                        {
+                            var placeHolderItem = this.ClassInfoData.ItemFilePlaceHolderList.GetItem($"{this.Id}");
+                            str = placeHolderItem.Process(str);
+                        }
                         str = FillFieldsAndPlaces(str, this.TemplateName);
                     }
                     return str;
@@ -112,9 +117,10 @@
                 {
                     var existSubFile = $"{separator1}{templateName}.{spaceHolder}{i}{separator2}";
 
-                    if (!fileContent.Contains(existSubFile))
+                    if (!fileContent.Contains(existSubFile) && this.ClassInfoData.ItemFilePlaceHolderList.GetItem(existSubFile) != null)
                     {
-                        fileContent = this.AddTemplateHolder(fileContent,existSubFile);
+                        var placeHolderItem = this.ClassInfoData.ItemFilePlaceHolderList.GetItem(existSubFile);
+                        fileContent = placeHolderItem.Process(fileContent);
                     }
                     if (this.ItemFieldTypeTemplates == null)
                     {
@@ -137,24 +143,25 @@
 
             foreach (var item in this.ItemFieldTypeTemplates)
             {
-                if (!fileContent.Contains(item.Name))
+                if (!fileContent.Contains(item.Name) && this.ClassInfoData.ItemFilePlaceHolderList.GetItem(item.Name) != null)
                 {
-                    fileContent = this.AddTemplateHolder(fileContent,item.Name);
+                    var placeHolderItem = this.ClassInfoData.ItemFilePlaceHolderList.GetItem(item.Name);
+                    fileContent = placeHolderItem.Process(fileContent);
                 }
             }
             
             return fileContent;
         }
 
-        private string AddTemplateHolder(string fileContent, string placeHolderItemName)
-        {
-            var placeHolderItem = this.ClassInfoData.ItemFilePlaceHolderList.GetItem(placeHolderItemName);
-            if (placeHolderItem != null)
-            {
-                fileContent = placeHolderItem.Process(fileContent);
-            }
-            return fileContent;
-        }
+        // private string AddTemplateHolder(string fileContent, string placeHolderItemName)
+        // {
+        //     var placeHolderItem = this.ClassInfoData.ItemFilePlaceHolderList.GetItem(placeHolderItemName);
+        //     if (placeHolderItem != null)
+        //     {
+        //         fileContent = placeHolderItem.Process(fileContent);
+        //     }
+        //     return fileContent;
+        // }
 
         protected string GetItemToReplaces(string key)
         {

@@ -8,15 +8,24 @@ public class ItemFilePlaceHolderList : IItemFilePlaceHolderList
     
     public ItemFilePlaceHolderList()
     {
-        List<IPlaceHolderItem> _placeHolderItems = new List<IPlaceHolderItem>();
+        var _placeHolderItems = new List<IPlaceHolderItem>();
 
         _placeHolderItems.Add(new PlaceHolderItem_Import_TS("///app.module.ts.place1///"));
-        _placeHolderItems.Add(new PlaceHolderItem_SquaredBrakets("///app.module.ts.place2///","declarations:["));
+        
+        _placeHolderItems.Add(new PlaceHolderItem_CurlyBrakets("///app.module.ts.place2///","declarations: ["));
 
         _placeHolderItems.Add(new PlaceHolderItem_Import_TS("///app-routing.module.ts.place1///"));
-        _placeHolderItems.Add(new PlaceHolderItem_SquaredBrakets("///app-routing.module.ts.place2///","children:["));
+        
+        _placeHolderItems.Add(new PlaceHolderItem_CurlyBrakets("///app-routing.module.ts.place2///","children: ["));
         
         _placeHolderItems.Add(new PlaceHolderItem_CurlyBrakets("///AuthorizationProvider.cs.place1///", "public override void SetPermissions(IPermissionDefinitionContext context)"));
+        
+        _placeHolderItems.Add(new PlaceHolderItem_CurlyBrakets("///sidebar-menu.component.ts.place1///", "return ["));
+
+        _placeHolderItems.Add(new PlaceHolderItem_CurlyBrakets("///service-proxy.module.ts.place1///", "providers: ["));
+   
+        _placeHolderItems.Add(new PlaceHolderItem_CurlyBrakets("///PermissionNames.cs.place1///", "public static class PermissionNames"));
+
         foreach (var item in _placeHolderItems)
         {
             items.Add(item.Name,item);

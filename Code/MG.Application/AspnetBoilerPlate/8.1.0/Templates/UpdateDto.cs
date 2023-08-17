@@ -10,7 +10,7 @@ using XXXProjectNameXXX.Models;
 namespace XXXProjectNameXXX.XXXEntityPluralXXX.Dto
 {
     [AutoMapTo(typeof(XXXEntitySingularXXX))]
-    public class XXXEntitySingularXXXUpdateDto : EntityDto<XXXSpecificTypeXXX>
+    public class UpdateXXXEntitySingularXXXDto : EntityDto<XXXSpecificTypeXXX>
     {
 
         public bool IsActive { get; set; }

@@ -21,7 +21,7 @@ public class Presentation
         
         foreach (FlowLayoutPanel control in forms.Controls)
         {
-            table.AddRow(control.Controls[0].Text, control.Controls[1].Text);
+            table.AddRow(control.Controls[1].Name, control.Controls[1].Text);
         }
         table.Columns[0].PadLeft(3).PadRight(5);
         table.Columns[1].PadLeft(3).PadRight(5);
@@ -34,8 +34,9 @@ public class Presentation
         {
             var table = new Table();
             table.Title = new TableTitle("[green]Output Generated Files[/]");
-            table.AddColumn(control.Name.Replace("rtb",""));
+            table.AddColumn(control.Path.EscapeMarkup());
             table.AddRow(control.Text.EscapeMarkup());
+            table.AddRow(control.Name.Replace("rtb",""));
             table.Columns[0].PadLeft(3).PadRight(5);
             //table.Columns[0].NoWrap();
             table.Columns[0].PadTop(-3);
@@ -50,7 +51,7 @@ public class Presentation
         {
             table.Border(TableBorder.Heavy);
             table.Expand();
-            table.Width(150);
+            table.Width(160);
             AnsiConsole.Write(table);
         }
     }

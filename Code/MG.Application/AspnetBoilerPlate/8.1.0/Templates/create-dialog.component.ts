@@ -1,64 +1,51 @@
-import { Component, Injector, OnInit } from '@angular/core';
-import { MatDialogRef, MatCheckboxChange } from '@angular/material';
-import { finalize } from 'rxjs/operators';
-import * as _ from 'lodash';
+import {
+	Component,
+	Injector,
+	OnInit,
+	Output,
+	EventEmitter
+} from '@angular/core';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 import { AppComponentBase } from '@shared/app-component-base';
 import {
-  XXXEntitySingularXXXServiceProxy,
-  XXXEntitySingularXXXDto,
-  XXXEntitySingularXXXCreateDto
+	CreateXXXEntitySingularXXXDto,
+	XXXEntitySingularXXXServiceProxy
 } from '@shared/service-proxies/service-proxies';
 
 @Component({
-  templateUrl: 'create-XXXEntityLowerSingularXXX-dialog.component.html',
-  styles: [
-	`
-	  mat-form-field {
-		width: 100%;
-	  }
-	  mat-checkbox {
-		padding-bottom: 5px;
-	  }
-	`
-  ]
+	templateUrl: 'create-XXXEntityLowerSingularXXX-dialog.component.html'
 })
 export class CreateXXXEntitySingularXXXDialogComponent extends AppComponentBase
-  implements OnInit {
-  saving = false;
-  XXXEntityLowerSingularXXX: XXXEntitySingularXXXDto = new XXXEntitySingularXXXDto();
+	implements OnInit {
+	saving = false;
+	XXXEntityLowerSingularXXX: CreateXXXEntitySingularXXXDto = new CreateXXXEntitySingularXXXDto();
 
-  constructor(
-	injector: Injector,
-	private _XXXEntityLowerSingularXXXService: XXXEntitySingularXXXServiceProxy,
-	private _dialogRef: MatDialogRef<CreateXXXEntitySingularXXXDialogComponent>
-  ) {
-	super(injector);
-  }
+	@Output() onSave = new EventEmitter<any>();
 
-  ngOnInit(): void {
-	this.XXXEntityLowerSingularXXX.isActive = true;
-  }
+	constructor(
+		injector: Injector,
+		public _XXXEntityLowerSingularXXXService: XXXEntitySingularXXXServiceProxy,
+		public bsModalRef: BsModalRef
+	) {
+		super(injector);
+	}
 
-  save(): void {
-	this.saving = true;
+	ngOnInit(): void {
+		this.XXXEntityLowerSingularXXX.isActive = true;
+	}
 
-	const XXXEntityLowerSingularXXX_ = new XXXEntitySingularXXXCreateDto();
-	XXXEntityLowerSingularXXX_.init(this.XXXEntityLowerSingularXXX);
+	save(): void {
+		this.saving = true;
 
-	this._XXXEntityLowerSingularXXXService
-	  .create(XXXEntityLowerSingularXXX_)
-	  .pipe(
-		finalize(() => {
-		  this.saving = false;
-		})
-	  )
-	  .subscribe(() => {
-		this.notify.info(this.l('SavedSuccessfully'));
-		this.close(true);
-	  });
-  }
-
-  close(result: any): void {
-	this._dialogRef.close(result);
-  }
+		this._XXXEntityLowerSingularXXXService.create(this.XXXEntityLowerSingularXXX).subscribe(
+			() => {
+				this.notify.info(this.l('SavedSuccessfully'));
+				this.bsModalRef.hide();
+				this.onSave.emit();
+			},
+			() => {
+				this.saving = false;
+			}
+		);
+	}
 }

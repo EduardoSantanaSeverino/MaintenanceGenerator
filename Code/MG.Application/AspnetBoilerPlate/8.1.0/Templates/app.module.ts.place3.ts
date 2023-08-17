@@ -1,3 +1,3 @@
         // XXXEntityLowerSingularXXX
-        CreateXXXEntitySingularXXXDialogComponent,
-        EditXXXEntitySingularXXXDialogComponent,
+        ,CreateXXXEntitySingularXXXDialogComponent
+        ,EditXXXEntitySingularXXXDialogComponent
