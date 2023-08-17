@@ -24,10 +24,6 @@
         {
             try
             {
-                if (this.TemplateName.Contains("sidebar-menu.component.ts.place1"))
-                {
-                    var t = "";
-                }
                 TemplateMarkup = System.IO.File.ReadAllText(TemplateDirectory + _templateName);
             }
             catch (Exception err)
