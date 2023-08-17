@@ -23,7 +23,8 @@ namespace MG.Application.AspnetBoilerPlate._8._1._0
             TemplateDirectory,
             ClassInfoData,
             ItemFieldTypeTemplates,
-            FileType.ToString()
+            FileType.ToString(),
+            "AspnetBoilerPlate/8.1.0/Templates/"
         )
         {
         }

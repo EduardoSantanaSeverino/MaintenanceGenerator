@@ -304,12 +304,12 @@
     <Content Update="AspnetBoilerPlate\8.1.0\Templates\sidebar-nav.component.ts">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Remove="AspnetBoilerPlate\8.1.0\Templates\sidebar-nav.component.ts.place1.ts" />
-    <Content Update="AspnetBoilerPlate\8.1.0\Templates\sidebar-nav.component.ts.place1.ts">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Compile Remove="AspnetBoilerPlate\8.1.0\Templates\PagedResultRequestDto.cs" />
     <Content Include="AspnetBoilerPlate\8.1.0\Templates\PagedResultRequestDto.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="AspnetBoilerPlate\8.1.0\Templates\sidebar-menu.component.ts.place1.ts" />
+    <Content Include="AspnetBoilerPlate\8.1.0\Templates\sidebar-menu.component.ts.place1.ts">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

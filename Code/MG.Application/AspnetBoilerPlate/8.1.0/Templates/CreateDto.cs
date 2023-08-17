@@ -13,7 +13,7 @@ namespace XXXProjectNameXXX.XXXEntityPluralXXX.Dto
     public class CreateXXXEntitySingularXXXDto : EntityDto<XXXSpecificTypeXXX>
     {
 
-        ///CreateDto.cs.fields1///
+///CreateDto.cs.fields1///
 
     }
 }

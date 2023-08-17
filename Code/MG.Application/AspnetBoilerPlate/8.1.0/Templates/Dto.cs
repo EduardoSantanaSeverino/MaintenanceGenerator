@@ -13,9 +13,7 @@ namespace XXXProjectNameXXX.XXXEntityPluralXXX.Dto
     public class XXXEntitySingularXXXDto : EntityDto<XXXSpecificTypeXXX>
     {
 
-        ///Dto.cs.fields1///
-
-        public bool IsActive { get; set; }
+///Dto.cs.fields1///
 
         public DateTime CreationTime { get; set; }
 

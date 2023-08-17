@@ -157,7 +157,7 @@ namespace MG.Application.SocialUplift
                     ClassInfoData: this.ClassInfoData,
                     ItemFieldTypeTemplates: new List<ItemFieldTypeTemplate>()
                     {
-                        new ItemFieldTypeTemplate
+                        new ItemFieldTypeTemplate(this.TemplateDirectory)
                         {
                             Name = "///AuthorizationProvider.cs.place1///",
                             TemplateName = "AuthorizationProvider.cs.place1.cs",

@@ -23,7 +23,8 @@ namespace MG.Application.SocialUplift
             TemplateDirectory,
             ClassInfoData,
             ItemFieldTypeTemplates,
-            FileType.ToString()
+            FileType.ToString(),
+            "SocialUplift/MGTemplates/"
         )
         {
         }

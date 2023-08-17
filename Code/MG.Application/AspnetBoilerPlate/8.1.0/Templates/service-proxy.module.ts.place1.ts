@@ -1,1 +1,1 @@
-        , ApiServiceProxies.XXXEntitySingularXXXServiceProxy
+        ,ApiServiceProxies.XXXEntitySingularXXXServiceProxy

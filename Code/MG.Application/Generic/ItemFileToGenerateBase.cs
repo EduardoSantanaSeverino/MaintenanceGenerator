@@ -8,6 +8,7 @@
         public string TemplateName { get; set; }
         public string TemplateMarkup { get; set; }
         public string TemplateDirectory { get; set; }
+        public string SourceTemplateDirectory { get; set; }
         public IClassInfoData ClassInfoData { get; set; }
         public string ControlName { get; set; }
         public List<ItemFieldTypeTemplate> ItemFieldTypeTemplates { get; set; }
@@ -22,7 +23,8 @@
             string TemplateDirectory,
             IClassInfoData ClassInfoData,
             List<ItemFieldTypeTemplate> ItemFieldTypeTemplates,
-            string FileType = ""
+            string FileType,
+            string SourceTemplateDirectory
         )
         {
             
@@ -33,6 +35,7 @@
             this.Path = Path;
             this.TemplateName = TemplateName;
             this.TemplateDirectory = TemplateDirectory;
+            this.SourceTemplateDirectory = SourceTemplateDirectory;
             this.ItemFieldTypeTemplates = ItemFieldTypeTemplates;
             this.ClassInfoData = ClassInfoData;
             this.Path = this?.Path?.Replace('\\', System.IO.Path.DirectorySeparatorChar);
@@ -81,11 +84,12 @@
 
                     if (!string.IsNullOrEmpty(str))
                     {
-                        if (this.ClassInfoData.ItemFilePlaceHolderList.GetItem($"{this.Id}") != null)
-                        {
-                            var placeHolderItem = this.ClassInfoData.ItemFilePlaceHolderList.GetItem($"{this.Id}");
-                            str = placeHolderItem.Process(str);
-                        }
+                        // TODO: probably grab a file and do replace its content.
+                        // if (this.ClassInfoData.ItemFilePlaceHolderList.GetItem($"{this.Id}") != null)
+                        // {
+                        //     var placeHolderItem = this.ClassInfoData.ItemFilePlaceHolderList.GetItem($"{this.Id}");
+                        //     str = placeHolderItem.Process(str);
+                        // }
                         str = FillFieldsAndPlaces(str, this.TemplateName);
                     }
                     return str;
@@ -128,7 +132,7 @@
                     }
                     if (fileContent.Contains(existSubFile) && !this.ItemFieldTypeTemplates.Any(p => p.Name == existSubFile))
                     {
-                        this.ItemFieldTypeTemplates.Add(new ItemFieldTypeTemplate
+                        this.ItemFieldTypeTemplates.Add(new ItemFieldTypeTemplate(this.SourceTemplateDirectory)
                         {
                             ForFields = ("fields" == spaceHolder),
                             Name = existSubFile,
