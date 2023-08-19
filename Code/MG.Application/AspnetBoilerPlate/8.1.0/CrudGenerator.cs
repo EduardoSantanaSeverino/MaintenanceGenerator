@@ -24,7 +24,8 @@ namespace MG.Application.AspnetBoilerPlate._8._1._0
                     Path: Configuration.GetConfig("AngularAppDirectory") + "app.module.ts",
                     TemplateName: "app.module.ts",
                     TemplateDirectory: Configuration.GetConfig("AngularAppDirectory"),
-                    ClassInfoData: this.ClassInfoData
+                    ClassInfoData: this.ClassInfoData,
+                    SourceTemplateDirectory: this.TemplateDirectory
                 ),
                 new ItemFileToGenerate
                 (
@@ -32,7 +33,8 @@ namespace MG.Application.AspnetBoilerPlate._8._1._0
                     Path: Configuration.GetConfig("AngularAppDirectory") + "app-routing.module.ts",
                     TemplateName: "app-routing.module.ts",
                     TemplateDirectory: Configuration.GetConfig("AngularAppDirectory"),
-                    ClassInfoData: this.ClassInfoData
+                    ClassInfoData: this.ClassInfoData,
+                    SourceTemplateDirectory: this.TemplateDirectory
                 ),
                 new ItemFileToGenerate // It was took from tenants
                 (
@@ -41,6 +43,7 @@ namespace MG.Application.AspnetBoilerPlate._8._1._0
                     TemplateName: "component.html",
                     TemplateDirectory: this.TemplateDirectory,
                     ClassInfoData: this.ClassInfoData,
+                    SourceTemplateDirectory: this.TemplateDirectory,
                     FileType: FileTypes.List
                 ),
                 new ItemFileToGenerate // It was took from tenants
@@ -49,7 +52,8 @@ namespace MG.Application.AspnetBoilerPlate._8._1._0
                     Path: Configuration.GetConfig("AngularAppDirectory") + entityLowerPlural + $@"\{entityLowerPlural}.component.ts",
                     TemplateName: "component.ts",
                     TemplateDirectory: this.TemplateDirectory,
-                    ClassInfoData: this.ClassInfoData
+                    ClassInfoData: this.ClassInfoData,
+                    SourceTemplateDirectory: this.TemplateDirectory
                 ),
                 new ItemFileToGenerate // It was took from tenants
                 (
@@ -58,6 +62,7 @@ namespace MG.Application.AspnetBoilerPlate._8._1._0
                     TemplateName: "create-dialog.component.html",
                     TemplateDirectory: this.TemplateDirectory,
                     ClassInfoData: this.ClassInfoData,
+                    SourceTemplateDirectory: this.TemplateDirectory,
                     FileType: FileTypes.Create
                 ),
                 new ItemFileToGenerate // It was took from tenants
@@ -66,7 +71,8 @@ namespace MG.Application.AspnetBoilerPlate._8._1._0
                     Path: Configuration.GetConfig("AngularAppDirectory") + entityLowerPlural + $@"\create-{entityLowerSingular}\create-{entityLowerSingular}-dialog.component.ts",
                     TemplateName: "create-dialog.component.ts",
                     TemplateDirectory: this.TemplateDirectory,
-                    ClassInfoData: this.ClassInfoData
+                    ClassInfoData: this.ClassInfoData,
+                    SourceTemplateDirectory: this.TemplateDirectory
                 ),
                 new ItemFileToGenerate // It was took from tenants
                 (
@@ -75,6 +81,7 @@ namespace MG.Application.AspnetBoilerPlate._8._1._0
                     TemplateName: "edit-dialog.component.html",
                     TemplateDirectory: this.TemplateDirectory,
                     ClassInfoData: this.ClassInfoData,
+                    SourceTemplateDirectory: this.TemplateDirectory,
                     FileType: FileTypes.Update
                 ),
                 new ItemFileToGenerate // It was took from tenants
@@ -83,7 +90,8 @@ namespace MG.Application.AspnetBoilerPlate._8._1._0
                     Path: Configuration.GetConfig("AngularAppDirectory") + entityLowerPlural + $@"\edit-{entityLowerSingular}\edit-{entityLowerSingular}-dialog.component.ts",
                     TemplateName: "edit-dialog.component.ts",
                     TemplateDirectory: this.TemplateDirectory,
-                    ClassInfoData: this.ClassInfoData
+                    ClassInfoData: this.ClassInfoData,
+                    SourceTemplateDirectory: this.TemplateDirectory
                 ),
                 new ItemFileToGenerate
                 (
@@ -91,7 +99,8 @@ namespace MG.Application.AspnetBoilerPlate._8._1._0
                     Path: Configuration.GetConfig("AngularAppDirectory") + $@"layout\sidebar-menu.component.ts",
                     TemplateName: "sidebar-menu.component.ts",
                     TemplateDirectory: Configuration.GetConfig("AngularAppDirectory") + $@"layout\",
-                    ClassInfoData: this.ClassInfoData
+                    ClassInfoData: this.ClassInfoData,
+                    SourceTemplateDirectory: this.TemplateDirectory
                 ),
                 new ItemFileToGenerate
                 (
@@ -99,7 +108,8 @@ namespace MG.Application.AspnetBoilerPlate._8._1._0
                     Path: Configuration.GetConfig("AngularSharedDirectory") + $@"service-proxies\service-proxy.module.ts",
                     TemplateName: "service-proxy.module.ts",
                     TemplateDirectory: Configuration.GetConfig("AngularSharedDirectory") + $@"service-proxies\",
-                    ClassInfoData: this.ClassInfoData
+                    ClassInfoData: this.ClassInfoData,
+                    SourceTemplateDirectory: this.TemplateDirectory
                 ),
                 new ItemFileToGenerate
                 (
@@ -107,7 +117,8 @@ namespace MG.Application.AspnetBoilerPlate._8._1._0
                     Path: Configuration.GetConfig("ApplicationDirectory") + $@"{entityPlural}\{entitySingular}AppService.cs",
                     TemplateName: "AppService.cs",
                     TemplateDirectory: this.TemplateDirectory,
-                    ClassInfoData: this.ClassInfoData
+                    ClassInfoData: this.ClassInfoData,
+                    SourceTemplateDirectory: this.TemplateDirectory
                 ),
                 new ItemFileToGenerate
                 (
@@ -115,7 +126,8 @@ namespace MG.Application.AspnetBoilerPlate._8._1._0
                     Path: Configuration.GetConfig("ApplicationDirectory") + $@"{entityPlural}\I{entitySingular}AppService.cs",
                     TemplateName: "IAppService.cs",
                     TemplateDirectory: this.TemplateDirectory,
-                    ClassInfoData: this.ClassInfoData
+                    ClassInfoData: this.ClassInfoData,
+                    SourceTemplateDirectory: this.TemplateDirectory
                 ),
                 new ItemFileToGenerate
                 (
@@ -123,7 +135,8 @@ namespace MG.Application.AspnetBoilerPlate._8._1._0
                     Path: Configuration.GetConfig("ApplicationDirectory") + $@"{entityPlural}\Dto\Paged{entitySingular}ResultRequestDto.cs",
                     TemplateName: "PagedResultRequestDto.cs",
                     TemplateDirectory: this.TemplateDirectory,
-                    ClassInfoData: this.ClassInfoData
+                    ClassInfoData: this.ClassInfoData,
+                    SourceTemplateDirectory: this.TemplateDirectory
                 ),
                 new ItemFileToGenerate
                 (
@@ -131,7 +144,8 @@ namespace MG.Application.AspnetBoilerPlate._8._1._0
                     Path: Configuration.GetConfig("ApplicationDirectory") + $@"{entityPlural}\Dto\Create{entitySingular}Dto.cs",
                     TemplateName: "CreateDto.cs",
                     TemplateDirectory: this.TemplateDirectory,
-                    ClassInfoData: this.ClassInfoData
+                    ClassInfoData: this.ClassInfoData,
+                    SourceTemplateDirectory: this.TemplateDirectory
                 ),
                 new ItemFileToGenerate
                 (
@@ -139,7 +153,8 @@ namespace MG.Application.AspnetBoilerPlate._8._1._0
                     Path: Configuration.GetConfig("ApplicationDirectory") + $@"{entityPlural}\Dto\{entitySingular}Dto.cs",
                     TemplateName: "Dto.cs",
                     TemplateDirectory: this.TemplateDirectory,
-                    ClassInfoData: this.ClassInfoData
+                    ClassInfoData: this.ClassInfoData,
+                    SourceTemplateDirectory: this.TemplateDirectory
                 ),
                 new ItemFileToGenerate
                 (
@@ -147,7 +162,8 @@ namespace MG.Application.AspnetBoilerPlate._8._1._0
                     Path: Configuration.GetConfig("ApplicationDirectory") + $@"{entityPlural}\Dto\Update{entitySingular}Dto.cs",
                     TemplateName: "UpdateDto.cs",
                     TemplateDirectory: this.TemplateDirectory,
-                    ClassInfoData: this.ClassInfoData
+                    ClassInfoData: this.ClassInfoData,
+                    SourceTemplateDirectory: this.TemplateDirectory
                 ),
                 new ItemFileToGenerate
                 (
@@ -155,7 +171,8 @@ namespace MG.Application.AspnetBoilerPlate._8._1._0
                     Path: Configuration.GetConfig("AuthorizationDirectory") + $"PermissionNames.cs",
                     TemplateName: "PermissionNames.cs",
                     TemplateDirectory: Configuration.GetConfig("AuthorizationDirectory"),
-                    ClassInfoData: this.ClassInfoData
+                    ClassInfoData: this.ClassInfoData,
+                    SourceTemplateDirectory: this.TemplateDirectory
                 ),
                 new ItemFileToGenerate
                 (
@@ -164,6 +181,7 @@ namespace MG.Application.AspnetBoilerPlate._8._1._0
                     TemplateName: $"{this.ProjectName}AuthorizationProvider.cs",
                     TemplateDirectory: Configuration.GetConfig("AuthorizationDirectory"),
                     ClassInfoData: this.ClassInfoData,
+                    SourceTemplateDirectory: this.TemplateDirectory,
                     ItemFieldTypeTemplates: new List<ItemFieldTypeTemplate>()
                     {
                         new ItemFieldTypeTemplate(this.TemplateDirectory)

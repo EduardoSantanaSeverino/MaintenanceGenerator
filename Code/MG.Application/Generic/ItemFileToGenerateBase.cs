@@ -169,7 +169,7 @@
 
         protected string GetItemToReplaces(string key)
         {
-            return ClassInfoData?.ItemToReplaces?.FirstOrDefault(p => p.Key == key)?.Value;
+            return ClassInfoData?.ItemToReplaces?.FirstOrDefault(p => p.Name == key)?.Value;
         }
 
         protected string ReplaceAllKeysWithRealValues(string markup)
@@ -178,7 +178,7 @@
             {
                 foreach (var item in ClassInfoData?.ItemToReplaces)
                 {
-                    markup = markup.Replace(item.Key, item.Value);
+                    markup = markup.Replace(item.Name, item.Value);
                 }
 
                 markup += "\n";

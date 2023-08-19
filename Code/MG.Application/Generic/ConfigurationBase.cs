@@ -6,16 +6,56 @@ namespace MG.Application.Generic
     {
         public IConfigurationManager _configuration { get; set; }
         public List<ItemConfig> ItemConfigs { get; private set; } = new List<ItemConfig>();
-        public string TemplateDirectory { get => this.GetConfig("TemplateDirectory").Replace('\\', Path.DirectorySeparatorChar); }
-        public string ProjectName { get => this.GetConfig("ProjectName"); }
+        public string TemplateDirectory { get => this.GetConfig("XXXTemplateDirectoryXXX").Replace('\\', Path.DirectorySeparatorChar); }
+        public string ProjectName { get => this.GetConfig("XXXProjectNameXXX"); }
 
         public ConfigurationBase(IConfigurationManager configuration)
         {
             this._configuration = configuration;
+            var inputs = new List<ItemConfig>
+            {
+                new ItemConfig
+                {
+                    Id = 13,
+                    Name = "XXXEntityLowerSingularXXX",
+                    Description = "Enity name singular lower case"
+                },
+                new ItemConfig
+                {
+                    Id = 12,
+                    Name = "XXXEntitySingularXXX",
+                    Description = "Enity name plural capital case"
+                },
+                new ItemConfig
+                {
+                    Id = 11,
+                    Name = "XXXEntityLowerPluralXXX",
+                    Description = "Enity name pural lower case"
+                },
+                new ItemConfig
+                {
+                    Id = 10,
+                    Name = "XXXEntityPluralXXX",
+                    Description = "Enity name singular capital case"
+                },
+                new ItemConfig
+                {
+                    Id = 14,
+                    Name = "XXXProjectNameXXX",
+                    Description = "Project Name"
+                },
+                new ItemConfig
+                {
+                    Id = 13,
+                    Name = "XXXSpecificTypeXXX",
+                    Description = "Specific Type"
+                }
+            };
+            this.AddConfig(inputs);
             this.LoadDefaultConfigs();
             this.ReadFromConfigFile();
         }
-        
+
         public void CreateDirectory()
         {
             foreach (var item in this.ItemConfigs)
@@ -32,6 +72,36 @@ namespace MG.Application.Generic
 
         public void AddConfig(ItemConfig itemConfig, bool reload = true)
         {
+
+            if (!string.IsNullOrEmpty(itemConfig.Value))
+            {
+                if (itemConfig.IsPath)
+                {
+                    itemConfig.Value = itemConfig.Value.Replace('\\', Path.DirectorySeparatorChar);
+                }
+
+                while (itemConfig.Value.Contains("#{") && itemConfig.Value.Contains("}"))
+                {
+                    int startIndex = itemConfig.Value.IndexOf("#{") + 2; // Adding 2 to exclude "#{"
+                    int endIndex = itemConfig.Value.IndexOf("}");
+                    
+                    if (startIndex < endIndex)
+                    {
+                        string replaceConfigName = itemConfig.Value.Substring(startIndex, endIndex - startIndex);
+                        string replaceWith = this.GetConfig(replaceConfigName);
+                        if (!string.IsNullOrEmpty(replaceWith))
+                        {
+                            itemConfig.Value = itemConfig.Value.Replace("#{" + replaceConfigName + "}", replaceWith);
+                        }
+                    }
+                }
+                if (itemConfig.Name == "XXXEntityLowerSingularXXX")
+                {
+                    this.SetEntityNames(itemConfig.Value);
+                }
+               
+            }
+
             ItemConfig temp = null;
 
             if (itemConfig.Id > 0)
@@ -42,7 +112,7 @@ namespace MG.Application.Generic
             {
                 temp = this.ItemConfigs.FirstOrDefault(p => p.Name == itemConfig.Name);
             }
-
+            
             if (temp != null)
             {
                 temp.Value = itemConfig.Value;
@@ -50,42 +120,7 @@ namespace MG.Application.Generic
             }
             else
             {
-                if (!string.IsNullOrEmpty(itemConfig.Value))
-                {
-                    if (itemConfig.IsPath)
-                    {
-                        itemConfig.Value = itemConfig.Value.Replace('\\', Path.DirectorySeparatorChar);
-                    }
-
-                    while (itemConfig.Value.Contains("#{") && itemConfig.Value.Contains("}"))
-                    {
-                        int startIndex = itemConfig.Value.IndexOf("#{") + 2; // Adding 2 to exclude "#{"
-                        int endIndex = itemConfig.Value.IndexOf("}");
-                    
-                        if (startIndex < endIndex)
-                        {
-                            string replaceConfigName = itemConfig.Value.Substring(startIndex, endIndex - startIndex);
-                            string replaceWith = this.GetConfig(replaceConfigName);
-                            if (!string.IsNullOrEmpty(replaceWith))
-                            {
-                                itemConfig.Value = itemConfig.Value.Replace("#{" + replaceConfigName + "}", replaceWith);
-                            }
-                        }
-                    }
-
-                    var itemToReplace = this.DefaultGetItemToReplaces.FirstOrDefault(p => p.Key == itemConfig.Name);
-                    if (itemToReplace != null)
-                    {
-                        itemToReplace.Value = itemConfig.Value;
-                        if (itemConfig.Name == "XXXEntityLowerSingularXXX")
-                        {
-                            this.SetEntityNames(itemToReplace.Value);
-                        }
-                    }
-                }
-
                 ItemConfigs.Add(itemConfig);
-
             }
 
             if (reload)
@@ -127,86 +162,30 @@ namespace MG.Application.Generic
         {
             foreach (var item in _configuration.AppSettings)
             {
-                var loadedConfig = this.ItemConfigs.FirstOrDefault(p => p.Name == item.Key);
-                if (loadedConfig != null)
-                {
-                    if (!loadedConfig.IsChecked)
-                    {
-                        loadedConfig.IsChecked = true;
-                        loadedConfig.Value = item.Value;
-                    }
-                }
-                else
-                {
+               
                     this.AddConfig(new ItemConfig() { Name = item.Key, Value = item.Value }, false);
-                }
+                
             }
         }
 
         private void LoadDefaultConfigs()
         {
-            this.AddConfig(new ItemConfig() { Name = "Version", Value = "VERSION_PLACE_HOLDER", IsChecked = true}, false);
-            this.AddConfig(new ItemConfig() { Name = "TemplateDirectory", Value = "MGTemplates\\", IsPath = true }, false);
-            this.AddConfig(new ItemConfig() { Name = "ProjectName", Value = "NO_PROJECT_NAME_DEFINED" }, false);
-            this.AddConfig(new ItemConfig() { Name = "ProjectDirectory", Value = "/src-default", IsPath = true }, false);
+            this.AddConfig(new ItemConfig() { Name = "XXXVersionXXX", Value = "VERSION_PLACE_HOLDER", IsChecked = true}, false);
+            this.AddConfig(new ItemConfig() { Name = "XXXTemplateDirectoryXXX", Value = "MGTemplates\\", IsPath = true }, false);
+            this.AddConfig(new ItemConfig() { Name = "XXXProjectNameXXX", Value = "NO_PROJECT_NAME_DEFINED" }, false);
+            this.AddConfig(new ItemConfig() { Name = "XXXProjectDirectoryXXX", Value = "/src-default", IsPath = true }, false);
         }
 
         public virtual void LateLoadingDefaultConfigs()
         {
             
         }
-
-        public virtual List<IItemToReplace> DefaultGetItemToReplaces { get; } = new List<IItemToReplace>
-        {
-            new ItemToReplaceBase
-            {
-                Id = 13,
-                Key = "XXXEntityLowerSingularXXX",
-                LabelText = "Enity name singular lower case"
-            },
-            new ItemToReplaceBase
-            {
-                Id = 12,
-                Key = "XXXEntitySingularXXX",
-                LabelText = "Enity name plural capital case"
-            },
-            new ItemToReplaceBase
-            {
-                Id = 11,
-                Key = "XXXEntityLowerPluralXXX",
-                LabelText = "Enity name pural lower case"
-            },
-            new ItemToReplaceBase
-            {
-                Id = 10,
-                Key = "XXXEntityPluralXXX",
-                LabelText = "Enity name singular capital case"
-            },
-            new ItemToReplaceBase
-            {
-                Id = 14,
-                Key = "XXXProjectNameXXX",
-                LabelText = "Project Name",
-            },
-            new ItemToReplaceBase
-            {
-                Id = 13,
-                Key = "XXXSpecificTypeXXX",
-                LabelText = "Specific Type",
-                Value = ""
-            }
-        };
-    
-        public virtual List<IItemToReplace> GetItemToReplaces()
-        {
-            return this.DefaultGetItemToReplaces;
-        }
-
+        
         public virtual void SetEntityNames(string XXXEntityLowerSingularXXX)
         {
-            var XXXEntityLowerPluralXXX = this.DefaultGetItemToReplaces.FirstOrDefault(p => p.Key == "XXXEntityLowerPluralXXX");
-            var XXXEntityPluralXXX = this.DefaultGetItemToReplaces.FirstOrDefault(p => p.Key == "XXXEntityPluralXXX");
-            var XXXEntitySingularXXX = this.DefaultGetItemToReplaces.FirstOrDefault(p => p.Key == "XXXEntitySingularXXX");
+            var XXXEntityLowerPluralXXX = this.ItemConfigs.FirstOrDefault(p => p.Name == "XXXEntityLowerPluralXXX");
+            var XXXEntityPluralXXX = this.ItemConfigs.FirstOrDefault(p => p.Name== "XXXEntityPluralXXX");
+            var XXXEntitySingularXXX = this.ItemConfigs.FirstOrDefault(p => p.Name == "XXXEntitySingularXXX");
 
             string camell = "";
             var lower = XXXEntityLowerSingularXXX.ToLower();

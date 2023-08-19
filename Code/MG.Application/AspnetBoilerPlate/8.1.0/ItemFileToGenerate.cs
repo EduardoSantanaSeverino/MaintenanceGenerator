@@ -11,6 +11,7 @@ namespace MG.Application.AspnetBoilerPlate._8._1._0
             string TemplateName,
             string TemplateDirectory,
             IClassInfoData ClassInfoData,
+            string SourceTemplateDirectory,
             List<ItemFieldTypeTemplate> ItemFieldTypeTemplates = null,
             FileTypes FileType = FileTypes.Others
         )
@@ -24,7 +25,7 @@ namespace MG.Application.AspnetBoilerPlate._8._1._0
             ClassInfoData,
             ItemFieldTypeTemplates,
             FileType.ToString(),
-            "AspnetBoilerPlate/8.1.0/Templates/"
+            SourceTemplateDirectory
         )
         {
         }

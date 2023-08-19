@@ -55,7 +55,7 @@ internal sealed class CrudGeneratorCommand : Command<CrudGeneratorCommand.Settin
 
         if (!string.IsNullOrWhiteSpace(settings.ProjectDirectory))
         {
-            configuration.AddConfig(new ItemConfig("ProjectDirectory", settings.ProjectDirectory));
+            configuration.AddConfig(new ItemConfig("XXXProjectDirectoryXXX", settings.ProjectDirectory));
         }
         
         configuration.LateLoadingDefaultConfigs();

@@ -8,7 +8,7 @@ namespace MG.Application.Generic
         (
             string classesPath,
             string className,
-            List<IItemToReplace> itemToReplaces,
+            List<ItemConfig> itemToReplaces,
             List<ComboParameter> comboParameters,
             IItemFilePlaceHolderList itemFilePlaceHolderList
         )
@@ -63,11 +63,11 @@ namespace MG.Application.Generic
 
         public List<ComboParameter> ComboParameters { get; protected set; }
 
-        public List<IItemToReplace> ItemToReplaces { get; protected set; }
+        public List<ItemConfig> ItemToReplaces { get; protected set; }
 
         public string GetItemToReplace(string key)
         {
-            return this.ItemToReplaces?.FirstOrDefault(p => p.Key == key)?.Value;
+            return this.ItemToReplaces?.FirstOrDefault(p => p.Name == key)?.Value;
         }
 
         public string GetItemToReplace(int id)
@@ -102,7 +102,7 @@ namespace MG.Application.Generic
             try
             {
 
-                var obj = this.ItemToReplaces.FirstOrDefault(p=>p.Key == "XXXSpecificTypeXXX");
+                var obj = this.ItemToReplaces.FirstOrDefault(p=>p.Name == "XXXSpecificTypeXXX");
                 if (obj != null)
                 {
                     obj.Value = this.GetSpecificType();

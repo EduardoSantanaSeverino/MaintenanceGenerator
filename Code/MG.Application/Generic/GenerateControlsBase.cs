@@ -16,13 +16,18 @@ namespace MG.Application.Generic
         public void AddInputControls(IFrmMainApp form)
         {
             this._form = form;
-            foreach (var item in this._configuration.GetItemToReplaces())
+            foreach (var item in this._configuration.ItemConfigs)
             {
                 var group = new FlowLayoutPanel();
                 // group.Height = 27;
                 // group.Width = 326;
                 // group.FlowDirection = FlowDirection.LeftToRight;
                 // group.Margin = new Padding(0);
+                var t = GetTextBox(item);
+                if (t.Text == null)
+                {
+                    var t3 = 00;
+                }
                 group.Controls.Add(GetLabel(item));
                 group.Controls.Add(GetTextBox(item));
                 _form.FlowInput.Controls.Add(group);
@@ -50,12 +55,12 @@ namespace MG.Application.Generic
             }
         }
 
-        private Label GetLabel(IItemToReplace item)
+        private Label GetLabel(ItemConfig item)
         {
             var l = new Label
             {
-                Name = "lbl" + item.Key,
-                Text = item.LabelText,
+                Name = "lbl" + item.Name,
+                Text = item.Value,
                 // Width = 161,
                 // Height = 18,
                 // Margin = new Padding(0),
@@ -64,12 +69,13 @@ namespace MG.Application.Generic
             return l;
         }
 
-        private TextBox GetTextBox(IItemToReplace item)
+        private TextBox GetTextBox(ItemConfig item)
         {
             var t = new TextBox
             {
-                Name = item.Key,
+                Name = item.Name,
                 Text = item.Value,
+                Path = item.Description
                 // Width = 150,
                 // Height = 26,
                 // Margin = new Padding(0)

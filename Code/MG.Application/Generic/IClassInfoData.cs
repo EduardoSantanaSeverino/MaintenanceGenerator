@@ -24,7 +24,7 @@
 
         List<ComboParameter> ComboParameters { get; }
 
-        List<IItemToReplace> ItemToReplaces { get; }
+        List<ItemConfig> ItemToReplaces { get; }
 
         List<TripleValue<string, string, string, string>> GetFieldListFromEntity(string EntityNameSingular);
 

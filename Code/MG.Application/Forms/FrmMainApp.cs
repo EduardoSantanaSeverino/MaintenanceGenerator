@@ -8,7 +8,6 @@ public class FrmMainApp: IFrmMainApp
     public FlowLayoutPanel FlowInput { get; set; }
     public FlowLayoutPanel FlowOutput { get; set; }
     public IGenerateControls GenerateControls { get; set; }
-
     public FrmMainApp(ICrudGenerator crudGenerator, IGenerateControls generateControls)
     {
         this.FlowInput = new FlowLayoutPanel();

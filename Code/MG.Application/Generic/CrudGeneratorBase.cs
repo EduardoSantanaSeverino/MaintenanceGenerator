@@ -13,9 +13,9 @@
         {
             this.ItemFilePlaceHolderList = itemFilePlaceHolderList;
             this.Configuration = configuration;
-            this.Version = configuration.GetConfig("Version");
-            this.TemplateDirectory = configuration.GetConfig("TemplateDirectory");
-            this.ProjectName = configuration.GetConfig("ProjectName");
+            this.Version = configuration.GetConfig("XXXVersionXXX");
+            this.TemplateDirectory = configuration.GetConfig("XXXTemplateDirectoryXXX");
+            this.ProjectName = configuration.GetConfig("XXXProjectNameXXX");
             this.Initialize();
         }
         public void btnSaveOnDisk_Click()
@@ -30,8 +30,8 @@
 
         public virtual void Initialize()
         {
-            var itemToReplaces = this.Configuration.GetItemToReplaces();
-            string entitySingular = itemToReplaces.FirstOrDefault(p => p.Key == "XXXEntitySingularXXX")?.Value;
+            var itemToReplaces = this.Configuration.ItemConfigs;
+            string entitySingular = itemToReplaces.FirstOrDefault(p => p.Name == "XXXEntitySingularXXX")?.Value;
             //string entityPlural = ItemToReplaces.FirstOrDefault(p => p.Key == "XXXEntityPluralXXX")?.Value;
 
             this.ClassInfoData = new ClassInfoDataBase(Configuration.GetConfig("ClassesPath"), entitySingular + ".cs", itemToReplaces, null, this.ItemFilePlaceHolderList);
