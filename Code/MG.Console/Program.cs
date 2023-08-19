@@ -42,7 +42,7 @@ internal sealed class CrudGeneratorCommand : Command<CrudGeneratorCommand.Settin
         // settings.EntityName = "place";
         // settings.ProjectDirectory =
         //     "/Users/eduardosantana/source/Restore/SocialLiftApp/GitRepo/Code/WebApp/SocialUplift";
-        
+
         // settings.EntityName = "place";
         // settings.ProjectDirectory =
         //     "/Users/eduardosantana/source/AspnetBoilerPlate/8.1.0";
@@ -70,7 +70,8 @@ internal sealed class CrudGeneratorCommand : Command<CrudGeneratorCommand.Settin
 
         if (settings.IsSaved)
         {
-            // Save generated files code goes in here...
+            crudGenerator.SaveOnToDisk();
+            Console.WriteLine("Template Saved!");
         }
         
         return 0;

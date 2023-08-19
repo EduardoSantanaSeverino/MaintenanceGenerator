@@ -19,5 +19,7 @@
         void AddComboParameter(ComboParameter comboParameter);
         
         void Initialize();
+
+        void SaveOnToDisk();
     }
 }

@@ -18,7 +18,8 @@
             this.ProjectName = configuration.GetConfig("XXXProjectNameXXX");
             this.Initialize();
         }
-        public void btnSaveOnDisk_Click()
+        
+        public void SaveOnToDisk()
         {
             foreach (var item in this.ItemFileToGenerates)
             {
@@ -65,10 +66,7 @@
 
         private void CreateDirectoryIfNotExist(string filePath)
         {
-            var str = new string[] { @"\" };
-            var l = filePath.Split(str,StringSplitOptions.None);
-            var last = l.Last();
-            var s = filePath.Replace(last, "");
+            var s = System.IO.Path.GetDirectoryName(filePath);
             if (!System.IO.Directory.Exists(s))
             {
                 System.IO.Directory.CreateDirectory(s);

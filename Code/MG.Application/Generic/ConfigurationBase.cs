@@ -162,26 +162,22 @@ namespace MG.Application.Generic
         {
             foreach (var item in _configuration.AppSettings)
             {
-               
-                    this.AddConfig(new ItemConfig() { Name = item.Key, Value = item.Value }, false);
-                
+                this.AddConfig(new ItemConfig() { Name = item.Key, Value = item.Value }, false);
             }
         }
 
         private void LoadDefaultConfigs()
         {
+            this.AddConfig(new ItemConfig() { Name = "XXXSpecificTypeXXX", Value = "int", IsChecked = true}, false);
             this.AddConfig(new ItemConfig() { Name = "XXXVersionXXX", Value = "VERSION_PLACE_HOLDER", IsChecked = true}, false);
-            this.AddConfig(new ItemConfig() { Name = "XXXTemplateDirectoryXXX", Value = "MGTemplates\\", IsPath = true }, false);
+            this.AddConfig(new ItemConfig() { Name = "XXXTemplateDirectoryXXX", Value = "AspnetBoilerPlate/8.1.0/Templates/", IsPath = true }, false);
             this.AddConfig(new ItemConfig() { Name = "XXXProjectNameXXX", Value = "NO_PROJECT_NAME_DEFINED" }, false);
-            this.AddConfig(new ItemConfig() { Name = "XXXProjectDirectoryXXX", Value = "/src-default", IsPath = true }, false);
+            this.AddConfig(new ItemConfig() { Name = "XXXProjectDirectoryXXX", Value = "/src", IsPath = true }, false);
         }
 
-        public virtual void LateLoadingDefaultConfigs()
-        {
-            
-        }
+        public abstract void LateLoadingDefaultConfigs();
         
-        public virtual void SetEntityNames(string XXXEntityLowerSingularXXX)
+        private void SetEntityNames(string XXXEntityLowerSingularXXX)
         {
             var XXXEntityLowerPluralXXX = this.ItemConfigs.FirstOrDefault(p => p.Name == "XXXEntityLowerPluralXXX");
             var XXXEntityPluralXXX = this.ItemConfigs.FirstOrDefault(p => p.Name== "XXXEntityPluralXXX");
