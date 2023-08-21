@@ -17,11 +17,15 @@ internal sealed class CrudGeneratorCommand : Command<CrudGeneratorCommand.Settin
         [Description("Entity name for which to generate the template, Example: place.")]
         [CommandOption("-e|--entity")]
         public string? EntityName { get; set; }
-        
+
         [Description("Project Directory for which to generate the template, Example: /Users/eduardosantana/source/Restore/SocialLiftApp/GitRepo/Code/WebApp/SocialUplift.")]
         [CommandOption("-d|--projectDirectory")]
         public string? ProjectDirectory { get; set; }
-        
+
+        [Description("Project Name for which to generate the template, Example: SocialUplift.")]
+        [CommandOption("-n|--projectName")]
+        public string? ProjectName { get; set; }
+
         [CommandOption("-s|--save")]
         public bool IsSaved { get; set; }
     }
@@ -31,9 +35,9 @@ internal sealed class CrudGeneratorCommand : Command<CrudGeneratorCommand.Settin
         var host = Host.CreateDefaultBuilder()
             .ConfigureServices(services =>
             {
-                services.AddSingleton<IConfiguration, Configuration>();  
-                services.AddSingleton<ICrudGenerator, CrudGenerator>();  
-                services.AddSingleton<IGenerateControls, GenerateControls>();  
+                services.AddSingleton<IConfiguration, Configuration>();
+                services.AddSingleton<ICrudGenerator, CrudGenerator>();
+                services.AddSingleton<IGenerateControls, GenerateControls>();
                 services.AddSingleton<IItemFileToGenerate, ItemFileToGenerate>();
             })
             .Build();
@@ -44,23 +48,27 @@ internal sealed class CrudGeneratorCommand : Command<CrudGeneratorCommand.Settin
         //     "/Users/eduardosantana/source/Restore/SocialLiftApp/GitRepo/Code/WebApp/SocialUplift";
 
         // settings.EntityName = "place";
-        // settings.ProjectDirectory =
-        //     "/Users/eduardosantana/source/AspnetBoilerPlate/8.1.0";
+        // settings.ProjectName = "AspnetBoilerPlate";
 
         var configuration = host.Services.GetService<IConfiguration>();
         if (!string.IsNullOrWhiteSpace(settings.EntityName))
         {
-             configuration.AddConfig(new ItemConfig("XXXEntityLowerSingularXXX", settings.EntityName));
+            configuration.AddConfig(new ItemConfig("XXXEntityLowerSingularXXX", settings.EntityName));
         }
 
         if (!string.IsNullOrWhiteSpace(settings.ProjectDirectory))
         {
             configuration.AddConfig(new ItemConfig("XXXProjectDirectoryXXX", settings.ProjectDirectory));
         }
-        
+
+        if (!string.IsNullOrWhiteSpace(settings.ProjectName))
+        {
+            configuration.AddConfig(new ItemConfig("XXXProjectNameXXX", settings.ProjectName));
+        }
+
         configuration.LateLoadingDefaultConfigs();
 
-        var crudGenerator = host.Services.GetService<ICrudGenerator>(); 
+        var crudGenerator = host.Services.GetService<ICrudGenerator>();
         var generateControls = host.Services.GetService<IGenerateControls>();
         var frm = new FrmMainApp(crudGenerator, generateControls);
         var presentation = new Presentation();
@@ -73,7 +81,7 @@ internal sealed class CrudGeneratorCommand : Command<CrudGeneratorCommand.Settin
             crudGenerator.SaveOnToDisk();
             Console.WriteLine("Template Saved!");
         }
-        
+
         return 0;
     }
 }

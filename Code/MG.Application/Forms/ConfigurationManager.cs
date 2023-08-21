@@ -15,7 +15,7 @@ public class ConfigurationManager : IConfigurationManager
 
         var file = config.Get<AppSettingConfig>();
 
-        if (file != null && file.AppSettings.Any())
+        if (file != null && file.AppSettings != null && file.AppSettings.Any())
         {
             foreach (var setting in file?.AppSettings)
             {

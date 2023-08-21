@@ -6,10 +6,10 @@ namespace MG.Console;
 public class Presentation
 {
     public List<Table> Tables { get; set; }
-    
+
     public Presentation()
     {
-        Tables = new  List<Table>();
+        Tables = new List<Table>();
     }
 
     public void AddInputsToTable(FlowLayoutPanel forms)
@@ -18,7 +18,7 @@ public class Presentation
         table.Title = new TableTitle("Input Parameters");
         table.AddColumn("Name");
         table.AddColumn("Value");
-        
+
         foreach (FlowLayoutPanel control in forms.Controls)
         {
             table.AddRow(control.Controls[1].Name, control.Controls[1].Text);
@@ -36,7 +36,7 @@ public class Presentation
             table.Title = new TableTitle("[green]Output Generated Files[/]");
             table.AddColumn(control.Path.EscapeMarkup());
             table.AddRow(control.Text.EscapeMarkup());
-            table.AddRow(control.Name.Replace("rtb",""));
+            table.AddRow(control.Name.Replace("rtb", ""));
             table.Columns[0].PadLeft(3).PadRight(5);
             //table.Columns[0].NoWrap();
             table.Columns[0].PadTop(-3);
@@ -51,7 +51,6 @@ public class Presentation
         {
             table.Border(TableBorder.Heavy);
             table.Expand();
-            table.Width(160);
             AnsiConsole.Write(table);
         }
     }
