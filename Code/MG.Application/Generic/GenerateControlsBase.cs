@@ -7,25 +7,27 @@ namespace MG.Application.Generic
         protected IFrmMainApp _form { get; set; }
 
         protected IConfiguration _configuration { get; set; }
-
+        
         public GenerateControlsBase(IConfiguration configuration)
         {
             this._configuration = configuration;
-            this.ItemToReplaces = this._configuration.GetItemToReplaces();
         }
-
-        public List<IItemToReplace> ItemToReplaces { get; private set; }
 
         public void AddInputControls(IFrmMainApp form)
         {
             this._form = form;
-            foreach (var item in this.ItemToReplaces)
+            foreach (var item in this._configuration.ItemConfigs)
             {
                 var group = new FlowLayoutPanel();
                 // group.Height = 27;
                 // group.Width = 326;
                 // group.FlowDirection = FlowDirection.LeftToRight;
                 // group.Margin = new Padding(0);
+                var t = GetTextBox(item);
+                if (t.Text == null)
+                {
+                    var t3 = 00;
+                }
                 group.Controls.Add(GetLabel(item));
                 group.Controls.Add(GetTextBox(item));
                 _form.FlowInput.Controls.Add(group);
@@ -53,12 +55,12 @@ namespace MG.Application.Generic
             }
         }
 
-        private Label GetLabel(IItemToReplace item)
+        private Label GetLabel(ItemConfig item)
         {
             var l = new Label
             {
-                Name = "lbl" + item.Key,
-                Text = item.LabelText,
+                Name = "lbl" + item.Name,
+                Text = item.Value,
                 // Width = 161,
                 // Height = 18,
                 // Margin = new Padding(0),
@@ -67,12 +69,13 @@ namespace MG.Application.Generic
             return l;
         }
 
-        private TextBox GetTextBox(IItemToReplace item)
+        private TextBox GetTextBox(ItemConfig item)
         {
             var t = new TextBox
             {
-                Name = item.Key,
+                Name = item.Name,
                 Text = item.Value,
+                Path = item.Description
                 // Width = 150,
                 // Height = 26,
                 // Margin = new Padding(0)
@@ -98,65 +101,10 @@ namespace MG.Application.Generic
         //     return b;
         // }
 
-        public virtual void SetInputsFromParameters(List<IControl> inputControls)
+        public virtual void SetInputsFromParameters()
         {
-            try
-            {
-                foreach (var input in inputControls)
-                {
-                    var item = _form.FlowInput.Find(input.Name);
-                    if (item != null)
-                    {
-                         item.Text = input.Text;  
-                    }
-                }
-                
-                var XXXEntityLowerSingularXXX = _form.FlowInput.Find( "XXXEntityLowerSingularXXX");
-                var XXXEntityLowerPluralXXX = _form.FlowInput.Find( "XXXEntityLowerPluralXXX");
-                var XXXEntityPluralXXX = _form.FlowInput.Find( "XXXEntityPluralXXX");
-                var XXXEntitySingularXXX = _form.FlowInput.Find( "XXXEntitySingularXXX");
-
-                string camell = "";
-                var lower = XXXEntityLowerSingularXXX.Text.ToLower();
-                if (lower.Substring(lower.Length - 1, 1) == "s")
-                    camell = lower + "es";
-                else if (lower.Substring(lower.Length - 1, 1) == "y" &&
-                    (
-                        (lower.Substring(lower.Length - 2, 1) != "a") &&
-                        (lower.Substring(lower.Length - 2, 1) != "e") &&
-                        (lower.Substring(lower.Length - 2, 1) != "i") &&
-                        (lower.Substring(lower.Length - 2, 1) != "o") &&
-                        (lower.Substring(lower.Length - 2, 1) != "u")
-                    )
-                    )
-                {
-                    camell = lower.Substring(0, lower.Length - 1) + "ies";
-                }
-                else
-                    camell = lower + "s";
-
-                var capital = camell.Substring(0, 1).ToUpper() + camell.Substring(1);
-                var capitalSingular = lower.Substring(0, 1).ToUpper() + lower.Substring(1);
-
-                XXXEntityLowerPluralXXX.Text = camell;
-                XXXEntityPluralXXX.Text = capital;
-                XXXEntitySingularXXX.Text = capitalSingular;
-
-                foreach (var item in ItemToReplaces)
-                {
-                    var c = this._form.FlowInput.Find(item.Key);
-                    if (c != null)
-                    {
-                        item.Value = c.Text;
-                    }
-                }
-
-                _form.CrudGenerator.SetItemToReplace(this.ItemToReplaces);
-                AddOutputControls();
-
-            }
-            catch (Exception err)
-            { }
+            _form.CrudGenerator.Initialize();
+            AddOutputControls();
         }
 
         private RichTextBox GetRichTextBox(IItemFileToGenerate item)
@@ -164,6 +112,7 @@ namespace MG.Application.Generic
             var l = new RichTextBox
             {
                 Name = item.ControlName,
+                Path = item.Path,
                 // Width = 380,
                 // Height = 68,
                 // Margin = new Padding(4),

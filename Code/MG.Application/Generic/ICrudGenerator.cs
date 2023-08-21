@@ -5,6 +5,8 @@
         IClassInfoData ClassInfoData { get; }
 
         IConfiguration Configuration { get; }
+        
+        IItemFilePlaceHolderList ItemFilePlaceHolderList { get; }
 
         string Version { get; }
 
@@ -13,13 +15,11 @@
         string ProjectName { get; }
 
         List<IItemFileToGenerate> ItemFileToGenerates { get; }
-
-        void SetItemToReplace(List<IItemToReplace> itemToReplaces);
-
+        
         void AddComboParameter(ComboParameter comboParameter);
+        
+        void Initialize();
 
-        void btnGenerate_Click(IConfiguration Configuration, List<IItemToReplace> ItemToReplaces);
-
-        void btnSaveOnDisk_Click();
+        void SaveOnToDisk();
     }
 }

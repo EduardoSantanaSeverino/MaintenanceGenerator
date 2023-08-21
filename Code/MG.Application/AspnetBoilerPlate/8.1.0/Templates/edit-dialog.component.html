@@ -1,0 +1,38 @@
+<form
+        class="form-horizontal"
+        autocomplete="off"
+        #editXXXEntitySingularXXXForm="ngForm"
+        (ngSubmit)="save()"
+>
+  <abp-modal-header
+          [title]="'EditXXXEntitySingularXXX' | localize"
+          (onCloseClick)="bsModalRef.hide()"
+  ></abp-modal-header>
+  <div class="modal-body">
+
+    <!--edit-dialog.component.html.fields1-->
+    
+    <div class="form-group row mb-0">
+      <label class="col-md-3 col-form-label">
+        {{ "IsActive" | localize }}
+      </label>
+      <div class="col-md-9">
+        <div class="custom-control custom-checkbox">
+          <input
+                  type="checkbox"
+                  class="custom-control-input"
+                  name="isActive"
+                  id="isActive"
+                  [(ngModel)]="XXXEntityLowerSingularXXX.isActive"
+          />
+          <label class="custom-control-label mt-2" for="isActive"></label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <abp-modal-footer
+          [cancelDisabled]="saving"
+          [saveDisabled]="!editXXXEntitySingularXXXForm.form.valid || saving"
+          (onCancelClick)="bsModalRef.hide()"
+  ></abp-modal-footer>
+</form>

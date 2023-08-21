@@ -4,35 +4,8 @@ namespace MG.Application.SocialUplift
 {
     public class CrudGenerator : CrudGeneratorBase, ICrudGenerator
     {
-        public CrudGenerator(IConfiguration Configuration)
+        public CrudGenerator(IConfiguration configuration) : base(configuration, new ItemFilePlaceHolderListBase())
         {
-            Initialize(Configuration, Configuration.GetItemToReplaces());
-
-            this.Version = Configuration.GetConfig("Version");
-            this.TemplateDirectory = Configuration.GetConfig("TemplateDirectory");
-            this.ProjectName = Configuration.GetConfig("ProjectName");
-        }
-
-        protected override void Initialize(IConfiguration Configuration, List<IItemToReplace> ItemToReplaces)
-        {
-            string entitySingular = ItemToReplaces.FirstOrDefault(p => p.Key == "XXXEntitySingularXXX")?.Value;
-            string entityPlural = ItemToReplaces.FirstOrDefault(p => p.Key == "XXXEntityPluralXXX")?.Value;
-
-            this.ClassInfoData = new ClassInfoData(Configuration.GetConfig("ClassesPath"), entitySingular + ".cs", ItemToReplaces);
-            Configuration.AddConfig(new List<ItemConfig> {
-                new ItemConfig
-                {
-                    Name = "ClassPath",
-                    Value = Configuration.GetConfig("ClassesPath") + this.ClassInfoData.XXXEntitySingularXXX + ".cs"
-                }
-            });
-
-            var obj = ItemToReplaces.FirstOrDefault(p=>p.Key == "XXXSpecificTypeXXX");
-            var a = this.ClassInfoData.GetSpecificType();
-            this.Configuration = Configuration;
-
-            LoadItemFileToCreate();
-            
         }
 
         protected override void LoadItemFileToCreate()
@@ -184,7 +157,7 @@ namespace MG.Application.SocialUplift
                     ClassInfoData: this.ClassInfoData,
                     ItemFieldTypeTemplates: new List<ItemFieldTypeTemplate>()
                     {
-                        new ItemFieldTypeTemplate
+                        new ItemFieldTypeTemplate(this.TemplateDirectory)
                         {
                             Name = "///AuthorizationProvider.cs.place1///",
                             TemplateName = "AuthorizationProvider.cs.place1.cs",

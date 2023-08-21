@@ -2,9 +2,7 @@
 {
     public interface IConfiguration
     {
-        List<ItemConfig> ItemConfigs { get; set; }
-
-        string Version { get; }
+        List<ItemConfig> ItemConfigs { get; }
 
         string TemplateDirectory { get; }
 
@@ -12,9 +10,9 @@
 
         void CreateDirectory();
 
-        void AddConfig(ItemConfig ItemConfig, bool reload = true);
+        void AddConfig(ItemConfig itemConfig, bool reload = true);
 
-        void AddConfig(List<ItemConfig> ItemConfigs);
+        void AddConfig(List<ItemConfig> itemConfigs);
 
         string GetConfig(int id);
 
@@ -22,7 +20,6 @@
 
         void ReadFromConfigFile();
 
-        List<IItemToReplace> GetItemToReplaces();
-
+        void LateLoadingDefaultConfigs();
     }
 }

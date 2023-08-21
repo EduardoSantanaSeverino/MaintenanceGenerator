@@ -8,6 +8,7 @@
         public string TemplateName { get; set; }
         public string TemplateMarkup { get; set; }
         public string TemplateDirectory { get; set; }
+        public string SourceTemplateDirectory { get; set; }
         public IClassInfoData ClassInfoData { get; set; }
         public string ControlName { get; set; }
         public List<ItemFieldTypeTemplate> ItemFieldTypeTemplates { get; set; }
@@ -22,9 +23,11 @@
             string TemplateDirectory,
             IClassInfoData ClassInfoData,
             List<ItemFieldTypeTemplate> ItemFieldTypeTemplates,
-            string FileType = ""
+            string FileType,
+            string SourceTemplateDirectory
         )
         {
+            
             this.FileType = FileType;
             this.Id = Id;
             this.Name = Name;
@@ -32,10 +35,18 @@
             this.Path = Path;
             this.TemplateName = TemplateName;
             this.TemplateDirectory = TemplateDirectory;
+            this.SourceTemplateDirectory = SourceTemplateDirectory;
             this.ItemFieldTypeTemplates = ItemFieldTypeTemplates;
             this.ClassInfoData = ClassInfoData;
+            this.Path = this?.Path?.Replace('\\', System.IO.Path.DirectorySeparatorChar);
+            this.TemplateDirectory = this?.TemplateDirectory?.Replace('\\', System.IO.Path.DirectorySeparatorChar);
+           
+            if (this.Name == "sidebar_menu_component_ts")
+            {
+                var tem = "";
+            }
             this.TemplateMarkup = ReadTemplate();
-
+         
             if (string.IsNullOrEmpty(this.FileType))
             {
                 this.FileType = FileTypes.Others.ToString();
@@ -73,7 +84,13 @@
 
                     if (!string.IsNullOrEmpty(str))
                     {
-                        FillFieldsAndPlaces(str, this.TemplateName);
+                        // TODO: probably grab a file and do replace its content.
+                        // if (this.ClassInfoData.ItemFilePlaceHolderList.GetItem($"{this.Id}") != null)
+                        // {
+                        //     var placeHolderItem = this.ClassInfoData.ItemFilePlaceHolderList.GetItem($"{this.Id}");
+                        //     str = placeHolderItem.Process(str);
+                        // }
+                        str = FillFieldsAndPlaces(str, this.TemplateName);
                     }
                     return str;
                 }
@@ -83,7 +100,7 @@
             return "";
         }
 
-        private void FillFieldsAndPlaces(string str, string templateName)
+        private string FillFieldsAndPlaces(string fileContent, string templateName)
         {
             var fileExtention = templateName.Split('.').Last();
 
@@ -103,13 +120,19 @@
                 for (int i = 1; i < 10; i++)
                 {
                     var existSubFile = $"{separator1}{templateName}.{spaceHolder}{i}{separator2}";
+
+                    if (!fileContent.Contains(existSubFile) && this.ClassInfoData.ItemFilePlaceHolderList.GetItem(existSubFile) != null)
+                    {
+                        var placeHolderItem = this.ClassInfoData.ItemFilePlaceHolderList.GetItem(existSubFile);
+                        fileContent = placeHolderItem.Process(fileContent);
+                    }
                     if (this.ItemFieldTypeTemplates == null)
                     {
                         this.ItemFieldTypeTemplates = new List<ItemFieldTypeTemplate>();
                     }
-                    if (str.Contains(existSubFile) && !this.ItemFieldTypeTemplates.Any(p => p.Name == existSubFile))
+                    if (fileContent.Contains(existSubFile) && !this.ItemFieldTypeTemplates.Any(p => p.Name == existSubFile))
                     {
-                        this.ItemFieldTypeTemplates.Add(new ItemFieldTypeTemplate
+                        this.ItemFieldTypeTemplates.Add(new ItemFieldTypeTemplate(this.SourceTemplateDirectory)
                         {
                             ForFields = ("fields" == spaceHolder),
                             Name = existSubFile,
@@ -121,11 +144,32 @@
                     }
                 }
             }
+
+            foreach (var item in this.ItemFieldTypeTemplates)
+            {
+                if (!fileContent.Contains(item.Name) && this.ClassInfoData.ItemFilePlaceHolderList.GetItem(item.Name) != null)
+                {
+                    var placeHolderItem = this.ClassInfoData.ItemFilePlaceHolderList.GetItem(item.Name);
+                    fileContent = placeHolderItem.Process(fileContent);
+                }
+            }
+            
+            return fileContent;
         }
+
+        // private string AddTemplateHolder(string fileContent, string placeHolderItemName)
+        // {
+        //     var placeHolderItem = this.ClassInfoData.ItemFilePlaceHolderList.GetItem(placeHolderItemName);
+        //     if (placeHolderItem != null)
+        //     {
+        //         fileContent = placeHolderItem.Process(fileContent);
+        //     }
+        //     return fileContent;
+        // }
 
         protected string GetItemToReplaces(string key)
         {
-            return ClassInfoData?.ItemToReplaces?.FirstOrDefault(p => p.Key == key)?.Value;
+            return ClassInfoData?.ItemToReplaces?.FirstOrDefault(p => p.Name == key)?.Value;
         }
 
         protected string ReplaceAllKeysWithRealValues(string markup)
@@ -134,7 +178,7 @@
             {
                 foreach (var item in ClassInfoData?.ItemToReplaces)
                 {
-                    markup = markup.Replace(item.Key, item.Value);
+                    markup = markup.Replace(item.Name, item.Value);
                 }
 
                 markup += "\n";
@@ -152,10 +196,10 @@
         {
             foreach (var item in this.ItemFieldTypeTemplates)
             {
-                if (this.Name == "AuthorizationProvider_cs")
-                {
-                    var asdf = 0;
-                }
+                // if (this.Name == "AuthorizationProvider_cs")
+                // {
+                //     var asdf = 0;
+                // }
                 if (item.ForFields)
                 {
                     markup = markup.Replace(item.Name, ProcessField(item) + "\n" + item.Name);
@@ -202,6 +246,7 @@
         {
             string n = "";
 
+            
             if (isMultiType)
             {
                 bool isFound = false;

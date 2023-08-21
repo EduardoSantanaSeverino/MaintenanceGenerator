@@ -8,6 +8,5 @@ namespace MG.Application.Generic
         FlowLayoutPanel FlowInput { get; set; }
         FlowLayoutPanel FlowOutput { get; set; }
         IGenerateControls GenerateControls { get; set; }
-        void SetInputsFromParameters(List<IControl> inputs);
     }
 }

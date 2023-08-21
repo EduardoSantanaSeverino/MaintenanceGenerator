@@ -6,7 +6,7 @@
 
         string XXXEntityLowerPluralXXX { get; } // txtCamelPlural.Text
 
-        string XXXEntitySingularXXX { get; } //  txtCapitalSingular.Text);
+        string XXXEntitySingularXXX { get; } // txtCapitalSingular.Text
 
         string XXXEntityLowerSingularXXX { get; } // txtCamelSingular.Text
 
@@ -24,9 +24,9 @@
 
         List<ComboParameter> ComboParameters { get; }
 
-        List<IItemToReplace> ItemToReplaces { get; }
+        List<ItemConfig> ItemToReplaces { get; }
 
-        List<TripleValue<string, string, string, string>> GetFieldListFromEntity(String EntityNameSingular);
+        List<TripleValue<string, string, string, string>> GetFieldListFromEntity(string EntityNameSingular);
 
         string GetItemToReplace(string key);
 
@@ -37,5 +37,6 @@
         bool ExistInFielList(string field);
 
         bool ExistInRelatedFielList(string field, string relatedEnitity);
+        IItemFilePlaceHolderList ItemFilePlaceHolderList { get; }
     }
 }

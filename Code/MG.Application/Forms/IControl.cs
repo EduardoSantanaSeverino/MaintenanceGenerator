@@ -5,6 +5,7 @@ namespace MG.Application.Forms
 	{
 		string Name { get; set; }
 		string Text { get; set; }
+		string Path { get; set; }
 	}
 }
 

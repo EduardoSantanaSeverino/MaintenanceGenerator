@@ -2,42 +2,52 @@
 {
     public abstract class CrudGeneratorBase : ICrudGenerator
     {
-        private List<IItemFileToGenerate> _itemFileToGenerates;
         public IClassInfoData ClassInfoData { get; protected set; }
         public IConfiguration Configuration { get; protected set; }
+        public IItemFilePlaceHolderList ItemFilePlaceHolderList { get; }
         public string Version { get; protected set; }
         public string TemplateDirectory { get; protected set; }
         public string ProjectName { get; protected set; }
-
-        public List<IItemFileToGenerate> ItemFileToGenerates
+        public List<IItemFileToGenerate> ItemFileToGenerates { get; set; }
+        public CrudGeneratorBase(IConfiguration configuration, IItemFilePlaceHolderList itemFilePlaceHolderList)
         {
-            get => _itemFileToGenerates;
-            protected set
-            {
-                foreach (var itemFile in value)
-                {
-                    itemFile.Path = itemFile?.Path?.Replace('\\', Path.DirectorySeparatorChar);
-                    itemFile.TemplateDirectory = itemFile?.TemplateDirectory?.Replace('\\', Path.DirectorySeparatorChar);
-                }
-                _itemFileToGenerates = value;
-            }
+            this.ItemFilePlaceHolderList = itemFilePlaceHolderList;
+            this.Configuration = configuration;
+            this.Version = configuration.GetConfig("XXXVersionXXX");
+            this.TemplateDirectory = configuration.GetConfig("XXXTemplateDirectoryXXX");
+            this.ProjectName = configuration.GetConfig("XXXProjectNameXXX");
+            this.Initialize();
         }
-
-        public void btnSaveOnDisk_Click()
+        
+        public void SaveOnToDisk()
         {
             foreach (var item in this.ItemFileToGenerates)
             {
-                if (string.IsNullOrEmpty(item.Path))
-                {
-                    var asdf = 0;
-                }
                 CreateDirectoryIfNotExist(item.Path);
                 createSpecificFileOnDisk(item.Path, item.TemplateMarkup);
             }
             System.Threading.Thread.Sleep(1000);
         }
 
-        protected abstract void Initialize(IConfiguration Configuration, List<IItemToReplace> ItemToReplaces);
+        public virtual void Initialize()
+        {
+            var itemToReplaces = this.Configuration.ItemConfigs;
+            string entitySingular = itemToReplaces.FirstOrDefault(p => p.Name == "XXXEntitySingularXXX")?.Value;
+            //string entityPlural = ItemToReplaces.FirstOrDefault(p => p.Key == "XXXEntityPluralXXX")?.Value;
+
+            this.ClassInfoData = new ClassInfoDataBase(Configuration.GetConfig("ClassesPath"), entitySingular + ".cs", itemToReplaces, null, this.ItemFilePlaceHolderList);
+            Configuration.AddConfig(new List<ItemConfig> {
+                new ItemConfig
+                {
+                    Name = "ClassPath",
+                    Value = Configuration.GetConfig("ClassesPath") + this.ClassInfoData.XXXEntitySingularXXX + ".cs",
+                    IsPath = true
+                }
+            });
+
+            LoadItemFileToCreate();
+            
+        }
 
         protected abstract void LoadItemFileToCreate();
 
@@ -48,34 +58,19 @@
             System.IO.File.AppendAllText(fileName, containerText);
         }
 
-        public virtual void SetItemToReplace(List<IItemToReplace> itemToReplaces)
-        {
-            Initialize(this.Configuration, itemToReplaces);
-        }
-
         public virtual void AddComboParameter(ComboParameter comboParameter)
         {
             this.ClassInfoData.AddComboParameter(comboParameter);
             LoadItemFileToCreate();
         }
 
-        public virtual void btnGenerate_Click(IConfiguration Configuration, List<IItemToReplace> ItemToReplaces)
-        {
-            Initialize(Configuration, ItemToReplaces);
-        }
-
         private void CreateDirectoryIfNotExist(string filePath)
         {
-            var str = new string[] { @"\" };
-            var l = filePath.Split(str,StringSplitOptions.None);
-            var last = l.Last();
-            var s = filePath.Replace(last, "");
+            var s = System.IO.Path.GetDirectoryName(filePath);
             if (!System.IO.Directory.Exists(s))
             {
                 System.IO.Directory.CreateDirectory(s);
             }
-
         }
-
     }
 }

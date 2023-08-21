@@ -2,20 +2,15 @@
 {
     public class ItemFieldTypeTemplate 
     {
-        public ItemFieldTypeTemplate()
+      
+        public ItemFieldTypeTemplate(string templateDirectory)
         {
             this.ForFields = true;
-            this.TemplateDirectory = "MGTemplates/";
+            this.TemplateDirectory = templateDirectory;
         }
+        
         private string TemplateDirectory { get; set; }
         private string _templateName { get; set; }
-
-        public ItemFieldTypeTemplate(string TemplateDirectory)
-        {
-            this.TemplateDirectory = TemplateDirectory;
-            this.ForFields = true;
-        }
-
         public int Id { get; set; }
         public string Name { get; set; }
         public string TemplateName

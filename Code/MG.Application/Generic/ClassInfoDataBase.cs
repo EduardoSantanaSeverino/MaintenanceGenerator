@@ -2,20 +2,22 @@
 
 namespace MG.Application.Generic
 {
-    public abstract class ClassInfoDataBase : IClassInfoData
+    public class ClassInfoDataBase : IClassInfoData
     {
         public ClassInfoDataBase
         (
             string classesPath,
             string className,
-            List<IItemToReplace> itemToReplaces,
-            List<ComboParameter> comboParameters = null
+            List<ItemConfig> itemToReplaces,
+            List<ComboParameter> comboParameters,
+            IItemFilePlaceHolderList itemFilePlaceHolderList
         )
         {
             this.ItemToReplaces = itemToReplaces;
             this.ComboParameters = comboParameters;
             this.ClassPath = classesPath + className;
             this.ClassesPath = classesPath;
+            this.ItemFilePlaceHolderList = itemFilePlaceHolderList;
             if (className.Length > 3)
             {
                 LoadedClass = System.IO.File.ReadAllLines(this.ClassPath);
@@ -61,11 +63,11 @@ namespace MG.Application.Generic
 
         public List<ComboParameter> ComboParameters { get; protected set; }
 
-        public List<IItemToReplace> ItemToReplaces { get; protected set; }
+        public List<ItemConfig> ItemToReplaces { get; protected set; }
 
         public string GetItemToReplace(string key)
         {
-            return this.ItemToReplaces?.FirstOrDefault(p => p.Key == key)?.Value;
+            return this.ItemToReplaces?.FirstOrDefault(p => p.Name == key)?.Value;
         }
 
         public string GetItemToReplace(int id)
@@ -92,13 +94,15 @@ namespace MG.Application.Generic
             return this.GetFieldListFromEntity(relatedEnitity).Any(x => x.Name == field);
         }
 
+        public IItemFilePlaceHolderList ItemFilePlaceHolderList { get; }
+
         protected virtual List<TripleValue<string, string, string, string>> GetFieldListFromEntity(string[] loadedClass)
         {
             var fieldList = new List<TripleValue<string, string, string, string>>();
             try
             {
 
-                var obj = this.ItemToReplaces.FirstOrDefault(p=>p.Key == "XXXSpecificTypeXXX");
+                var obj = this.ItemToReplaces.FirstOrDefault(p=>p.Name == "XXXSpecificTypeXXX");
                 if (obj != null)
                 {
                     obj.Value = this.GetSpecificType();

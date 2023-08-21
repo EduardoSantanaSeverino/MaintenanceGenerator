@@ -1,0 +1,23 @@
+<div class="form-group row required">
+    <label class="col-md-3 col-form-label" for="XXXFieldNameXXX">
+        {{ "XXXFieldNameXXX" | localize }}
+    </label>
+    <div class="col-md-9">
+        <input
+                type="text"
+                class="form-control"
+                name="XXXFieldNameXXX"
+                id="XXXFieldNameXXX"
+                required
+                minlength="2"
+                maxlength="XXXFieldMaxLenghtXXX"
+                [(ngModel)]="XXXEntityLowerSingularXXX.XXXFieldNameLowerXXX"
+                #displayNameModel="ngModel"
+                #displayNameEl
+        />
+        <abp-validation-summary
+                [control]="XXXFieldNameXXXModel"
+                [controlEl]="XXXFieldNameXXXEl"
+        ></abp-validation-summary>
+    </div>
+</div>
