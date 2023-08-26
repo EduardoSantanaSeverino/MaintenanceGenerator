@@ -1,4 +1,4 @@
-﻿using Abp.Application.Services.Dto;
+﻿using Abp.Application.Services;
 using Abp.Authorization;
 using Abp.Domain.Repositories;
 using XXXProjectNameXXX.Authorization;
@@ -17,7 +17,7 @@ namespace XXXProjectNameXXX.XXXEntityPluralXXX
         )
         : base(repository)
         {
-           
+
         }
 
     }
