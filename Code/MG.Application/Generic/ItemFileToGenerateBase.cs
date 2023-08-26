@@ -27,7 +27,7 @@
             string SourceTemplateDirectory
         )
         {
-            
+
             this.FileType = FileType;
             this.Id = Id;
             this.Name = Name;
@@ -40,13 +40,13 @@
             this.ClassInfoData = ClassInfoData;
             this.Path = this?.Path?.Replace('\\', System.IO.Path.DirectorySeparatorChar);
             this.TemplateDirectory = this?.TemplateDirectory?.Replace('\\', System.IO.Path.DirectorySeparatorChar);
-           
+
             if (this.Name == "sidebar_menu_component_ts")
             {
                 var tem = "";
             }
             this.TemplateMarkup = ReadTemplate();
-         
+
             if (string.IsNullOrEmpty(this.FileType))
             {
                 this.FileType = FileTypes.Others.ToString();
@@ -61,7 +61,7 @@
             }
 
             this.TemplateMarkup = ReplaceAllKeysWithRealValues(this.TemplateMarkup);
-            
+
         }
 
         protected string GetFieldTypeTemplate(string name)
@@ -116,7 +116,7 @@
             var typeOfSpaceHolders = new List<string>() { "fields", "place" };
             foreach (var spaceHolder in typeOfSpaceHolders)
             {
-                
+
                 for (int i = 1; i < 10; i++)
                 {
                     var existSubFile = $"{separator1}{templateName}.{spaceHolder}{i}{separator2}";
@@ -138,7 +138,7 @@
                             Name = existSubFile,
                             TemplateName = existSubFile
                                 .Replace(separator1, "")
-                                .Replace(separator2, "") + "." + 
+                                .Replace(separator2, "") + "." +
                                 fileExtention
                         });
                     }
@@ -153,7 +153,7 @@
                     fileContent = placeHolderItem.Process(fileContent);
                 }
             }
-            
+
             return fileContent;
         }
 
@@ -208,7 +208,7 @@
                 {
                     markup = markup.Replace(item.Name, item.TemplateMarkup + "\n" + item.Name);
                 }
-                
+
             }
             return markup;
         }
@@ -216,7 +216,7 @@
         protected string ProcessField(ItemFieldTypeTemplate itemField)
         {
             string[] stringSeparators = new string[] { "{|}" };
-            string[] array = itemField.TemplateMarkup.Split( stringSeparators, StringSplitOptions.None );
+            string[] array = itemField.TemplateMarkup.Split(stringSeparators, StringSplitOptions.None);
             bool isMultiType = ((array.Length > 1) && itemField.TemplateMarkup.Contains("default"));
 
             var l = new List<string>();
@@ -224,7 +224,7 @@
             {
                 if (item.ShowOnList.Any() && !string.IsNullOrEmpty(this.FileType))
                 {
-                    if (item.ShowOnList.Any(p => p.Replace("ShowOn","") == this.FileType) || this.FileType == FileTypes.Others.ToString())
+                    if (item.ShowOnList.Any(p => p.Replace("ShowOn", "") == this.FileType) || this.FileType == FileTypes.Others.ToString())
                     {
                         ProcessFieldItem(itemField, array, isMultiType, l, item);
                     }
@@ -233,20 +233,20 @@
                 {
                     ProcessFieldItem(itemField, array, isMultiType, l, item);
                 }
-               
+
             }
             return string.Join("\n", l.ToArray());
         }
 
-        private void ProcessFieldItem(ItemFieldTypeTemplate itemField, 
-            string[] array, 
-            bool isMultiType, 
-            List<string> l, 
+        private void ProcessFieldItem(ItemFieldTypeTemplate itemField,
+            string[] array,
+            bool isMultiType,
+            List<string> l,
             TripleValue<string, string, string, string> item)
         {
             string n = "";
 
-            
+
             if (isMultiType)
             {
                 bool isFound = false;
@@ -277,7 +277,7 @@
             if (!string.IsNullOrEmpty(n))
             {
                 n = n.Replace("XXXFieldNameXXX", item.Name);
-                n = n.Replace("XXXFieldNameLowerXXX", item.Name.ToLower());
+                n = n.Replace("XXXFieldNameLowerXXX", char.ToLower(item.Name[0]) + item.Name.Substring(1));
                 n = n.Replace("XXXFieldTypeXXX", item.Type);
                 n = n.Replace("XXXFieldMaxLenghtXXX", item.MaxLenght);
                 n = n.Replace("XXXFieldMaxLenghtIntXXX", item.MaxLenghtJustInt);

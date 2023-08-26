@@ -56,7 +56,7 @@ namespace MG.Generic
             }
 
             this.TemplateMarkup = ReplaceAllKeysWithRealValues(this.TemplateMarkup);
-            
+
         }
 
         protected string GetFieldTypeTemplate(string name)
@@ -105,7 +105,7 @@ namespace MG.Generic
             var typeOfSpaceHolders = new List<string>() { "fields", "place" };
             foreach (var spaceHolder in typeOfSpaceHolders)
             {
-                
+
                 for (int i = 1; i < 10; i++)
                 {
                     var existSubFile = $"{separator1}{templateName}.{spaceHolder}{i}{separator2}";
@@ -121,7 +121,7 @@ namespace MG.Generic
                             Name = existSubFile,
                             TemplateName = existSubFile
                                 .Replace(separator1, "")
-                                .Replace(separator2, "") + "." + 
+                                .Replace(separator2, "") + "." +
                                 fileExtention
                         });
                     }
@@ -170,7 +170,7 @@ namespace MG.Generic
                 {
                     markup = markup.Replace(item.Name, item.TemplateMarkup + "\n" + item.Name);
                 }
-                
+
             }
             return markup;
         }
@@ -178,7 +178,7 @@ namespace MG.Generic
         protected string ProcessField(ItemFieldTypeTemplate itemField)
         {
             string[] stringSeparators = new string[] { "{|}" };
-            string[] array = itemField.TemplateMarkup.Split( stringSeparators, StringSplitOptions.None );
+            string[] array = itemField.TemplateMarkup.Split(stringSeparators, StringSplitOptions.None);
             bool isMultiType = ((array.Length > 1) && itemField.TemplateMarkup.Contains("default"));
 
             var l = new List<string>();
@@ -186,7 +186,7 @@ namespace MG.Generic
             {
                 if (item.ShowOnList.Any() && !string.IsNullOrEmpty(this.FileType))
                 {
-                    if (item.ShowOnList.Any(p => p.Replace("ShowOn","") == this.FileType) || this.FileType == FileTypes.Others.ToString())
+                    if (item.ShowOnList.Any(p => p.Replace("ShowOn", "") == this.FileType) || this.FileType == FileTypes.Others.ToString())
                     {
                         ProcessFieldItem(itemField, array, isMultiType, l, item);
                     }
@@ -195,15 +195,15 @@ namespace MG.Generic
                 {
                     ProcessFieldItem(itemField, array, isMultiType, l, item);
                 }
-               
+
             }
             return string.Join("\n", l.ToArray());
         }
 
-        private void ProcessFieldItem(ItemFieldTypeTemplate itemField, 
-            string[] array, 
-            bool isMultiType, 
-            List<string> l, 
+        private void ProcessFieldItem(ItemFieldTypeTemplate itemField,
+            string[] array,
+            bool isMultiType,
+            List<string> l,
             TripleValue<string, string, string, string> item)
         {
             string n = "";
@@ -238,7 +238,7 @@ namespace MG.Generic
             if (!string.IsNullOrEmpty(n))
             {
                 n = n.Replace("XXXFieldNameXXX", item.Name);
-                n = n.Replace("XXXFieldNameLowerXXX", item.Name.ToLower());
+                n = n.Replace("XXXFieldNameLowerXXX", char.ToLower(item.Name[0]) + item.Name.Substring(1));
                 n = n.Replace("XXXFieldTypeXXX", item.Type);
                 n = n.Replace("XXXFieldMaxLenghtXXX", item.MaxLenght);
                 n = n.Replace("XXXFieldMaxLenghtIntXXX", item.MaxLenghtJustInt);
