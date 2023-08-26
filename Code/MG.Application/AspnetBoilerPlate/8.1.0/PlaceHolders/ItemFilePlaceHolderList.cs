@@ -26,6 +26,10 @@ public class ItemFilePlaceHolderList : IItemFilePlaceHolderList
    
         _placeHolderItems.Add(new PlaceHolderItem_CurlyBrakets("///PermissionNames.cs.place1///", "public static class PermissionNames"));
 
+        _placeHolderItems.Add(new PlaceHolderItem_Using_CS("///DbContext.cs.place1///"));
+        
+        _placeHolderItems.Add(new PlaceHolderItem_CurlyBrakets("///DbContext.cs.place2///", "public class"));
+        
         foreach (var item in _placeHolderItems)
         {
             items.Add(item.Name,item);

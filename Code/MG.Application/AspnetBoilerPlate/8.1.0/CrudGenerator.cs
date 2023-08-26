@@ -15,7 +15,7 @@ namespace MG.Application.AspnetBoilerPlate._8._1._0
             string entityPlural = this.ClassInfoData.XXXEntityPluralXXX;
             string entityLowerPlural = this.ClassInfoData.XXXEntityLowerPluralXXX;
             string entityLowerSingular = this.ClassInfoData.XXXEntityLowerSingularXXX;
-            
+
             ItemFileToGenerates = new List<IItemFileToGenerate>()
             {
                 new ItemFileToGenerate
@@ -167,6 +167,30 @@ namespace MG.Application.AspnetBoilerPlate._8._1._0
                 ),
                 new ItemFileToGenerate
                 (
+                    Id: (int)FileStackId.DbContext_cs, // TODO: remove to use enums. 
+                    Path: Configuration.GetConfig("EntityFrameworkCoreDirectory") + $"{this.ProjectName}DbContext.cs",
+                    TemplateName: $"{this.ProjectName}DbContext.cs",
+                    TemplateDirectory: Configuration.GetConfig("EntityFrameworkCoreDirectory"),
+                    ClassInfoData: this.ClassInfoData,
+                    SourceTemplateDirectory: this.TemplateDirectory,
+                    ItemFieldTypeTemplates: new List<ItemFieldTypeTemplate>()
+                    {
+                        new ItemFieldTypeTemplate(this.TemplateDirectory)
+                        {
+                            Name = "///DbContext.cs.place1///",
+                            TemplateName = "DbContext.cs.place1.cs",
+                            ForFields = false
+                        },
+                        new ItemFieldTypeTemplate(this.TemplateDirectory)
+                        {
+                            Name = "///DbContext.cs.place2///",
+                            TemplateName = "DbContext.cs.place2.cs",
+                            ForFields = false
+                        }
+                    }
+                ),
+                new ItemFileToGenerate
+                (
                     Id: (int)FileStackId.PermissionNames_cs,
                     Path: Configuration.GetConfig("AuthorizationDirectory") + $"PermissionNames.cs",
                     TemplateName: "PermissionNames.cs",
@@ -194,6 +218,6 @@ namespace MG.Application.AspnetBoilerPlate._8._1._0
                 ),
             };
         }
-       
+
     }
 }

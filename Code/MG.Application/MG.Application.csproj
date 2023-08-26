@@ -220,6 +220,14 @@
     <Content Include="AspnetBoilerPlate\8.1.0\Templates\UpdateDto.cs.fields1.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Compile Remove="AspnetBoilerPlate\8.1.0\Templates\DbContext.cs.place1.cs" />
+    <Content Include="AspnetBoilerPlate\8.1.0\Templates\DbContext.cs.place1.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Compile Remove="AspnetBoilerPlate\8.1.0\Templates\DbContext.cs.place2.cs" />
+    <Content Include="AspnetBoilerPlate\8.1.0\Templates\DbContext.cs.place2.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Remove="AspnetBoilerPlate\8.1.0\Templates\app-routing.module.ts" />
     <Content Update="AspnetBoilerPlate\8.1.0\Templates\app-routing.module.ts">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
