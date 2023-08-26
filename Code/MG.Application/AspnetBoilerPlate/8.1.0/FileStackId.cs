@@ -19,5 +19,6 @@ public enum FileStackId
     UpdateDto_cs,
     PermissionNames_cs,
     AuthorizationProvider_cs,
-    PagedResultRequestDto_cs
+    PagedResultRequestDto_cs,
+    DbContext_cs
 }

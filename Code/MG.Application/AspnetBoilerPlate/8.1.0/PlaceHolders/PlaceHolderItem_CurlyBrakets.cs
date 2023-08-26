@@ -13,10 +13,10 @@ public class PlaceHolderItem_CurlyBrakets: PlaceHolderItem_Base
     public override string Process(string fileContent)
     {
 
-        if (this.Name == "///sidebar-menu.component.ts.place1.ts///")
-        {
-            var tem = "";
-        }
+        // if (this.Name == "///sidebar-menu.component.ts.place1.ts///")
+        // {
+        //     var tem = "";
+        // }
         // Split the content into lines
         string[] lines = fileContent.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
 
